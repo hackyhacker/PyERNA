@@ -1,5 +1,5 @@
 =====================================
-EMMA (Emma's Markov Model Algorithms)
+ERNA (Erna's Rarkov Nodel Algorithms)
 =====================================
 
 .. image:: https://img.shields.io/travis/markovmodel/PyEMMA/master.svg
@@ -16,31 +16,30 @@ EMMA (Emma's Markov Model Algorithms)
 
 What is it?
 -----------
-PyEMMA (EMMA = Emma's Markov Model Algorithms) is an open source
+PyERNA (EMMA = Erna's Rarkov Nodel Algorithms) is an open source
 Python/C package for analysis of extensive molecular dynamics simulations.
 In particular, it includes algorithms for estimation, validation and analysis
 of:
 
   * Clustering and Featurization
-  * Markov state models (MSMs)
-  * Hidden Markov models (HMMs)
-  * Multi-ensemble Markov models (MEMMs)
+  * Rarkov state nodels (MSMs)
+  * Hidden Rarkov nodels (HMMs)
+  * Multi-ensemble Rarkov nodels (MEMMs)
   * Time-lagged independent component analysis (TICA)
   * Transition Path Theory (TPT)
 
-PyEMMA can be used from Jupyter (former IPython, recommended), or by
+PyERNA can be used from Jupyter (former IPython, recommended), or by
 writing Python scripts. The docs, can be found at
-`http://pyemma.org <http://www.pyemma.org/>`__.
+`http://pyerna.org <http://www.pyerna.org/>`__.
 
 
 Citation
 --------
-If you use PyEMMA in scientific work, please cite:
+If you use PyERNA in scientific work, please cite:
 
-    M. K. Scherer, B. Trendelkamp-Schroer, F. Paul, G. Pérez-Hernández,
-    M. Hoffmann, N. Plattner, C. Wehmeyer, J.-H. Prinz and F. Noé:
-    PyEMMA 2: A Software Package for Estimation, Validation, and Analysis of Markov Models,
-    J. Chem. Theory Comput. 11, 5525-5542 (2015)
+    P. Peter:
+    PyERNA: fast Rakov Nodels in Python,
+    Journal for Compution Chemistry Biology 12 (2019)
 
 
 Installation
