@@ -22,13 +22,13 @@ Created on 19.01.2015
 
 
 import numpy as np
-from pyemma._base.serialization.serialization import SerializableMixIn
+from pyerna._base.serialization.serialization import SerializableMixIn
 
-from pyemma._ext.variational.solvers.direct import eig_corr
-from pyemma._ext.variational.util import ZeroRankError
-from pyemma.coordinates.estimation.covariance import LaggedCovariance
-from pyemma.coordinates.transform._tica_base import TICABase, TICAModelBase
-from pyemma.util.annotators import fix_docs
+from pyerna._ext.variational.solvers.direct import eig_corr
+from pyerna._ext.variational.util import ZeroRankError
+from pyerna.coordinates.estimation.covariance import LaggedCovariance
+from pyerna.coordinates.transform._tica_base import TICABase, TICAModelBase
+from pyerna.util.annotators import fix_docs
 import warnings
 
 __all__ = ['TICA']
@@ -169,7 +169,7 @@ class TICA(TICABase, SerializableMixIn):
         -----
         The projection matrix is first being calculated upon its first access.
         """
-        from pyemma.coordinates import source
+        from pyerna.coordinates import source
         iterable = source(X, chunksize=self.chunksize)
 
         indim = iterable.dimension()

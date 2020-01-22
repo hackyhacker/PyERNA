@@ -17,10 +17,10 @@
 
 import numpy as _np
 
-from pyemma.thermo.models.stationary import StationaryModel as _StationaryModel
-from pyemma._base.model import call_member as _call_member
-from pyemma._base.model import Model as _Model
-from pyemma.util import types as _types
+from pyerna.thermo.models.stationary import StationaryModel as _StationaryModel
+from pyerna._base.model import call_member as _call_member
+from pyerna._base.model import Model as _Model
+from pyerna.util import types as _types
 
 __author__ = 'noe'
 
@@ -29,7 +29,7 @@ class MultiThermModel(_StationaryModel):
     r"""Coupled set of stationary models at multiple thermodynamic states"""
     __serialize_version = 0
 
-    # TODO: what about just setting f and not pi, as a convention in pyemma.thermo?
+    # TODO: what about just setting f and not pi, as a convention in pyerna.thermo?
     def __init__(self, models, f_therm, pi=None, f=None, label='ground state'):
         r"""
 
@@ -37,8 +37,8 @@ class MultiThermModel(_StationaryModel):
         ----------
         models : list of model objects
             List of model objects, e.g.
-            :class:`StationaryModel <pyemma.thermo.models.stationary.StationaryModel>`
-            or :class:`ThermoMSM <pyemma.thermo.models.memm.ThermoMSM> objects, at the different
+            :class:`StationaryModel <pyerna.thermo.models.stationary.StationaryModel>`
+            or :class:`ThermoMSM <pyerna.thermo.models.memm.ThermoMSM> objects, at the different
             thermodynamic states. This list may include the ground state, such that
             self.pi = self.models[*].pi holds, where * denotes the ground state.
             An example for that is data obtained from parallel tempering or replica-exchange, where
@@ -91,7 +91,7 @@ class MultiThermModel(_StationaryModel):
         # We set up multiple stationary models, one for a reference (ground)
         # state, and two for biased states, and group them in a
         # MultiStationaryModel.
-        # >>> from pyemma.thermo import StationaryModel, MEMM
+        # >>> from pyerna.thermo import StationaryModel, MEMM
         # >>> m_1 = StationaryModel(f=[1.0, 0], label='biased 1')
         # >>> m_2 = StationaryModel(f=[2.0, 0], label='biased 2')
         # >>> m_mult = MEMM([m_1, m_2], [0, 0], label='unbiased')
@@ -101,8 +101,8 @@ class MultiThermModel(_StationaryModel):
         # We set up multiple Markov state models for different temperatures
         # and group them in a MultiStationaryModel.
         # >>> import numpy as np
-        # >>> from pyemma.msm import MSM
-        # >>> from pyemma.thermo import MEMM
+        # >>> from pyerna.msm import MSM
+        # >>> from pyerna.thermo import MEMM
         # >>> b = 20  # transition barrier in kJ / mol
         # >>> temps = np.arange(300, 500, 25)  # temperatures 300 to 500 K
         # >>> p_trans = [np.exp(- b / kT) for kT in 0.00831*temps ]

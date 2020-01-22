@@ -25,12 +25,12 @@ import tempfile
 import numpy as np
 
 from logging import getLogger
-import pyemma.coordinates as coor
-import pyemma.util.types as types
+import pyerna.coordinates as coor
+import pyerna.util.types as types
 
 
 
-logger = getLogger('pyemma.'+'TestReaderUtils')
+logger = getLogger('pyerna.'+'TestReaderUtils')
 
 
 class TestCluster(unittest.TestCase):
@@ -165,7 +165,7 @@ class TestClusterDirect(TestCluster):
     # perform all the tests of TestCluster, but use Estimator classes directly without API.
     @classmethod
     def setUpClass(cls):
-        from pyemma.coordinates.clustering import KmeansClustering, RegularSpaceClustering, UniformTimeClustering
+        from pyerna.coordinates.clustering import KmeansClustering, RegularSpaceClustering, UniformTimeClustering
         cls.dtraj_dir = tempfile.mkdtemp()
 
         # generate Gaussian mixture

@@ -18,9 +18,9 @@
 
 import numpy as np
 import scipy.linalg as scl
-from pyemma.coordinates.data._base.streaming_estimator import StreamingEstimator
-from pyemma.coordinates.estimation.covariance import LaggedCovariance
-from pyemma._ext.variational.solvers.direct import sort_by_norm, spd_inv_split
+from pyerna.coordinates.data._base.streaming_estimator import StreamingEstimator
+from pyerna.coordinates.estimation.covariance import LaggedCovariance
+from pyerna._ext.variational.solvers.direct import sort_by_norm, spd_inv_split
 
 
 __author__ = 'paul, nueske'
@@ -75,7 +75,7 @@ class _KoopmanEstimator(StreamingEstimator):
         self._estimation_finished = False
 
     def partial_fit(self, X):
-        from pyemma.coordinates import source
+        from pyerna.coordinates import source
         self._covar.partial_fit(source(X))
         self._estimation_finished = False
         self._estimated = True

@@ -85,12 +85,12 @@ def extensions():
     common_cflags = ['-O3', ]
 
     clustering_module = \
-        Extension('pyemma.coordinates.clustering._ext',
-                  sources=['pyemma/coordinates/clustering/src/clustering_module.cpp'],
+        Extension('pyerna.coordinates.clustering._ext',
+                  sources=['pyerna/coordinates/clustering/src/clustering_module.cpp'],
                   include_dirs=[
                       mdtraj_inc,
                       pybind_inc,
-                      'pyemma/coordinates/clustering/include',
+                      'pyerna/coordinates/clustering/include',
                   ],
                   language='c++',
                   libraries=[lib_prefix+'theobald'],
@@ -98,84 +98,84 @@ def extensions():
                   extra_compile_args=common_cflags)
 
     covar_module = \
-        Extension('pyemma._ext.variational.estimators.covar_c._covartools',
-                  sources=['pyemma/_ext/variational/estimators/covar_c/covartools.cpp'],
-                  include_dirs=['pyemma/_ext/variational/estimators/covar_c/',
+        Extension('pyerna._ext.variational.estimators.covar_c._covartools',
+                  sources=['pyerna/_ext/variational/estimators/covar_c/covartools.cpp'],
+                  include_dirs=['pyerna/_ext/variational/estimators/covar_c/',
                                 pybind_inc,
                                 ],
                   language='c++',
                   extra_compile_args=common_cflags)
 
     eig_qr_module = \
-        Extension('pyemma._ext.variational.solvers.eig_qr.eig_qr',
-                  sources=['pyemma/_ext/variational/solvers/eig_qr/eig_qr.pyx'],
-                  include_dirs=['pyemma/_ext/variational/solvers/eig_qr/'],
+        Extension('pyerna._ext.variational.solvers.eig_qr.eig_qr',
+                  sources=['pyerna/_ext/variational/solvers/eig_qr/eig_qr.pyx'],
+                  include_dirs=['pyerna/_ext/variational/solvers/eig_qr/'],
                   extra_compile_args=['-std=c99'] + common_cflags)
 
     orderedset = \
-        Extension('pyemma._ext.orderedset._orderedset',
-                  sources=['pyemma/_ext/orderedset/_orderedset.pyx'],
+        Extension('pyerna._ext.orderedset._orderedset',
+                  sources=['pyerna/_ext/orderedset/_orderedset.pyx'],
                   extra_compile_args=['-std=c99'] + common_cflags)
 
     extra_compile_args = ["-O3", "-std=c99"]
     ext_bar = Extension(
-        "pyemma.thermo.extensions.bar",
-        sources=["pyemma/thermo/extensions/bar/bar.pyx",
-                 "pyemma/thermo/extensions/bar/_bar.c",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.bar",
+        sources=["pyerna/thermo/extensions/bar/bar.pyx",
+                 "pyerna/thermo/extensions/bar/_bar.c",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args)
     ext_wham = Extension(
-        "pyemma.thermo.extensions.wham",
-        sources=["pyemma/thermo/extensions/wham/wham.pyx",
-                 "pyemma/thermo/extensions/wham/_wham.c",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.wham",
+        sources=["pyerna/thermo/extensions/wham/wham.pyx",
+                 "pyerna/thermo/extensions/wham/_wham.c",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args)
     ext_mbar = Extension(
-        "pyemma.thermo.extensions.mbar",
-        sources=["pyemma/thermo/extensions/mbar/mbar.pyx",
-                 "pyemma/thermo/extensions/mbar/_mbar.c",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.mbar",
+        sources=["pyerna/thermo/extensions/mbar/mbar.pyx",
+                 "pyerna/thermo/extensions/mbar/_mbar.c",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args)
     ext_tram = Extension(
-        "pyemma.thermo.extensions.tram",
-        sources=["pyemma/thermo/extensions/tram/tram.pyx",
-                 "pyemma/thermo/extensions/tram/_tram.c",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.tram",
+        sources=["pyerna/thermo/extensions/tram/tram.pyx",
+                 "pyerna/thermo/extensions/tram/_tram.c",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args)
     ext_dtram = Extension(
-        "pyemma.thermo.extensions.dtram",
-        sources=["pyemma/thermo/extensions/dtram/dtram.pyx",
-                 "pyemma/thermo/extensions/dtram/_dtram.c",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.dtram",
+        sources=["pyerna/thermo/extensions/dtram/dtram.pyx",
+                 "pyerna/thermo/extensions/dtram/_dtram.c",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args)
     ext_trammbar = Extension(
-        "pyemma.thermo.extensions.trammbar",
-        sources=["pyemma/thermo/extensions/trammbar/trammbar.pyx",
-                 "pyemma/thermo/extensions/tram/_tram.c",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.trammbar",
+        sources=["pyerna/thermo/extensions/trammbar/trammbar.pyx",
+                 "pyerna/thermo/extensions/tram/_tram.c",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args + ["-DTRAMMBAR"])
     ext_mbar_direct = Extension(
-        "pyemma.thermo.extensions.mbar_direct",
-        sources=["pyemma/thermo/extensions/mbar_direct/mbar_direct.pyx",
-                 "pyemma/thermo/extensions/mbar_direct/_mbar_direct.c",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.mbar_direct",
+        sources=["pyerna/thermo/extensions/mbar_direct/mbar_direct.pyx",
+                 "pyerna/thermo/extensions/mbar_direct/_mbar_direct.c",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args)
     ext_tram_direct = Extension(
-        "pyemma.thermo.extensions.tram_direct",
-        sources=["pyemma/thermo/extensions/tram_direct/tram_direct.pyx",
-                 "pyemma/thermo/extensions/tram_direct/_tram_direct.c",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.tram_direct",
+        sources=["pyerna/thermo/extensions/tram_direct/tram_direct.pyx",
+                 "pyerna/thermo/extensions/tram_direct/_tram_direct.c",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args)
     ext_trammbar_direct = Extension(
-        "pyemma.thermo.extensions.trammbar_direct",
-        sources=["pyemma/thermo/extensions/trammbar_direct/trammbar_direct.pyx",
-                 "pyemma/thermo/extensions/tram_direct/_tram_direct.c",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.trammbar_direct",
+        sources=["pyerna/thermo/extensions/trammbar_direct/trammbar_direct.pyx",
+                 "pyerna/thermo/extensions/tram_direct/_tram_direct.c",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args + ["-DTRAMMBAR"])
     ext_util = Extension(
-        "pyemma.thermo.extensions.util",
-        sources=["pyemma/thermo/extensions/util/util.pyx",
-                 "pyemma/thermo/extensions/util/_util.c"],
+        "pyerna.thermo.extensions.util",
+        sources=["pyerna/thermo/extensions/util/util.pyx",
+                 "pyerna/thermo/extensions/util/_util.c"],
         extra_compile_args=extra_compile_args)
 
     exts_thermo = [
@@ -304,14 +304,14 @@ metadata = dict(
     ],
     zip_safe=False,
     entry_points={
-        'console_scripts': ['pyemma_list_models=pyemma._base.serialization.cli:main']
+        'console_scripts': ['pyerna_list_models=pyerna._base.serialization.cli:main']
     },
     package_data={
-        'pyemma': ['pyemma.cfg', 'logging.yml'],
-        'pyemma.coordinates.tests': ['data/*'],
-        'pyemma.msm.tests': ['data/*'],
-        'pyemma.datasets': ['*.npz'],
-        'pyemma.util.tests': ['data/*'],
+        'pyerna': ['pyerna.cfg', 'logging.yml'],
+        'pyerna.coordinates.tests': ['data/*'],
+        'pyerna.msm.tests': ['data/*'],
+        'pyerna.datasets': ['*.npz'],
+        'pyerna.util.tests': ['data/*'],
     },
     # packages are found if their folder contains an __init__.py,
     packages=find_packages(),

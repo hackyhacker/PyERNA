@@ -20,8 +20,8 @@ import os
 import shutil
 import warnings
 
-from pyemma.util.files import mkdir_p
-from pyemma.util.exceptions import ConfigDirectoryException
+from pyerna.util.files import mkdir_p
+from pyerna.util.exceptions import ConfigDirectoryException
 
 
 # indicate error during reading
@@ -61,8 +61,8 @@ def _invalidate_cache(cfg_setter):
 
 class Config(object):
 
-    DEFAULT_CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.pyemma')
-    DEFAULT_CONFIG_FILE_NAME = 'pyemma.cfg'
+    DEFAULT_CONFIG_DIR = os.path.join(os.path.expanduser('~'), '.pyerna')
+    DEFAULT_CONFIG_FILE_NAME = 'pyerna.cfg'
     DEFAULT_LOGGING_FILE_NAME = 'logging.yml'
 
     def __init__(self):
@@ -90,7 +90,7 @@ class Config(object):
             warnings.warn("unable to read default configuration file. Logging and "
                           " progress bar handling could behave bad! Error: %s" % re)
 
-        from pyemma.util.log import setup_logging, LoggingConfigurationError
+        from pyerna.util.log import setup_logging, LoggingConfigurationError
         try:
             setup_logging(self)
         except LoggingConfigurationError as e:
@@ -176,44 +176,44 @@ class Config(object):
     def default_config_file(self):
         """ default config file living in PyEMMA package """
         import os.path as p
-        import pyemma
-        return p.join(pyemma.__path__[0], Config.DEFAULT_CONFIG_FILE_NAME)
+        import pyerna
+        return p.join(pyerna.__path__[0], Config.DEFAULT_CONFIG_FILE_NAME)
     @property
     def default_logging_file(self):
         """ default logging configuration"""
         import os.path as p
-        import pyemma
-        return p.join(pyemma.__path__[0], Config.DEFAULT_LOGGING_FILE_NAME)
+        import pyerna
+        return p.join(pyerna.__path__[0], Config.DEFAULT_LOGGING_FILE_NAME)
 
     def keys(self):
         """ valid configuration keys"""
-        return self._conf_values.options('pyemma')
+        return self._conf_values.options('pyerna')
 
     @property
     def cfg_dir(self):
-        """ PyEMMAs configuration directory (eg. ~/.pyemma)"""
+        """ PyEMMAs configuration directory (eg. ~/.pyerna)"""
         return self._cfg_dir
 
     @cfg_dir.setter
-    def cfg_dir(self, pyemma_cfg_dir):
+    def cfg_dir(self, pyerna_cfg_dir):
         """ Sets PyEMMAs configuration directory.
         Also creates it with some default files, if does not exists. """
-        if not os.path.exists(pyemma_cfg_dir):
+        if not os.path.exists(pyerna_cfg_dir):
             try:
-                mkdir_p(pyemma_cfg_dir)
+                mkdir_p(pyerna_cfg_dir)
             except NotADirectoryError:  # on Python 3
-                raise ConfigDirectoryException("pyemma cfg dir (%s) is not a directory" % pyemma_cfg_dir)
+                raise ConfigDirectoryException("pyerna cfg dir (%s) is not a directory" % pyerna_cfg_dir)
             except EnvironmentError:
-                raise ConfigDirectoryException("could not create configuration directory '%s'" % pyemma_cfg_dir)
+                raise ConfigDirectoryException("could not create configuration directory '%s'" % pyerna_cfg_dir)
 
-        if not os.path.isdir(pyemma_cfg_dir):
-            raise ConfigDirectoryException("%s is no valid directory" % pyemma_cfg_dir)
-        if not os.access(pyemma_cfg_dir, os.W_OK):
-            raise ConfigDirectoryException("%s is not writeable" % pyemma_cfg_dir)
+        if not os.path.isdir(pyerna_cfg_dir):
+            raise ConfigDirectoryException("%s is no valid directory" % pyerna_cfg_dir)
+        if not os.access(pyerna_cfg_dir, os.W_OK):
+            raise ConfigDirectoryException("%s is not writeable" % pyerna_cfg_dir)
 
         # give user the default cfg file, if its not there
-        self.__copy_default_files_to_cfg_dir(pyemma_cfg_dir)
-        self._cfg_dir = pyemma_cfg_dir
+        self.__copy_default_files_to_cfg_dir(pyerna_cfg_dir)
+        self._cfg_dir = pyerna_cfg_dir
 
         if self.show_config_notification:
             stars = '*' * 80
@@ -221,13 +221,13 @@ class Config(object):
                   'Changed PyEMMAs config directory to "{dir}".\n'
                   'To make this change permanent, export the environment variable'
                   ' "PYEMMA_CFG_DIR" \nto point to this location. Eg. edit your .bashrc file!'
-                  .format(dir=pyemma_cfg_dir), '\n', stars, sep='')
+                  .format(dir=pyerna_cfg_dir), '\n', stars, sep='')
 
     ### SETTINGS
     @property
     def logging_config(self):
         """ currently used logging configuration file. Can not be changed during runtime. """
-        cfg = self._conf_values.get('pyemma', 'logging_config')
+        cfg = self._conf_values.get('pyerna', 'logging_config')
         if cfg == 'DEFAULT':
             cfg = os.path.join(self.cfg_dir, Config.DEFAULT_LOGGING_FILE_NAME)
         return cfg
@@ -235,14 +235,14 @@ class Config(object):
     # FIXME: how should we re-initialize logging without interfering with existing loggers?
     #@logging_config.setter
     #def logging_config(self, config):
-    #    """ Try to re-initialize logging system for package 'pyemma'.
+    #    """ Try to re-initialize logging system for package 'pyerna'.
     #
     #    Parameters
     #    ----------
     #    config: dict
     #        A dictionary which contains at least the keys 'loggers' and 'handlers'.
     #    """
-    #    from pyemma.util.log import setup_logging
+    #    from pyerna.util.log import setup_logging
     #   #config['incremental'] = True
     #    setup_logging(self, config)
 
@@ -250,7 +250,7 @@ class Config(object):
     @_cached
     def mute(self):
         """ Switch this to True, to tell PyEMMA not to use progress bars and logging to console. """
-        return self._conf_values.getboolean('pyemma', 'mute')
+        return self._conf_values.getboolean('pyerna', 'mute')
 
     @mute.setter
     @_invalidate_cache
@@ -259,52 +259,52 @@ class Config(object):
         import logging
         if value:
             self.show_progress_bars = False
-            self._old_level = logging.getLogger('pyemma').level
-            logging.getLogger('pyemma').setLevel('CRITICAL')
+            self._old_level = logging.getLogger('pyerna').level
+            logging.getLogger('pyerna').setLevel('CRITICAL')
         else:
             self.show_progress_bars = True
 
             if self._old_level is not None:
-                logging.getLogger('pyemma').setLevel(self._old_level)
+                logging.getLogger('pyerna').setLevel(self._old_level)
                 self._old_level = None
 
-        self._conf_values.set('pyemma', 'mute', str(value))
+        self._conf_values.set('pyerna', 'mute', str(value))
 
     @property
     @_cached
     def traj_info_max_entries(self):
         """ How many entries (files) the trajectory info cache can hold.
         The cache will forget the least recently used entries when this limit is hit."""
-        return self._conf_values.getint('pyemma', 'traj_info_max_entries')
+        return self._conf_values.getint('pyerna', 'traj_info_max_entries')
 
     @traj_info_max_entries.setter
     @_invalidate_cache
     def traj_info_max_entries(self, val):
-        self._conf_values.set('pyemma', 'traj_info_max_entries', str(val))
+        self._conf_values.set('pyerna', 'traj_info_max_entries', str(val))
 
     @property
     @_cached
     def traj_info_max_size(self):
         """ Maximum trajectory info cache size in bytes.
         The cache will forget the least recently used entries when this limit is hit."""
-        return self._conf_values.getint('pyemma', 'traj_info_max_size')
+        return self._conf_values.getint('pyerna', 'traj_info_max_size')
 
     @traj_info_max_size.setter
     @_invalidate_cache
     def traj_info_max_size(self, val):
         val = str(int(val))
-        self._conf_values.set('pyemma', 'traj_info_max_size', val)
+        self._conf_values.set('pyerna', 'traj_info_max_size', val)
 
     @property
     @_cached
     def show_progress_bars(self):
         """Show progress bars for heavy computations?"""
-        return self._conf_values.getboolean('pyemma', 'show_progress_bars')
+        return self._conf_values.getboolean('pyerna', 'show_progress_bars')
 
     @show_progress_bars.setter
     @_invalidate_cache
     def show_progress_bars(self, val):
-        self._conf_values.set('pyemma', 'show_progress_bars', str(val))
+        self._conf_values.set('pyerna', 'show_progress_bars', str(val))
 
     @property
     @_cached
@@ -314,27 +314,27 @@ class Config(object):
         It is strongly recommended to use the cache especially for XTC files, because this will speed up
         reader creation a lot.
         """
-        return self._conf_values.getboolean('pyemma', 'use_trajectory_lengths_cache')
+        return self._conf_values.getboolean('pyerna', 'use_trajectory_lengths_cache')
 
     @use_trajectory_lengths_cache.setter
     @_invalidate_cache
     def use_trajectory_lengths_cache(self, val):
-        self._conf_values.set('pyemma', 'use_trajectory_lengths_cache', str(val))
+        self._conf_values.set('pyerna', 'use_trajectory_lengths_cache', str(val))
 
     @property
     @_cached
     def show_config_notification(self):
         """ """
-        return self._conf_values.getboolean('pyemma', 'show_config_notification')
+        return self._conf_values.getboolean('pyerna', 'show_config_notification')
 
     @show_config_notification.setter
     @_invalidate_cache
     def show_config_notification(self, val):
-        self._conf_values.set('pyemma', 'show_config_notification', str(val))
+        self._conf_values.set('pyerna', 'show_config_notification', str(val))
 
     @property
     def coordinates_check_output(self):
-        """ Enabling this option will check for invalid output (NaN, Inf) in pyemma.coordinates.
+        """ Enabling this option will check for invalid output (NaN, Inf) in pyerna.coordinates.
 
         Notes
         -----
@@ -363,26 +363,26 @@ class Config(object):
 
         See :doc:`legal` for further information.
         """
-        return self._conf_values.getboolean('pyemma', 'check_version')
+        return self._conf_values.getboolean('pyerna', 'check_version')
 
     @check_version.setter
     @_invalidate_cache
     def check_version(self, val):
-        self._conf_values.set('pyemma', 'check_version', str(val))
+        self._conf_values.set('pyerna', 'check_version', str(val))
 
     @property
     @_cached
     def default_chunksize(self):
         """ default chunksize to use for coordinate transformations, only intergers with suffix [k,m,g]"""
-        return self._conf_values.get('pyemma', 'default_chunksize')
+        return self._conf_values.get('pyerna', 'default_chunksize')
 
     @default_chunksize.setter
     @_invalidate_cache
     def default_chunksize(self, val):
-        from pyemma.util.units import string_to_bytes
+        from pyerna.util.units import string_to_bytes
         # check for parsing exceptions
         string_to_bytes(val)
-        self._conf_values.set('pyemma', 'default_chunksize', str(val))
+        self._conf_values.set('pyerna', 'default_chunksize', str(val))
 
     ### FIlE HANDLING
 
@@ -426,7 +426,7 @@ class Config(object):
             self.default_config_file,
             cfg,  # conf_values in current directory
             os.path.join(os.path.expanduser('~' + os.path.sep), cfg),  # config in user dir
-            '.pyemma.cfg',
+            '.pyerna.cfg',
         ]
 
         # look for user defined files
@@ -438,13 +438,13 @@ class Config(object):
     # for dictionary like lookups
     def __getitem__(self, name):
         try:
-            return self._conf_values.get('pyemma', name)
+            return self._conf_values.get('pyerna', name)
         except KeyError:  # re-try with default section
             return self._conf_values.get(name)
 
     def __setitem__(self, name, value):
         value = str(value)
-        self._conf_values.set('pyemma', name, value)
+        self._conf_values.set('pyerna', name, value)
 
     def __setattr__(self, key, value):
         if key.startswith('_') or key == 'cfg_dir':
@@ -455,7 +455,7 @@ class Config(object):
 
     @staticmethod
     def _format_msg(msg):
-        from pyemma import __version__
+        from pyerna import __version__
         return "[PyEMMA {version}] {msg}".format(version=__version__, msg=msg)
 
     def __repr__(self):

@@ -17,16 +17,16 @@
 
 import numpy as _np
 
-from pyemma._base.estimator import Estimator as _Estimator
-from pyemma._base.progress import ProgressReporter as _ProgressReporter
-from pyemma._base.serialization.serialization import SerializableMixIn as _SerializableMixIn
-from pyemma.thermo import MultiThermModel as _MultiThermModel
-from pyemma.thermo import StationaryModel as _StationaryModel
-from pyemma.thermo.estimators._base import ThermoBase
-from pyemma.thermo.estimators._callback import _ConvergenceProgressIndicatorCallBack
-from pyemma.util import types as _types
+from pyerna._base.estimator import Estimator as _Estimator
+from pyerna._base.progress import ProgressReporter as _ProgressReporter
+from pyerna._base.serialization.serialization import SerializableMixIn as _SerializableMixIn
+from pyerna.thermo import MultiThermModel as _MultiThermModel
+from pyerna.thermo import StationaryModel as _StationaryModel
+from pyerna.thermo.estimators._base import ThermoBase
+from pyerna.thermo.estimators._callback import _ConvergenceProgressIndicatorCallBack
+from pyerna.util import types as _types
 
-from pyemma.thermo.extensions import (wham as _wham, util as _util)
+from pyerna.thermo.extensions import (wham as _wham, util as _util)
 
 __author__ = 'wehmeyer, mey'
 
@@ -80,7 +80,7 @@ class WHAM(_Estimator, _MultiThermModel, ThermoBase, _SerializableMixIn):
 
         Example
         -------
-        >>> from pyemma.thermo import WHAM
+        >>> from pyerna.thermo import WHAM
         >>> import numpy as np
         >>> B = np.array([[0, 0],[0.5, 1.0]])
         >>> wham = WHAM(B)

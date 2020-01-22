@@ -26,7 +26,7 @@ By means of three different application examples, these notebooks give an overvi
 
 These tutorials are part of a LiveCOMS journal article and are up to date with the current PyEMMA release.
 
-You can find the article `here <https://www.livecomsjournal.org/article/5965-introduction-to-markov-state-modeling-with-the-pyemma-software-article-v1-0>`_.
+You can find the article `here <https://www.livecomsjournal.org/article/5965-introduction-to-markov-state-modeling-with-the-pyerna-software-article-v1-0>`_.
 
 If you find a mistake or have suggestions for improving parts of the tutorial, you can file issues and pull requests
 for the contents of both the article and the jupyter notebooks `here <https://github.com/markovmodel/PyEMMA_tutorials>`_.

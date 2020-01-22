@@ -1,8 +1,8 @@
 import unittest
 
 import numpy as np
-from pyemma.msm.estimators._dtraj_stats import DiscreteTrajectoryStats, blocksplit_dtrajs, cvsplit_dtrajs
-from pyemma.util.types import ensure_dtraj_list
+from pyerna.msm.estimators._dtraj_stats import DiscreteTrajectoryStats, blocksplit_dtrajs, cvsplit_dtrajs
+from pyerna.util.types import ensure_dtraj_list
 import msmtools
 
 

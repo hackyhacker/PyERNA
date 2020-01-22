@@ -3,9 +3,9 @@ import scipy.linalg as scl
 import unittest
 import pkg_resources
 
-from pyemma._ext.variational.solvers.direct import sort_by_norm
-from pyemma.coordinates.estimation.koopman import _KoopmanEstimator
-from pyemma.coordinates import source
+from pyerna._ext.variational.solvers.direct import sort_by_norm
+from pyerna.coordinates.estimation.koopman import _KoopmanEstimator
+from pyerna.coordinates import source
 
 
 class TestKoopman(unittest.TestCase):

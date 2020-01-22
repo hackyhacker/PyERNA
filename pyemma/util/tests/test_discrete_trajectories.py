@@ -30,7 +30,7 @@ import pkg_resources
 import numpy as np
 
 
-import pyemma.util.discrete_trajectories as dt
+import pyerna.util.discrete_trajectories as dt
 
 testpath = pkg_resources.resource_filename(__name__, 'data') + os.path.sep
 
@@ -113,8 +113,8 @@ class TestDiscreteTrajectoryStatistics(unittest.TestCase):
         assert(np.allclose(dt.count_states([S1,S2]),H))
 
     def test_count_big(self):
-        import pyemma.datasets
-        dtraj = pyemma.datasets.load_2well_discrete().dtraj_T100K_dt10
+        import pyerna.datasets
+        dtraj = pyerna.datasets.load_2well_discrete().dtraj_T100K_dt10
         dt.number_of_states(dtraj)
         dt.count_states(dtraj)
 
@@ -158,8 +158,8 @@ class TestIndexStates(unittest.TestCase):
             assert(np.alltrue(res[i] == expected[i]))
 
     def test_big(self):
-        import pyemma.datasets
-        dtraj = pyemma.datasets.load_2well_discrete().dtraj_T100K_dt10
+        import pyerna.datasets
+        dtraj = pyerna.datasets.load_2well_discrete().dtraj_T100K_dt10
         # just run these to see if there's any exception
         dt.index_states(dtraj)
 

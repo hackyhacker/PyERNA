@@ -18,7 +18,7 @@
 
 import numpy as _np
 import warnings
-from pyemma.util import types as _types
+from pyerna.util import types as _types
 
 from math import sqrt as _sqrt
 import logging
@@ -60,7 +60,7 @@ class NetworkPlot(object):
         ...               [0.05,  0.1,  0.8,  0.0,  0.05],
         ...               [0.0,  0.2, 0.0,  0.8,  0.0],
         ...               [0.0,  0.02, 0.02, 0.0,  0.96]])
-        >>> from pyemma import msm
+        >>> from pyerna import msm
         >>> F = msm.tpt(msm.markov_model(P), [2], [3])
 
         now plot the gross flux
@@ -297,7 +297,7 @@ class NetworkPlot(object):
         # nothing to do
         elif self.xpos is not None and self.ypos is not None:
             return _np.array([self.xpos, self.ypos]), 0
-        from pyemma.plots._ext.fruchterman_reingold import _fruchterman_reingold
+        from pyerna.plots._ext.fruchterman_reingold import _fruchterman_reingold
         best_pos = _fruchterman_reingold(G, pos=initpos, dim=2, hold_dim=holddim)
 
         # rescale fixed to user settings and balance the other coordinate
@@ -452,7 +452,7 @@ def plot_flux(
 
     Parameters
     ----------
-    flux : :class:`ReactiveFlux <pyemma.msm.flux.ReactiveFlux>`
+    flux : :class:`ReactiveFlux <pyerna.msm.flux.ReactiveFlux>`
         reactive flux object
     pos : ndarray(n,2), optional, default=None
         User-defined positions to draw the states on. If not given, will set the
@@ -531,7 +531,7 @@ def plot_flux(
     ...               [0.05,  0.1,  0.8,  0.0,  0.05],
     ...               [0.0,  0.2, 0.0,  0.8,  0.0],
     ...               [0.0,  0.02, 0.02, 0.0,  0.96]])
-    >>> from pyemma import msm
+    >>> from pyerna import msm
     >>> F = msm.tpt(msm.markov_model(P), [2], [3])
     >>> F.flux[:] *= 100
 

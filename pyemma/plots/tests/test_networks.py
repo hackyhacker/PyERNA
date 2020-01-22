@@ -25,8 +25,8 @@ Created on 22.05.2015
 import unittest
 import numpy as np
 
-from pyemma.plots.networks import plot_flux, plot_markov_model, plot_network
-from pyemma.msm import tpt, MSM
+from pyerna.plots.networks import plot_flux, plot_markov_model, plot_network
+from pyerna.msm import tpt, MSM
 import matplotlib
 import matplotlib.pyplot as plt
 

@@ -3,7 +3,7 @@ import sys
 
 import pytest
 
-test_pkg = 'pyemma'
+test_pkg = 'pyerna'
 cover_pkg = test_pkg
 
 # where to write junit xml

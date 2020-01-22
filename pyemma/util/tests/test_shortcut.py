@@ -18,7 +18,7 @@
 
 
 
-from pyemma.util.annotators import shortcut, aliased, alias
+from pyerna.util.annotators import shortcut, aliased, alias
 import unittest
 
 @shortcut("bar", "bar2")

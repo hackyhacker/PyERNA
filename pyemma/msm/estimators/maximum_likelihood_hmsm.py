@@ -16,14 +16,14 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pyemma.util.annotators import alias, aliased, fix_docs
+from pyerna.util.annotators import alias, aliased, fix_docs
 
 import numpy as _np
-from pyemma.msm.models.hmsm import HMSM as _HMSM
+from pyerna.msm.models.hmsm import HMSM as _HMSM
 
-from pyemma._base.estimator import Estimator as _Estimator
-from pyemma.util import types as _types
-from pyemma.util.units import TimeUnit
+from pyerna._base.estimator import Estimator as _Estimator
+from pyerna.util import types as _types
+from pyerna.util.units import TimeUnit
 
 
 # TODO: currently, it's not possible to start with disconnected matrices.
@@ -66,7 +66,7 @@ class MaximumLikelihoodHMSM(_Estimator, _HMSM):
             stride in order to have statistically uncorrelated trajectories.
             Setting stride = 'effective' uses the largest neglected timescale as
             an estimate for the correlation time and sets the stride accordingly
-        msm_init : str or :class:`MSM <pyemma.msm.MSM>`
+        msm_init : str or :class:`MSM <pyerna.msm.MSM>`
             MSM object to initialize the estimation, or one of following keywords:
 
             * 'largest-strong' or None (default) : Estimate MSM on the largest
@@ -178,7 +178,7 @@ class MaximumLikelihoodHMSM(_Estimator, _HMSM):
             # how many uncorrelated counts we can make
             self.stride = self.lag
             # get a quick estimate from the spectral radius of the non-reversible
-            from pyemma.msm import estimate_markov_model
+            from pyerna.msm import estimate_markov_model
             msm_nr = estimate_markov_model(dtrajs, lag=self.lag, reversible=False, sparse=False,
                                            connectivity='largest', dt_traj=self.timestep_traj)
             # if we have more than nstates timescales in our MSM, we use the next (neglected) timescale as an
@@ -205,8 +205,8 @@ class MaximumLikelihoodHMSM(_Estimator, _HMSM):
 
         # INIT HMM
         from bhmm import init_discrete_hmm
-        from pyemma.msm.estimators import MaximumLikelihoodMSM
-        from pyemma.msm.estimators import OOMReweightedMSM
+        from pyerna.msm.estimators import MaximumLikelihoodMSM
+        from pyerna.msm.estimators import OOMReweightedMSM
         if self.msm_init=='largest-strong':
             hmm_init = init_discrete_hmm(dtrajs_lagged_strided, self.nstates, lag=1,
                                          reversible=self.reversible, stationary=True, regularize=True,
@@ -285,8 +285,8 @@ class MaximumLikelihoodHMSM(_Estimator, _HMSM):
 
     @msm_init.setter
     def msm_init(self, value):
-        from pyemma.msm.estimators import MaximumLikelihoodMSM
-        from pyemma.msm.estimators import OOMReweightedMSM
+        from pyerna.msm.estimators import MaximumLikelihoodMSM
+        from pyerna.msm.estimators import OOMReweightedMSM
         if (isinstance(value, (MaximumLikelihoodMSM, OOMReweightedMSM)) and not value._estimated):
             raise ValueError('Given initial msm has not been estimated. Input was {}'.format(value))
         self._msm_init = value
@@ -302,7 +302,7 @@ class MaximumLikelihoodHMSM(_Estimator, _HMSM):
 
     @nstates.setter
     def nstates(self, value):
-        # we override this setter here, because we want to avoid pyemma.msm.MSM class to overwrite our input parameter.
+        # we override this setter here, because we want to avoid pyerna.msm.MSM class to overwrite our input parameter.
         # caused bug #1266
         if int(value) > 0 and value is not None:
             self._nstates = value
@@ -610,7 +610,7 @@ class MaximumLikelihoodHMSM(_Estimator, _HMSM):
         try:  # if we have this attribute, return it
             return self._observable_state_indexes
         except AttributeError:  # didn't exist? then create it.
-            import pyemma.util.discrete_trajectories as dt
+            import pyerna.util.discrete_trajectories as dt
 
             self._observable_state_indexes = dt.index_states(self.discrete_trajectories_obs)
             return self._observable_state_indexes
@@ -636,7 +636,7 @@ class MaximumLikelihoodHMSM(_Estimator, _HMSM):
             tuple (i, t), where i is the index of the trajectory and t is the time index within the trajectory.
 
         """
-        import pyemma.util.discrete_trajectories as dt
+        import pyerna.util.discrete_trajectories as dt
         return dt.sample_indexes_by_distribution(self.observable_state_indexes, self.observation_probabilities, nsample)
 
     ################################################################################
@@ -666,7 +666,7 @@ class MaximumLikelihoodHMSM(_Estimator, _HMSM):
 
         Returns
         -------
-        cktest : :class:`ChapmanKolmogorovValidator <pyemma.msm.ChapmanKolmogorovValidator>`
+        cktest : :class:`ChapmanKolmogorovValidator <pyerna.msm.ChapmanKolmogorovValidator>`
 
         References
         ----------
@@ -683,7 +683,7 @@ class MaximumLikelihoodHMSM(_Estimator, _HMSM):
             molecules. J. Chem. Phys. 139, 184114 (2013)
 
         """
-        from pyemma.msm.estimators import ChapmanKolmogorovValidator
+        from pyerna.msm.estimators import ChapmanKolmogorovValidator
         ck = ChapmanKolmogorovValidator(self, self, _np.eye(self.nstates),
                                         mlags=mlags, conf=conf, err_est=err_est,
                                         n_jobs=n_jobs, show_progress=show_progress)

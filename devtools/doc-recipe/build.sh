@@ -6,18 +6,18 @@ set -x
 export PIP_IGNORE_INSTALLED=false
 export PIP_NO_INDEX=false
 
-pyemma_version=`python -c "import pyemma as e; print(e.version)"`
-export BUILD_DIR=${PREFIX}/v${pyemma_version}
+pyerna_version=`python -c "import pyerna as e; print(e.version)"`
+export BUILD_DIR=${PREFIX}/v${pyerna_version}
 
 # disable progress bars
 export PYEMMA_CFG_DIR=`mktemp -d`
-python -c "import pyemma; pyemma.config.show_progress_bars=False; pyemma.config.save()";
+python -c "import pyerna; pyerna.config.show_progress_bars=False; pyerna.config.save()";
 # print new config
-python -c "import pyemma; print(pyemma.config)"
+python -c "import pyerna; print(pyerna.config)"
 
 # if we have the fu-berlin file system, we copy the unpublished data (bpti)
-if [[ -d /group/ag_cmb/pyemma_performance/unpublished ]]; then
-    cp /group/ag_cmb/pyemma_performance/unpublished ./pyemma-ipython -vuR
+if [[ -d /group/ag_cmb/pyerna_performance/unpublished ]]; then
+    cp /group/ag_cmb/pyerna_performance/unpublished ./pyerna-ipython -vuR
 fi
 
 # install requirements, which are not available in conda

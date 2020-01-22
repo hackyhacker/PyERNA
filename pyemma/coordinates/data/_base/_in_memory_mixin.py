@@ -39,7 +39,7 @@ class InMemoryMixin(object):
         self._mapping_to_mem_active = True
         try:
             self._Y = self.get_output(stride=stride)
-            from pyemma.coordinates.data import DataInMemory
+            from pyerna.coordinates.data import DataInMemory
             self._Y_source = DataInMemory(self._Y)
         finally:
             self._mapping_to_mem_active = False

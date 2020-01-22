@@ -17,9 +17,9 @@
 
 import logging
 
-from pyemma._base.loggable import Loggable
-from pyemma._base.serialization.util import _importable_name
-from pyemma.util.exceptions import PyEMMA_DeprecationWarning
+from pyerna._base.loggable import Loggable
+from pyerna._base.serialization.util import _importable_name
+from pyerna.util.exceptions import PyEMMA_DeprecationWarning
 
 logger = logging.getLogger(__name__)
 _debug = False
@@ -149,8 +149,8 @@ class SerializableMixIn(object):
     Example
     -------
 
-    >>> import pyemma
-    >>> from pyemma.util.contexts import named_temporary_file
+    >>> import pyerna
+    >>> from pyerna.util.contexts import named_temporary_file
     >>> class MyClass(SerializableMixIn):
     ...    __serialize_version = 0
     ...    __serialize_fields = ['x']
@@ -160,7 +160,7 @@ class SerializableMixIn(object):
     >>> inst = MyClass()
     >>> with named_temporary_file() as file: # doctest: +SKIP
     ...    inst.save(file) # doctest: +SKIP
-    ...    inst_restored = pyemma.load(file) # doctest: +SKIP
+    ...    inst_restored = pyerna.load(file) # doctest: +SKIP
     >>> assert inst_restored.x == inst.x # doctest: +SKIP
     # skipped because MyClass is not importable.
     """
@@ -226,16 +226,16 @@ class SerializableMixIn(object):
 
         Examples
         --------
-        >>> import pyemma, numpy as np
-        >>> from pyemma.util.contexts import named_temporary_file
-        >>> m = pyemma.msm.MSM(P=np.array([[0.1, 0.9], [0.9, 0.1]]))
+        >>> import pyerna, numpy as np
+        >>> from pyerna.util.contexts import named_temporary_file
+        >>> m = pyerna.msm.MSM(P=np.array([[0.1, 0.9], [0.9, 0.1]]))
 
         >>> with named_temporary_file() as file: # doctest: +SKIP
         ...    m.save(file, 'simple') # doctest: +SKIP
-        ...    inst_restored = pyemma.load(file, 'simple') # doctest: +SKIP
+        ...    inst_restored = pyerna.load(file, 'simple') # doctest: +SKIP
         >>> np.testing.assert_equal(m.P, inst_restored.P) # doctest: +SKIP
         """
-        from pyemma._base.serialization.h5file import H5File
+        from pyerna._base.serialization.h5file import H5File
         try:
             with H5File(file_name=file_name, mode='a') as f:
                 f.add_serializable(model_name, obj=self, overwrite=overwrite, save_streaming_chain=save_streaming_chain)
@@ -258,7 +258,7 @@ class SerializableMixIn(object):
             The file like object tried to be read for a serialized object.
         model_name: str, default='default'
             if multiple models are contained in the file, these can be accessed by
-            their name. Use :func:`pyemma.list_models` to get a representation of all stored models.
+            their name. Use :func:`pyerna.list_models` to get a representation of all stored models.
 
         Returns
         -------
@@ -315,7 +315,7 @@ class SerializableMixIn(object):
                              .format(cls=klass, from_state=klass_version, current=klass_version_current))
             raise OldVersionUnsupported('Tried to restore a model created with a more recent version '
                                         'of PyEMMA. This is not supported! You need at least version {version}'
-                                        .format(version=state['pyemma_version']))
+                                        .format(version=state['pyerna_version']))
 
         if _debug:
             logger.debug("input state: %s" % state)
@@ -395,16 +395,16 @@ class SerializableMixIn(object):
             for klass in classes_to_inspect:
                 self._get_state_of_serializeable_fields(klass, state)
 
-            from pyemma._base.estimator import Estimator
+            from pyerna._base.estimator import Estimator
             if isinstance(self, Estimator):
                 state.update(Estimator.__my_getstate__(self))
 
-            from pyemma._base.model import Model
+            from pyerna._base.model import Model
             if isinstance(self, Model):
                 state.update(Model.__my_getstate__(self))
 
-            from pyemma import version
-            state['pyemma_version'] = version
+            from pyerna import version
+            state['pyerna_version'] = version
 
             return state
         except:
@@ -413,11 +413,11 @@ class SerializableMixIn(object):
 
     def __setstate__(self, state):
         # handle exceptions here, because they will be sucked up by pickle and silently fail...
-        if 'pyemma_version' not in state:
+        if 'pyerna_version' not in state:
             import warnings
             msg = ('Trying to restore an un-versioned PyEMMA model/estimator (%s) via pickling. '
                    'This is not officially supported. Please handle the object with great caution. '
-                   'To avoid this please use model.save() and pyemma.load() in the future.'
+                   'To avoid this please use model.save() and pyerna.load() in the future.'
                    % self.__class__.__name__)
             warnings.warn(msg, category=UserWarning)
             if hasattr(self, 'logger'):
@@ -436,11 +436,11 @@ class SerializableMixIn(object):
             to_inspect = self._get_classes_to_inspect()
             for klass in to_inspect:
                 self.__interpolate(state, klass)
-            from pyemma._base.estimator import Estimator
+            from pyerna._base.estimator import Estimator
             if isinstance(self, Estimator):
                 Estimator.__my_setstate__(self, state)
 
-            from pyemma._base.model import Model
+            from pyerna._base.model import Model
             if isinstance(self, Model):
                 Model.__my_setstate__(self, state)
 

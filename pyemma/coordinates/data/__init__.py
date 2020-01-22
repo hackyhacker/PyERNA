@@ -19,10 +19,10 @@
 
 r"""
 ===============================================================================
-data - Data and input/output utilities (:mod:`pyemma.coordinates.data`)
+data - Data and input/output utilities (:mod:`pyerna.coordinates.data`)
 ===============================================================================
 
-.. currentmodule: pyemma.coordinates.data
+.. currentmodule: pyerna.coordinates.data
 
 Order parameters
 ================

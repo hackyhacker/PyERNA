@@ -26,15 +26,15 @@ Created on 18.02.2015
 import os
 
 import numpy as np
-from pyemma._base.serialization.serialization import SerializableMixIn
+from pyerna._base.serialization.serialization import SerializableMixIn
 
-from pyemma._base.model import Model
-from pyemma._base.parallel import NJobsMixIn
-from pyemma._ext.sklearn.base import ClusterMixin
-from pyemma.coordinates.data._base.transformer import StreamingEstimationTransformer
-from pyemma.util.annotators import fix_docs, aliased, alias
-from pyemma.util.discrete_trajectories import index_states, sample_indexes_by_state
-from pyemma.util.files import mkdir_p
+from pyerna._base.model import Model
+from pyerna._base.parallel import NJobsMixIn
+from pyerna._ext.sklearn.base import ClusterMixin
+from pyerna.coordinates.data._base.transformer import StreamingEstimationTransformer
+from pyerna.util.annotators import fix_docs, aliased, alias
+from pyerna.util.discrete_trajectories import index_states, sample_indexes_by_state
+from pyerna.util.files import mkdir_p
 
 
 @fix_docs

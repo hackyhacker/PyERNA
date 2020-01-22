@@ -20,8 +20,8 @@ import unittest
 import pkg_resources
 import mdtraj
 import numpy as np
-import pyemma.coordinates as coor
-from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+import pyerna.coordinates as coor
+from pyerna.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
 
 
 class TestFragmentedTrajectory(unittest.TestCase):
@@ -74,7 +74,7 @@ class TestFragmentedTrajectory(unittest.TestCase):
                 np.testing.assert_array_almost_equal(data[lag::stride], Y, err_msg='lag={lag}, stride={stride}'.format(stride=stride, lag=lag))
 
     def test_fragmented_xtc(self):
-        from pyemma.coordinates.tests.util import create_traj
+        from pyerna.coordinates.tests.util import create_traj
 
         top_file = pkg_resources.resource_filename(__name__, 'data/test.pdb')
         trajfiles = []

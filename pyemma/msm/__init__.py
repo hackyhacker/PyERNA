@@ -19,7 +19,7 @@
 
 r"""
 
-.. currentmodule:: pyemma.msm
+.. currentmodule:: pyerna.msm
 
 User Functions
 ==============

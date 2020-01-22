@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 r"""
-.. currentmodule:: pyemma.thermo
+.. currentmodule:: pyerna.thermo
 
 User-Functions
 ==============
@@ -51,8 +51,8 @@ use the API functions above.
 
 """
 
-from pyemma.thermo.models import StationaryModel, MultiThermModel, MEMM
-from pyemma.thermo.estimators import WHAM, MBAR, DTRAM, TRAM, EmptyState
+from pyerna.thermo.models import StationaryModel, MultiThermModel, MEMM
+from pyerna.thermo.estimators import WHAM, MBAR, DTRAM, TRAM, EmptyState
 
 # high-level api
 from .api import *

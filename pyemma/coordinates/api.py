@@ -17,18 +17,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-r"""User-API for the pyemma.coordinates package
+r"""User-API for the pyerna.coordinates package
 
-.. currentmodule:: pyemma.coordinates.api
+.. currentmodule:: pyerna.coordinates.api
 """
 import numpy as _np
 import logging as _logging
 
-from pyemma.util import types as _types
+from pyerna.util import types as _types
 # lift this function to the api
-from pyemma.coordinates.util.stat import histogram
+from pyerna.coordinates.util.stat import histogram
 
-from pyemma.util.exceptions import PyEMMA_DeprecationWarning as _PyEMMA_DeprecationWarning
+from pyerna.util.exceptions import PyEMMA_DeprecationWarning as _PyEMMA_DeprecationWarning
 
 _logger = _logging.getLogger(__name__)
 
@@ -81,7 +81,7 @@ def _check_old_chunksize_arg(chunksize, chunk_size_default, **kw):
         chosen_chunk_size = chunksize
     else:
         import warnings
-        from pyemma.util.annotators import get_culprit
+        from pyerna.util.annotators import get_culprit
         filename, lineno = get_culprit(3)
         if is_default:  # case 2.
             warnings.warn_explicit('Passed deprecated argument "chunk_size", please use "chunksize"',
@@ -106,7 +106,7 @@ def featurizer(topfile):
 
     Returns
     -------
-    feat : :class:`Featurizer <pyemma.coordinates.data.featurization.featurizer.MDFeaturizer>`
+    feat : :class:`Featurizer <pyerna.coordinates.data.featurization.featurizer.MDFeaturizer>`
 
     Examples
     --------
@@ -114,31 +114,31 @@ def featurizer(topfile):
     Create a featurizer and add backbone torsion angles to active features.
     Then use it in :func:`source`
 
-    >>> import pyemma.coordinates # doctest: +SKIP
-    >>> feat = pyemma.coordinates.featurizer('my_protein.pdb') # doctest: +SKIP
+    >>> import pyerna.coordinates # doctest: +SKIP
+    >>> feat = pyerna.coordinates.featurizer('my_protein.pdb') # doctest: +SKIP
     >>> feat.add_backbone_torsions() # doctest: +SKIP
-    >>> reader = pyemma.coordinates.source(["my_traj01.xtc", "my_traj02.xtc"], features=feat) # doctest: +SKIP
+    >>> reader = pyerna.coordinates.source(["my_traj01.xtc", "my_traj02.xtc"], features=feat) # doctest: +SKIP
 
     or
 
     >>> traj = mdtraj.load('my_protein.pdb') # # doctest: +SKIP
-    >>> feat = pyemma.coordinates.featurizer(traj.topology) # doctest: +SKIP
+    >>> feat = pyerna.coordinates.featurizer(traj.topology) # doctest: +SKIP
 
-    .. autoclass:: pyemma.coordinates.data.featurization.featurizer.MDFeaturizer
+    .. autoclass:: pyerna.coordinates.data.featurization.featurizer.MDFeaturizer
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.data.featurization.featurizer.MDFeaturizer
+        .. autoautosummary:: pyerna.coordinates.data.featurization.featurizer.MDFeaturizer
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.data.featurization.featurizer.MDFeaturizer
+        .. autoautosummary:: pyerna.coordinates.data.featurization.featurizer.MDFeaturizer
             :attributes:
     """
-    from pyemma.coordinates.data.featurization.featurizer import MDFeaturizer
+    from pyerna.coordinates.data.featurization.featurizer import MDFeaturizer
     return MDFeaturizer(topfile)
 
 
@@ -153,7 +153,7 @@ def load(trajfiles, features=None, top=None, stride=1, chunksize=None, **kw):
     ----------
     trajfiles : str, list of str or nested list (one level) of str
         A filename or a list of filenames to trajectory files that can be
-        processed by pyemma. Both molecular dynamics trajectory files and raw
+        processed by pyerna. Both molecular dynamics trajectory files and raw
         data files (tabulated ASCII or binary) can be loaded.
 
         If a nested list of filenames is given, eg.:
@@ -219,7 +219,7 @@ def load(trajfiles, features=None, top=None, stride=1, chunksize=None, **kw):
 
     See also
     --------
-    :func:`pyemma.coordinates.source`
+    :func:`pyerna.coordinates.source`
         if your memory is not big enough, specify data source and put it into your
         transformation or clustering algorithms instead of the loaded data. This
         will stream the data and save memory on the cost of longer processing
@@ -228,13 +228,13 @@ def load(trajfiles, features=None, top=None, stride=1, chunksize=None, **kw):
     Examples
     --------
 
-    >>> from pyemma.coordinates import load
+    >>> from pyerna.coordinates import load
     >>> files = ['traj01.xtc', 'traj02.xtc'] # doctest: +SKIP
     >>> output = load(files, top='my_structure.pdb') # doctest: +SKIP
 
     """
-    from pyemma.coordinates.data.util.reader_utils import create_file_reader
-    from pyemma.util.reflection import get_default_args
+    from pyerna.coordinates.data.util.reader_utils import create_file_reader
+    from pyerna.util.reflection import get_default_args
     cs = _check_old_chunksize_arg(chunksize, get_default_args(load)['chunksize'], **kw)
     if isinstance(trajfiles, _string_types) or (
         isinstance(trajfiles, (list, tuple))
@@ -254,8 +254,8 @@ def source(inp, features=None, top=None, chunksize=None, **kw):
     r""" Defines trajectory data source
 
     This function defines input trajectories without loading them. You can pass
-    the resulting object into transformers such as :func:`pyemma.coordinates.tica`
-    or clustering algorithms such as :func:`pyemma.coordinates.cluster_kmeans`.
+    the resulting object into transformers such as :func:`pyerna.coordinates.tica`
+    or clustering algorithms such as :func:`pyerna.coordinates.cluster_kmeans`.
     Then, the data will be streamed instead of being loaded, thus saving memory.
 
     You can also use this function to construct the first stage of a data
@@ -312,15 +312,15 @@ def source(inp, features=None, top=None, chunksize=None, **kw):
 
     Returns
     -------
-    reader : :class:`DataSource <pyemma.coordinates.data._base.datasource.DataSource>` object
+    reader : :class:`DataSource <pyerna.coordinates.data._base.datasource.DataSource>` object
 
     See also
     --------
-    :func:`pyemma.coordinates.load`
+    :func:`pyerna.coordinates.load`
         If your memory is big enough to load all features into memory, don't
         bother using source - working in memory is faster!
 
-    :func:`pyemma.coordinates.pipeline`
+    :func:`pyerna.coordinates.pipeline`
         The data input is the first stage for your pipeline. Add other stages
         to it and build a pipeline to analyze big data in streaming mode.
 
@@ -330,7 +330,7 @@ def source(inp, features=None, top=None, chunksize=None, **kw):
     Create a reader for NumPy files:
 
     >>> import numpy as np
-    >>> from pyemma.coordinates import source
+    >>> from pyerna.coordinates import source
     >>> reader = source(['001.npy', '002.npy'] # doctest: +SKIP
 
     Create a reader for trajectory files and select some distance as feature:
@@ -348,7 +348,7 @@ def source(inp, features=None, top=None, chunksize=None, **kw):
 
     >>> data = np.random.random(int(1e6))
     >>> reader = source(data, chunksize=1000)
-    >>> from pyemma.coordinates import cluster_regspace
+    >>> from pyerna.coordinates import cluster_regspace
     >>> regspace = cluster_regspace(reader, dmin=0.1)
 
     Returns
@@ -356,25 +356,25 @@ def source(inp, features=None, top=None, chunksize=None, **kw):
 
     reader : a reader instance
 
-    .. autoclass:: pyemma.coordinates.data.interface.ReaderInterface
+    .. autoclass:: pyerna.coordinates.data.interface.ReaderInterface
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.data.interface.ReaderInterface
+        .. autoautosummary:: pyerna.coordinates.data.interface.ReaderInterface
             :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.data.interface.ReaderInterface
+        .. autoautosummary:: pyerna.coordinates.data.interface.ReaderInterface
             :attributes:
 
     """
-    from pyemma.coordinates.data._base.iterable import Iterable
-    from pyemma.coordinates.data.util.reader_utils import create_file_reader
+    from pyerna.coordinates.data._base.iterable import Iterable
+    from pyerna.coordinates.data.util.reader_utils import create_file_reader
 
-    from pyemma.util.reflection import get_default_args
+    from pyerna.util.reflection import get_default_args
     cs = _check_old_chunksize_arg(chunksize, get_default_args(source)['chunksize'], **kw)
 
     # CASE 1: input is a string or list of strings
@@ -392,7 +392,7 @@ def source(inp, features=None, top=None, chunksize=None, **kw):
         # check: if single array, create a one-element list
         # check: do all arrays have compatible dimensions (*, N)? If not: raise ValueError.
         # create MemoryReader
-        from pyemma.coordinates.data.data_in_memory import DataInMemory as _DataInMemory
+        from pyerna.coordinates.data.data_in_memory import DataInMemory as _DataInMemory
         reader = _DataInMemory(inp, chunksize=cs, **kw)
     elif isinstance(inp, Iterable):
         inp.chunksize = cs
@@ -428,17 +428,17 @@ def combine_sources(sources, chunksize=None):
 
     Returns
     -------
-    merger : :class:`SourcesMerger <pyemma.coordinates.data.sources_merger.SourcesMerger>`
+    merger : :class:`SourcesMerger <pyerna.coordinates.data.sources_merger.SourcesMerger>`
 
     """
-    from pyemma.coordinates.data.sources_merger import SourcesMerger
+    from pyerna.coordinates.data.sources_merger import SourcesMerger
     return SourcesMerger(sources, chunk=chunksize)
 
 
 def pipeline(stages, run=True, stride=1, chunksize=None):
     r""" Data analysis pipeline.
 
-    Constructs a data analysis :class:`Pipeline <pyemma.coordinates.pipelines.Pipeline>` and parametrizes it
+    Constructs a data analysis :class:`Pipeline <pyerna.coordinates.pipelines.Pipeline>` and parametrizes it
     (unless prevented).
     If this function takes too long, consider loading data in memory.
     Alternatively if the data is to large to be loaded into memory make use
@@ -473,14 +473,14 @@ def pipeline(stages, run=True, stride=1, chunksize=None):
 
     Returns
     -------
-    pipe : :class:`Pipeline <pyemma.coordinates.pipelines.Pipeline>`
+    pipe : :class:`Pipeline <pyerna.coordinates.pipelines.Pipeline>`
         A pipeline object that is able to conduct big data analysis with
         limited memory in streaming mode.
 
     Examples
     --------
     >>> import numpy as np
-    >>> from pyemma.coordinates import source, tica, assign_to_centers, pipeline
+    >>> from pyerna.coordinates import source, tica, assign_to_centers, pipeline
 
     Create some random data and cluster centers:
 
@@ -498,22 +498,22 @@ def pipeline(stages, run=True, stride=1, chunksize=None):
     >>> pipe = pipeline([reader, tica_obj, assign])
     >>> pipe.parametrize()
 
-    .. autoclass:: pyemma.coordinates.pipelines.Pipeline
+    .. autoclass:: pyerna.coordinates.pipelines.Pipeline
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.pipelines.Pipeline
+        .. autoautosummary:: pyerna.coordinates.pipelines.Pipeline
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.pipelines.Pipeline
+        .. autoautosummary:: pyerna.coordinates.pipelines.Pipeline
             :attributes:
 
     """
-    from pyemma.coordinates.pipelines import Pipeline
+    from pyerna.coordinates.pipelines import Pipeline
 
     if not isinstance(stages, list):
         stages = [stages]
@@ -544,14 +544,14 @@ def discretizer(reader,
     Parameters
     ----------
 
-    reader : instance of :class:`pyemma.coordinates.data.reader.ChunkedReader`
+    reader : instance of :class:`pyerna.coordinates.data.reader.ChunkedReader`
         The reader instance provides access to the data. If you are working
         with MD data, you most likely want to use a FeatureReader.
 
-    transform : instance of :class: `pyemma.coordinates.Transformer`
+    transform : instance of :class: `pyerna.coordinates.Transformer`
         an optional transform like PCA/TICA etc.
 
-    cluster : instance of :class: `pyemma.coordinates.AbstractClustering`
+    cluster : instance of :class: `pyerna.coordinates.AbstractClustering`
         clustering Transformer (optional) a cluster algorithm to assign
         transformed data to discrete states.
 
@@ -571,7 +571,7 @@ def discretizer(reader,
 
     Returns
     -------
-    pipe : a :class:`Pipeline <pyemma.coordinates.pipelines.Discretizer>` object
+    pipe : a :class:`Pipeline <pyerna.coordinates.pipelines.Discretizer>` object
         A pipeline object that is able to streamline data analysis of large
         amounts of input data with limited memory in streaming mode.
 
@@ -582,9 +582,9 @@ def discretizer(reader,
     with a PCA transformation and cluster the principal components
     with uniform time clustering:
 
-    >>> from pyemma.coordinates import source, pca, cluster_regspace, discretizer
-    >>> from pyemma.datasets import get_bpti_test_data
-    >>> from pyemma.util.contexts import settings
+    >>> from pyerna.coordinates import source, pca, cluster_regspace, discretizer
+    >>> from pyerna.datasets import get_bpti_test_data
+    >>> from pyerna.util.contexts import settings
     >>> reader = source(get_bpti_test_data()['trajs'], top=get_bpti_test_data()['top'])
     >>> transform = pca(dim=2)
     >>> cluster = cluster_regspace(dmin=0.1)
@@ -598,30 +598,30 @@ def discretizer(reader,
 
     This will store the discrete trajectory to "traj01.dtraj":
 
-    >>> from pyemma.util.files import TemporaryDirectory
+    >>> from pyerna.util.files import TemporaryDirectory
     >>> import os
     >>> with TemporaryDirectory('dtrajs') as tmpdir:
     ...     disc.save_dtrajs(output_dir=tmpdir)
     ...     sorted(os.listdir(tmpdir))
     ['bpti_001-033.dtraj', 'bpti_034-066.dtraj', 'bpti_067-100.dtraj']
 
-    .. autoclass:: pyemma.coordinates.pipelines.Pipeline
+    .. autoclass:: pyerna.coordinates.pipelines.Pipeline
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.pipelines.Pipeline
+        .. autoautosummary:: pyerna.coordinates.pipelines.Pipeline
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.pipelines.Pipeline
+        .. autoautosummary:: pyerna.coordinates.pipelines.Pipeline
             :attributes:
 
     """
-    from pyemma.coordinates.clustering.kmeans import KmeansClustering
-    from pyemma.coordinates.pipelines import Discretizer
+    from pyerna.coordinates.clustering.kmeans import KmeansClustering
+    from pyerna.coordinates.pipelines import Discretizer
     if cluster is None:
         _logger.warning('You did not specify a cluster algorithm.'
                         ' Defaulting to kmeans(k=100)')
@@ -648,9 +648,9 @@ def save_traj(traj_inp, indexes, outfile, top=None, stride = 1, chunksize=None, 
             1. a python list of strings containing the filenames associated with
             the indices in :py:obj:`indexes`. With this type of input, a :py:obj:`topfile` is mandatory.
 
-            2. a :py:func:`pyemma.coordinates.data.feature_reader.FeatureReader`
+            2. a :py:func:`pyerna.coordinates.data.feature_reader.FeatureReader`
             object containing the filename list in :py:obj:`traj_inp.trajfiles`.
-            Please use :py:func:`pyemma.coordinates.source` to construct it.
+            Please use :py:func:`pyerna.coordinates.source` to construct it.
             With this type of input, the input :py:obj:`topfile` will be ignored.
             and :py:obj:`traj_inp.topfile` will be used instead
 
@@ -681,7 +681,7 @@ def save_traj(traj_inp, indexes, outfile, top=None, stride = 1, chunksize=None, 
 
     chunksize : int. Default=None.
         The chunksize for reading input trajectory files. If :py:obj:`traj_inp`
-        is a :py:func:`pyemma.coordinates.data.feature_reader.FeatureReader` object,
+        is a :py:func:`pyerna.coordinates.data.feature_reader.FeatureReader` object,
         this input variable will be ignored and :py:obj:`traj_inp.chunksize` will be used instead.
 
     image_molecules: boolean, default is False
@@ -699,10 +699,10 @@ def save_traj(traj_inp, indexes, outfile, top=None, stride = 1, chunksize=None, 
     """
     from mdtraj import Topology, Trajectory
 
-    from pyemma.coordinates.data.feature_reader import FeatureReader
-    from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
-    from pyemma.coordinates.data.util.frames_from_file import frames_from_files
-    from pyemma.coordinates.data.util.reader_utils import enforce_top
+    from pyerna.coordinates.data.feature_reader import FeatureReader
+    from pyerna.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+    from pyerna.coordinates.data.util.frames_from_file import frames_from_files
+    from pyerna.coordinates.data.util.reader_utils import enforce_top
     import itertools
 
     # Determine the type of input and extract necessary parameters
@@ -774,8 +774,8 @@ def save_trajs(traj_inp, indexes, prefix='set_', fmt=None, outfiles=None,
 
     Parameters
     ----------
-    traj_inp : :py:class:`pyemma.coordinates.data.feature_reader.FeatureReader`
-        A data source as provided by Please use :py:func:`pyemma.coordinates.source` to construct it.
+    traj_inp : :py:class:`pyerna.coordinates.data.feature_reader.FeatureReader`
+        A data source as provided by Please use :py:func:`pyerna.coordinates.source` to construct it.
 
     indexes : list of ndarray(T_i, 2)
         A list of N arrays, each of size (T_n x 2) for writing N trajectories
@@ -912,7 +912,7 @@ def pca(data=None, dim=-1, var_cutoff=0.95, stride=1, mean=None, skip=0, chunksi
 
     dim : int, optional, default -1
         the number of dimensions (principal components) to project onto. A
-        call to the :func:`map <pyemma.coordinates.transform.PCA.map>` function reduces the d-dimensional
+        call to the :func:`map <pyerna.coordinates.transform.PCA.map>` function reduces the d-dimensional
         input to only dim dimensions such that the data preserves the
         maximum possible variance amongst dim-dimensional linear projections.
         -1 means all numerically available dimensions will be used unless
@@ -950,7 +950,7 @@ def pca(data=None, dim=-1, var_cutoff=0.95, stride=1, mean=None, skip=0, chunksi
 
     Returns
     -------
-    pca : a :class:`PCA<pyemma.coordinates.transform.PCA>` transformation object
+    pca : a :class:`PCA<pyerna.coordinates.transform.PCA>` transformation object
         Object for Principle component analysis (PCA) analysis.
         It contains PCA eigenvalues and eigenvectors, and the projection of
         input data to the dominant PCA
@@ -978,23 +978,23 @@ def pca(data=None, dim=-1, var_cutoff=0.95, stride=1, mean=None, skip=0, chunksi
 
     See also
     --------
-    :class:`PCA <pyemma.coordinates.transform.PCA>` : pca object
+    :class:`PCA <pyerna.coordinates.transform.PCA>` : pca object
 
-    :func:`tica <pyemma.coordinates.tica>` : for time-lagged independent component analysis
+    :func:`tica <pyerna.coordinates.tica>` : for time-lagged independent component analysis
 
 
-    .. autoclass:: pyemma.coordinates.transform.pca.PCA
+    .. autoclass:: pyerna.coordinates.transform.pca.PCA
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.transform.pca.PCA
+        .. autoautosummary:: pyerna.coordinates.transform.pca.PCA
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.transform.pca.PCA
+        .. autoautosummary:: pyerna.coordinates.transform.pca.PCA
             :attributes:
 
     References
@@ -1008,14 +1008,14 @@ def pca(data=None, dim=-1, var_cutoff=0.95, stride=1, mean=None, skip=0, chunksi
         J. Edu. Psych. 24, 417-441 and 498-520.
 
     """
-    from pyemma.coordinates.transform.pca import PCA
+    from pyerna.coordinates.transform.pca import PCA
 
     if mean is not None:
         import warnings
         warnings.warn("provided mean ignored", DeprecationWarning)
 
     res = PCA(dim=dim, var_cutoff=var_cutoff, mean=None, skip=skip, stride=stride)
-    from pyemma.util.reflection import get_default_args
+    from pyerna.util.reflection import get_default_args
     cs = _check_old_chunksize_arg(chunksize, get_default_args(pca)['chunksize'], **kwargs)
     if data is not None:
         res.estimate(data, chunksize=cs)
@@ -1056,7 +1056,7 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, commute_m
 
     dim : int, optional, default -1
         the number of dimensions (independent components) to project onto. A
-        call to the :func:`map <pyemma.coordinates.transform.TICA.map>` function
+        call to the :func:`map <pyerna.coordinates.transform.TICA.map>` function
         reduces the d-dimensional input to only dim dimensions such that the
         data preserves the maximum possible autocorrelation amongst
         dim-dimensional linear projections. -1 means all numerically available
@@ -1117,7 +1117,7 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, commute_m
 
     Returns
     -------
-    tica : a :class:`TICA <pyemma.coordinates.transform.TICA>` transformation object
+    tica : a :class:`TICA <pyerna.coordinates.transform.TICA>` transformation object
         Object for time-lagged independent component (TICA) analysis.
         it contains TICA eigenvalues and eigenvectors, and the projection of
         input data to the dominant TICA
@@ -1161,7 +1161,7 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, commute_m
     Invoke TICA transformation with a given lag time and output dimension:
 
     >>> import numpy as np
-    >>> from pyemma.coordinates import tica
+    >>> from pyerna.coordinates import tica
     >>> data = np.random.random((100,3))
     >>> projected_data = tica(data, lag=2, dim=1).get_output()[0]
 
@@ -1171,23 +1171,23 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, commute_m
 
     See also
     --------
-    :class:`TICA <pyemma.coordinates.transform.TICA>` : tica object
+    :class:`TICA <pyerna.coordinates.transform.TICA>` : tica object
 
-    :func:`pca <pyemma.coordinates.pca>` : for principal component analysis
+    :func:`pca <pyerna.coordinates.pca>` : for principal component analysis
 
 
-    .. autoclass:: pyemma.coordinates.transform.tica.TICA
+    .. autoclass:: pyerna.coordinates.transform.tica.TICA
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.transform.tica.TICA
+        .. autoautosummary:: pyerna.coordinates.transform.tica.TICA
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.transform.tica.TICA
+        .. autoautosummary:: pyerna.coordinates.transform.tica.TICA
             :attributes:
 
     References
@@ -1219,10 +1219,10 @@ def tica(data=None, lag=10, dim=-1, var_cutoff=0.95, kinetic_map=True, commute_m
         computing sample variances. Technical Report STAN-CS-79-773, Department of Computer Science, Stanford University.
 
     """
-    from pyemma.coordinates.transform.tica import TICA
-    from pyemma.coordinates.estimation.koopman import _KoopmanEstimator
+    from pyerna.coordinates.transform.tica import TICA
+    from pyerna.coordinates.estimation.koopman import _KoopmanEstimator
     import types
-    from pyemma.util.reflection import get_default_args
+    from pyerna.util.reflection import get_default_args
     cs = _check_old_chunksize_arg(chunksize, get_default_args(tica)['chunksize'], **kwargs)
 
     if isinstance(weights, _string_types):
@@ -1317,7 +1317,7 @@ def vamp(data=None, lag=10, dim=None, scaling=None, right=False, ncov_max=float(
 
       Returns
       -------
-      vamp : a :class:`VAMP <pyemma.coordinates.transform.VAMP>` transformation object
+      vamp : a :class:`VAMP <pyerna.coordinates.transform.VAMP>` transformation object
          It contains the definitions of singular functions and singular values and
          can be used to project input data to the dominant VAMP components, predict
          expectations and time-lagged covariances and perform a Chapman-Kolmogorov
@@ -1416,7 +1416,7 @@ def vamp(data=None, lag=10, dim=None, scaling=None, right=False, ncov_max=float(
       .. [3] Chan, T. F., Golub G. H., LeVeque R. J. 1979. Updating formulae and pairwiese algorithms for
          computing sample variances. Technical Report STAN-CS-79-773, Department of Computer Science, Stanford University.
     """
-    from pyemma.coordinates.transform.vamp import VAMP
+    from pyerna.coordinates.transform.vamp import VAMP
     res = VAMP(lag, dim=dim, scaling=scaling, right=right, skip=skip, ncov_max=ncov_max)
     if data is not None:
         res.estimate(data, stride=stride, chunksize=chunksize)
@@ -1472,7 +1472,7 @@ def tica_nystroem(max_columns, data=None, lag=10,
 
     Returns
     -------
-    tica_nystroem : a :class:`NystroemTICA <pyemma.coordinates.transform.NystroemTICA>`
+    tica_nystroem : a :class:`NystroemTICA <pyerna.coordinates.transform.NystroemTICA>`
                     transformation object
         Object for sparse sampling time-lagged independent component (TICA) analysis.
         It contains TICA eigenvalues and eigenvectors, and the projection of
@@ -1481,7 +1481,7 @@ def tica_nystroem(max_columns, data=None, lag=10,
     Notes
     -----
     Perform a sparse approximation of time-lagged independent component analysis (TICA)
-    :class:`TICA <pyemma.coordinates.transform.TICA>`. The starting point is the
+    :class:`TICA <pyerna.coordinates.transform.TICA>`. The starting point is the
     generalized eigenvalue problem
 
     .. math:: C_{\tau} r_i = C_0 \lambda_i(\tau) r_i.
@@ -1519,7 +1519,7 @@ def tica_nystroem(max_columns, data=None, lag=10,
        arXiv: 1505.05208 [stat.ML].
 
     """
-    from pyemma.coordinates.transform.nystroem_tica import NystroemTICA
+    from pyerna.coordinates.transform.nystroem_tica import NystroemTICA
     res = NystroemTICA(lag, max_columns,
                        dim=dim, var_cutoff=var_cutoff, epsilon=epsilon,
                        stride=stride, skip=skip, reversible=reversible,
@@ -1593,7 +1593,7 @@ def covariance_lagged(data=None, c00=True, c0t=True, ctt=False, remove_constant_
 
     Returns
     -------
-    lc : a :class:`LaggedCovariance <pyemma.coordinates.estimation.covariance.LaggedCovariance>` object.
+    lc : a :class:`LaggedCovariance <pyerna.coordinates.estimation.covariance.LaggedCovariance>` object.
 
 
     .. [1] Wu, H., Nueske, F., Paul, F., Klus, S., Koltai, P., and Noe, F. 2016. Bias reduced variational
@@ -1601,8 +1601,8 @@ def covariance_lagged(data=None, c00=True, c0t=True, ctt=False, remove_constant_
     .. [2] Chan, T. F., Golub G. H., LeVeque R. J. 1979. Updating formulae and pairwiese algorithms for
         computing sample variances. Technical Report STAN-CS-79-773, Department of Computer Science, Stanford University.
     """
-    from pyemma.coordinates.estimation.covariance import LaggedCovariance
-    from pyemma.coordinates.estimation.koopman import _KoopmanEstimator
+    from pyerna.coordinates.estimation.covariance import LaggedCovariance
+    from pyerna.coordinates.estimation.koopman import _KoopmanEstimator
     import types
     if isinstance(weights, _string_types):
         if weights== "koopman":
@@ -1651,27 +1651,27 @@ def cluster_mini_batch_kmeans(data=None, k=100, max_iter=10, batch_size=0.2, met
 
     Returns
     -------
-    kmeans_mini : a :class:`MiniBatchKmeansClustering <pyemma.coordinates.clustering.MiniBatchKmeansClustering>` clustering object
+    kmeans_mini : a :class:`MiniBatchKmeansClustering <pyerna.coordinates.clustering.MiniBatchKmeansClustering>` clustering object
         Object for mini-batch kmeans clustering.
         It holds discrete trajectories and cluster center information.
 
     See also
     --------
-    :func:`kmeans <pyemma.coordinates.kmeans>` : for full k-means clustering
+    :func:`kmeans <pyerna.coordinates.kmeans>` : for full k-means clustering
 
 
-    .. autoclass:: pyemma.coordinates.clustering.kmeans.MiniBatchKmeansClustering
+    .. autoclass:: pyerna.coordinates.clustering.kmeans.MiniBatchKmeansClustering
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.clustering.kmeans.MiniBatchKmeansClustering
+        .. autoautosummary:: pyerna.coordinates.clustering.kmeans.MiniBatchKmeansClustering
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.clustering.kmeans.MiniBatchKmeansClustering
+        .. autoautosummary:: pyerna.coordinates.clustering.kmeans.MiniBatchKmeansClustering
             :attributes:
 
     References
@@ -1679,10 +1679,10 @@ def cluster_mini_batch_kmeans(data=None, k=100, max_iter=10, batch_size=0.2, met
     .. [1] http://www.eecs.tufts.edu/~dsculley/papers/fastkmeans.pdf
 
     """
-    from pyemma.coordinates.clustering.kmeans import MiniBatchKmeansClustering
+    from pyerna.coordinates.clustering.kmeans import MiniBatchKmeansClustering
     res = MiniBatchKmeansClustering(n_clusters=k, max_iter=max_iter, metric=metric, init_strategy=init_strategy,
                                     batch_size=batch_size, n_jobs=n_jobs, skip=skip, clustercenters=clustercenters)
-    from pyemma.util.reflection import get_default_args
+    from pyerna.util.reflection import get_default_args
     cs = _check_old_chunksize_arg(chunksize, get_default_args(cluster_mini_batch_kmeans)['chunksize'], **kwargs)
     if data is not None:
         res.estimate(data, chunksize=cs)
@@ -1697,10 +1697,10 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
     r"""k-means clustering
 
     If data is given, it performs a k-means clustering and then assigns the
-    data using a Voronoi discretization. It returns a :class:`KmeansClustering <pyemma.coordinates.clustering.KmeansClustering>`
+    data using a Voronoi discretization. It returns a :class:`KmeansClustering <pyerna.coordinates.clustering.KmeansClustering>`
     object that can be used to extract the discretized data sequences, or to
     assign other data points to the same partition. If data is not given, an
-    empty :class:`KmeansClustering <pyemma.coordinates.clustering.KmeansClustering>`
+    empty :class:`KmeansClustering <pyerna.coordinates.clustering.KmeansClustering>`
     will be created that still needs to be parametrized, e.g. in a :func:`pipeline`.
 
     Parameters
@@ -1766,7 +1766,7 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
 
     Returns
     -------
-    kmeans : a :class:`KmeansClustering <pyemma.coordinates.clustering.KmeansClustering>` clustering object
+    kmeans : a :class:`KmeansClustering <pyerna.coordinates.clustering.KmeansClustering>` clustering object
         Object for kmeans clustering.
         It holds discrete trajectories and cluster center information.
 
@@ -1775,8 +1775,8 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
     --------
 
     >>> import numpy as np
-    >>> from pyemma.util.contexts import settings
-    >>> import pyemma.coordinates as coor
+    >>> from pyerna.util.contexts import settings
+    >>> import pyerna.coordinates as coor
     >>> traj_data = [np.random.random((100, 3)), np.random.random((100,3))]
     >>> with settings(show_progress_bars=False):
     ...     cluster_obj = coor.cluster_kmeans(traj_data, k=20, stride=1)
@@ -1786,18 +1786,18 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
     .. seealso:: **Theoretical background**: `Wiki page <http://en.wikipedia.org/wiki/K-means_clustering>`_
 
 
-    .. autoclass:: pyemma.coordinates.clustering.kmeans.KmeansClustering
+    .. autoclass:: pyerna.coordinates.clustering.kmeans.KmeansClustering
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.clustering.kmeans.KmeansClustering
+        .. autoautosummary:: pyerna.coordinates.clustering.kmeans.KmeansClustering
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.clustering.kmeans.KmeansClustering
+        .. autoautosummary:: pyerna.coordinates.clustering.kmeans.KmeansClustering
             :attributes:
 
     References
@@ -1815,11 +1815,11 @@ def cluster_kmeans(data=None, k=None, max_iter=10, tolerance=1e-5, stride=1,
         Probability 1. University of California Press. pp. 281-297
 
     """
-    from pyemma.coordinates.clustering.kmeans import KmeansClustering
+    from pyerna.coordinates.clustering.kmeans import KmeansClustering
     res = KmeansClustering(n_clusters=k, max_iter=max_iter, metric=metric, tolerance=tolerance,
                            init_strategy=init_strategy, fixed_seed=fixed_seed, n_jobs=n_jobs, skip=skip,
                            keep_data=keep_data, clustercenters=clustercenters, stride=stride)
-    from pyemma.util.reflection import get_default_args
+    from pyerna.util.reflection import get_default_args
     cs = _check_old_chunksize_arg(chunksize, get_default_args(cluster_kmeans)['chunksize'], **kwargs)
     if data is not None:
         res.estimate(data, chunksize=cs)
@@ -1834,10 +1834,10 @@ def cluster_uniform_time(data=None, k=None, stride=1, metric='euclidean',
 
     If given data, performs a clustering that selects data points uniformly in
     time and then assigns the data using a Voronoi discretization. Returns a
-    :class:`UniformTimeClustering <pyemma.coordinates.clustering.UniformTimeClustering>` object
+    :class:`UniformTimeClustering <pyerna.coordinates.clustering.UniformTimeClustering>` object
     that can be used to extract the discretized data sequences, or to assign
     other data points to the same partition. If data is not given, an empty
-    :class:`UniformTimeClustering <pyemma.coordinates.clustering.UniformTimeClustering>` will be created that
+    :class:`UniformTimeClustering <pyerna.coordinates.clustering.UniformTimeClustering>` will be created that
     still needs to be parametrized, e.g. in a :func:`pipeline`.
 
     Parameters
@@ -1876,29 +1876,29 @@ def cluster_uniform_time(data=None, k=None, stride=1, metric='euclidean',
 
     Returns
     -------
-    uniformTime : a :class:`UniformTimeClustering <pyemma.coordinates.clustering.UniformTimeClustering>` clustering object
+    uniformTime : a :class:`UniformTimeClustering <pyerna.coordinates.clustering.UniformTimeClustering>` clustering object
         Object for uniform time clustering.
         It holds discrete trajectories and cluster center information.
 
 
-    .. autoclass:: pyemma.coordinates.clustering.uniform_time.UniformTimeClustering
+    .. autoclass:: pyerna.coordinates.clustering.uniform_time.UniformTimeClustering
          :members:
          :undoc-members:
 
          .. rubric:: Methods
 
-         .. autoautosummary:: pyemma.coordinates.clustering.uniform_time.UniformTimeClustering
+         .. autoautosummary:: pyerna.coordinates.clustering.uniform_time.UniformTimeClustering
             :methods:
 
          .. rubric:: Attributes
 
-         .. autoautosummary:: pyemma.coordinates.clustering.uniform_time.UniformTimeClustering
+         .. autoautosummary:: pyerna.coordinates.clustering.uniform_time.UniformTimeClustering
              :attributes:
 
     """
-    from pyemma.coordinates.clustering.uniform_time import UniformTimeClustering
+    from pyerna.coordinates.clustering.uniform_time import UniformTimeClustering
     res = UniformTimeClustering(k, metric=metric, n_jobs=n_jobs, skip=skip, stride=stride)
-    from pyemma.util.reflection import get_default_args
+    from pyerna.util.reflection import get_default_args
     cs = _check_old_chunksize_arg(chunksize, get_default_args(cluster_uniform_time)['chunksize'], **kwargs)
     if data is not None:
         res.estimate(data, chunksize=cs)
@@ -1912,10 +1912,10 @@ def cluster_regspace(data=None, dmin=-1, max_centers=1000, stride=1, metric='euc
     r"""Regular space clustering
 
     If given data, it performs a regular space clustering [1]_ and returns a
-    :class:`RegularSpaceClustering <pyemma.coordinates.clustering.RegularSpaceClustering>` object that
+    :class:`RegularSpaceClustering <pyerna.coordinates.clustering.RegularSpaceClustering>` object that
     can be used to extract the discretized data sequences, or to assign other
     data points to the same partition. If data is not given, an empty
-    :class:`RegularSpaceClustering <pyemma.coordinates.clustering.RegularSpaceClustering>` will be created
+    :class:`RegularSpaceClustering <pyerna.coordinates.clustering.RegularSpaceClustering>` will be created
     that still needs to be parametrized, e.g. in a :func:`pipeline`.
 
     Regular space clustering is very similar to Hartigan's leader algorithm [2]_.
@@ -1965,23 +1965,23 @@ def cluster_regspace(data=None, dmin=-1, max_centers=1000, stride=1, metric='euc
 
     Returns
     -------
-    regSpace : a :class:`RegularSpaceClustering <pyemma.coordinates.clustering.RegularSpaceClustering>` clustering  object
+    regSpace : a :class:`RegularSpaceClustering <pyerna.coordinates.clustering.RegularSpaceClustering>` clustering  object
         Object for regular space clustering.
         It holds discrete trajectories and cluster center information.
 
 
-    .. autoclass:: pyemma.coordinates.clustering.regspace.RegularSpaceClustering
+    .. autoclass:: pyerna.coordinates.clustering.regspace.RegularSpaceClustering
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.clustering.regspace.RegularSpaceClustering
+        .. autoautosummary:: pyerna.coordinates.clustering.regspace.RegularSpaceClustering
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.clustering.regspace.RegularSpaceClustering
+        .. autoautosummary:: pyerna.coordinates.clustering.regspace.RegularSpaceClustering
             :attributes:
 
     References
@@ -1996,10 +1996,10 @@ def cluster_regspace(data=None, dmin=-1, max_centers=1000, stride=1, metric='euc
     """
     if dmin == -1:
         raise ValueError("provide a minimum distance for clustering, e.g. 2.0")
-    from pyemma.coordinates.clustering.regspace import RegularSpaceClustering as _RegularSpaceClustering
+    from pyerna.coordinates.clustering.regspace import RegularSpaceClustering as _RegularSpaceClustering
     res = _RegularSpaceClustering(dmin, max_centers=max_centers, metric=metric,
                                   n_jobs=n_jobs, stride=stride, skip=skip)
-    from pyemma.util.reflection import get_default_args
+    from pyerna.util.reflection import get_default_args
     cs = _check_old_chunksize_arg(chunksize, get_default_args(cluster_regspace)['chunksize'], **kwargs)
     if data is not None:
         res.estimate(data, chunksize=cs)
@@ -2051,7 +2051,7 @@ def assign_to_centers(data=None, centers=None, stride=1, return_dtrajs=True,
 
     Returns
     -------
-    assignment : list of integer arrays or an :class:`AssignCenters <pyemma.coordinates.clustering.AssignCenters>` object
+    assignment : list of integer arrays or an :class:`AssignCenters <pyerna.coordinates.clustering.AssignCenters>` object
         assigned data
 
     Examples
@@ -2070,27 +2070,27 @@ def assign_to_centers(data=None, centers=None, stride=1, return_dtrajs=True,
     [array([...
 
 
-    .. autoclass:: pyemma.coordinates.clustering.assign.AssignCenters
+    .. autoclass:: pyerna.coordinates.clustering.assign.AssignCenters
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.coordinates.clustering.assign.AssignCenters
+        .. autoautosummary:: pyerna.coordinates.clustering.assign.AssignCenters
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.coordinates.clustering.assign.AssignCenters
+        .. autoautosummary:: pyerna.coordinates.clustering.assign.AssignCenters
             :attributes:
 
     """
     if centers is None:
         raise ValueError('You have to provide centers in form of a filename'
                          ' or NumPy array or a reader created by source function')
-    from pyemma.coordinates.clustering.assign import AssignCenters
+    from pyerna.coordinates.clustering.assign import AssignCenters
     res = AssignCenters(centers, metric=metric, n_jobs=n_jobs, skip=skip, stride=stride)
-    from pyemma.util.reflection import get_default_args
+    from pyerna.util.reflection import get_default_args
     cs = _check_old_chunksize_arg(chunksize, get_default_args(assign_to_centers)['chunksize'], **kwargs)
     if data is not None:
         res.estimate(data, chunksize=cs)

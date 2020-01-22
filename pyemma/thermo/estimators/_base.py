@@ -57,5 +57,5 @@ class ThermoBase(object):
     def dt_traj(self, value):
         # time step
         self._dt_traj = value
-        from pyemma.util.units import TimeUnit
+        from pyerna.util.units import TimeUnit
         self.timestep_traj = TimeUnit(self.dt_traj)

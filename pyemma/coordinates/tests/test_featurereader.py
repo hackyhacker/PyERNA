@@ -25,10 +25,10 @@ import glob
 import tempfile
 import unittest
 
-from pyemma.coordinates import api
-from pyemma.coordinates.api import discretizer, tica, source
-from pyemma.coordinates.data.data_in_memory import DataInMemoryIterator
-from pyemma.coordinates.data.feature_reader import FeatureReader
+from pyerna.coordinates import api
+from pyerna.coordinates.api import discretizer, tica, source
+from pyerna.coordinates.data.data_in_memory import DataInMemoryIterator
+from pyerna.coordinates.data.feature_reader import FeatureReader
 from logging import getLogger
 import mdtraj
 import pkg_resources
@@ -36,9 +36,9 @@ import pkg_resources
 
 import numpy as np
 
-from pyemma.coordinates.tests.util import create_traj
+from pyerna.coordinates.tests.util import create_traj
 
-log = getLogger('pyemma.' + 'TestFeatureReader')
+log = getLogger('pyerna.' + 'TestFeatureReader')
 
 
 class TestFeatureReader(unittest.TestCase):
@@ -159,8 +159,8 @@ class TestFeatureReader(unittest.TestCase):
                 np.testing.assert_equal(x, ref)
 
     def test_cols_with_features(self):
-        trajs = glob.glob(pkg_resources.resource_filename('pyemma.coordinates.tests', 'data/bpti_mini.xtc'))
-        top = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data/bpti_ca.pdb')
+        trajs = glob.glob(pkg_resources.resource_filename('pyerna.coordinates.tests', 'data/bpti_mini.xtc'))
+        top = pkg_resources.resource_filename('pyerna.coordinates.tests', 'data/bpti_ca.pdb')
         reader = api.source(trajs, top=top)
         feat = reader.featurizer
         inds = feat.pairs(feat.select('name CA'))

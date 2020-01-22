@@ -21,9 +21,9 @@
 import numpy as np
 
 from msmtools import estimation as msmest
-from pyemma.util.annotators import alias, aliased
-from pyemma.util.linalg import submatrix
-from pyemma.util.discrete_trajectories import visited_set
+from pyerna.util.annotators import alias, aliased
+from pyerna.util.linalg import submatrix
+from pyerna.util.discrete_trajectories import visited_set
 
 __author__ = 'noe'
 
@@ -105,7 +105,7 @@ class DiscreteTrajectoryStats(object):
     """
 
     def __init__(self, dtrajs):
-        from pyemma.util.types import ensure_dtraj_list
+        from pyerna.util.types import ensure_dtraj_list
 
         # discrete trajectories
         self._dtrajs = ensure_dtraj_list(dtrajs)
@@ -210,14 +210,14 @@ class DiscreteTrajectoryStats(object):
         elif count_mode == 'effective':
             if core_set is not None:
                 raise RuntimeError('Cannot estimate core set MSM with effective counting.')
-            from pyemma.util.reflection import getargspec_no_self
+            from pyerna.util.reflection import getargspec_no_self
             argspec = getargspec_no_self(msmest.effective_count_matrix)
             kw = {}
-            from pyemma.util.contexts import nullcontext
+            from pyerna.util.contexts import nullcontext
             ctx = nullcontext()
             if 'callback' in argspec.args:  # msmtools effective cmatrix ready for multiprocessing?
-                from pyemma._base.progress import ProgressReporter
-                from pyemma._base.parallel import get_n_jobs
+                from pyerna._base.progress import ProgressReporter
+                from pyerna._base.parallel import get_n_jobs
 
                 kw['n_jobs'] = get_n_jobs() if n_jobs is None else n_jobs
 

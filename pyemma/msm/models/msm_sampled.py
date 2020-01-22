@@ -16,8 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pyemma._base.model import SampledModel
-from pyemma.msm.models.msm import MSM
+from pyerna._base.model import SampledModel
+from pyerna.msm.models.msm import MSM
 
 __author__ = 'noe'
 

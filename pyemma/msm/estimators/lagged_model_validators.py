@@ -19,13 +19,13 @@
 import math
 import numpy as np
 
-from pyemma._base.parallel import NJobsMixIn
-from pyemma._base.serialization.serialization import SerializableMixIn, Modifications
-from pyemma._base.estimator import Estimator, estimate_param_scan, param_grid
-from pyemma._base.model import SampledModel
-from pyemma._base.progress import ProgressReporterMixin
-from pyemma.util.statistics import confidence_interval
-from pyemma.util import types
+from pyerna._base.parallel import NJobsMixIn
+from pyerna._base.serialization.serialization import SerializableMixIn, Modifications
+from pyerna._base.estimator import Estimator, estimate_param_scan, param_grid
+from pyerna._base.model import SampledModel
+from pyerna._base.progress import ProgressReporterMixin
+from pyerna.util.statistics import confidence_interval
+from pyerna.util import types
 
 __author__ = 'noe'
 
@@ -315,7 +315,7 @@ class LaggedModelValidator(Estimator, ProgressReporterMixin, SerializableMixIn, 
 
     def __setstate__(self, state):
         try:
-            input_version = state['class_tree_versions']['pyemma.msm.estimators.lagged_model_validators.LaggedModelValidator']
+            input_version = state['class_tree_versions']['pyerna.msm.estimators.lagged_model_validators.LaggedModelValidator']
             if input_version == 0:
                 # this version passed the test_model in the ctor as model (reserved by Estimator),
                 # which lead to a lot of trouble.

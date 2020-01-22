@@ -6,9 +6,9 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 import os
-import pyemma
+import pyerna
 print("Generating doc for PyEMMA version {version} installed in {path}"
-      .format(version=pyemma.__version__, path=pyemma.__path__))
+      .format(version=pyerna.__version__, path=pyerna.__path__))
 
 # -- General configuration -----------------------------------------------
 # Add any Sphinx extension module names here, as strings. They can be extensions
@@ -98,7 +98,7 @@ copyright = u'2015-2019 CMB-group'
 # built documents.
 #
 # The short X.Y version.
-from pyemma import _version
+from pyerna import _version
 version = _version.get_versions()['version']
 # The full version, including alpha/beta/rc tags.
 release = version

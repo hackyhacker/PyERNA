@@ -20,12 +20,12 @@ import numpy as np
 import numbers
 from math import log
 
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.util.annotators import deprecated
-from pyemma.util.types import is_float_vector, ensure_float_vector
-from pyemma.coordinates.data._base.streaming_estimator import StreamingEstimator
-from pyemma._base.progress import ProgressReporter
-from pyemma._ext.variational.estimators.running_moments import running_covar
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.util.annotators import deprecated
+from pyerna.util.types import is_float_vector, ensure_float_vector
+from pyerna.coordinates.data._base.streaming_estimator import StreamingEstimator
+from pyerna._base.progress import ProgressReporter
+from pyerna._ext.variational.estimators.running_moments import running_covar
 
 
 __all__ = ['LaggedCovariance']
@@ -94,7 +94,7 @@ class LaggedCovariance(StreamingEstimator, SerializableMixIn):
         super(LaggedCovariance, self).__init__()
         if chunksize is not NotImplemented:
             import warnings
-            from pyemma.util.exceptions import PyEMMA_DeprecationWarning
+            from pyerna.util.exceptions import PyEMMA_DeprecationWarning
             warnings.warn('passed deprecated argument chunksize to LaggedCovariance. Will be ignored!',
                           category=PyEMMA_DeprecationWarning)
 
@@ -126,7 +126,7 @@ class LaggedCovariance(StreamingEstimator, SerializableMixIn):
 
     @weights.setter
     def weights(self, value):
-        from pyemma.coordinates.data import DataInMemory
+        from pyerna.coordinates.data import DataInMemory
         import types
 
         if is_float_vector(value):
@@ -136,7 +136,7 @@ class LaggedCovariance(StreamingEstimator, SerializableMixIn):
         elif isinstance(value, numbers.Integral):
             value = float(value) if value is not None else 1.0
         elif hasattr(value, 'weights') and type(getattr(value, 'weights')) == types.MethodType:
-            from pyemma.coordinates.data._base.transformer import StreamingTransformer
+            from pyerna.coordinates.data._base.transformer import StreamingTransformer
             class compute_weights_streamer(StreamingTransformer):
                 def __init__(self, func):
                     super(compute_weights_streamer, self).__init__()
@@ -253,7 +253,7 @@ class LaggedCovariance(StreamingEstimator, SerializableMixIn):
         X: array, list of arrays, PyEMMA reader
             input data.
         """
-        from pyemma.coordinates import source
+        from pyerna.coordinates import source
 
         self._estimate(source(X), partial_fit=True)
         self._estimated = True

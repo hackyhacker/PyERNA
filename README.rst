@@ -4,11 +4,11 @@ ERNA (Erna's Rarkov Nodel Algorithms)
 
 .. image:: https://img.shields.io/travis/markovmodel/PyEMMA/master.svg
    :target: https://travis-ci.org/markovmodel/PyEMMA
-.. image:: https://img.shields.io/pypi/v/pyemma.svg
-   :target: https://pypi.python.org/pypi/pyemma
-.. image:: https://anaconda.org/conda-forge/pyemma/badges/downloads.svg
-   :target: https://anaconda.org/conda-forge/pyemma
-.. image:: https://anaconda.org/conda-forge/pyemma/badges/installer/conda.svg
+.. image:: https://img.shields.io/pypi/v/pyerna.svg
+   :target: https://pypi.python.org/pypi/pyerna
+.. image:: https://anaconda.org/conda-forge/pyerna/badges/downloads.svg
+   :target: https://anaconda.org/conda-forge/pyerna
+.. image:: https://anaconda.org/conda-forge/pyerna/badges/installer/conda.svg
    :target: https://conda.anaconda.org/conda-forge
 .. image:: https://img.shields.io/codecov/c/github/markovmodel/PyEMMA/devel.svg
    :target: https://codecov.io/gh/markovmodel/PyEMMA/branch/devel
@@ -46,15 +46,15 @@ Installation
 ------------
 If you want to use Miniconda on Linux or OSX, you can run this script to download and install everything::
 
-   curl -s https://raw.githubusercontent.com/markovmodel/PyEMMA/devel/install_miniconda%2Bpyemma.sh | bash
+   curl -s https://raw.githubusercontent.com/markovmodel/PyEMMA/devel/install_miniconda%2Bpyerna.sh | bash
 
 If you have Anaconda/Miniconda installed, use the following::
 
-   conda install -c conda-forge pyemma
+   conda install -c conda-forge pyerna
 
 With pip::
 
-   pip install pyemma
+   pip install pyerna
 
 or install latest devel branch with pip::
 
@@ -78,7 +78,7 @@ Support and development
 For bug reports/suggestions/complaints please file an issue on
 `GitHub <http://github.com/markovmodel/PyEMMA>`__.
 
-Or start a discussion on our mailing list: pyemma-users@lists.fu-berlin.de
+Or start a discussion on our mailing list: pyerna-users@lists.fu-berlin.de
 
 
 External Libraries

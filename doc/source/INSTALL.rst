@@ -21,12 +21,12 @@ but play at your own risk.
 
 If you want to use Miniconda on Linux or OSX, you can run this script to download and install everything::
 
-   curl -s https://raw.githubusercontent.com/markovmodel/PyEMMA/devel/install_miniconda%2Bpyemma.sh | bash
+   curl -s https://raw.githubusercontent.com/markovmodel/PyEMMA/devel/install_miniconda%2Bpyerna.sh | bash
 
-After the script finishes, you have a miniconda installation and inside of this a 'pyemma' environment.
+After the script finishes, you have a miniconda installation and inside of this a 'pyerna' environment.
 You need to activate the new environment by invoking::
 
-   conda activate pyemma
+   conda activate pyerna
 
 in order to work with this new environment. An environment encapsulates all software used by PyEMMA and is independent
 of other things. Further reading `here <https://conda.io/docs/user-guide/concepts.html#conda-environments>`_.
@@ -54,7 +54,7 @@ If you already have a conda installation, directly go to step 3.
    .. code::
 
       conda config --add channels conda-forge
-      conda install pyemma
+      conda install pyerna
 
    if the command conda is unknown, the PATH variable is probably not set correctly (see 1. and 2.)
 
@@ -64,8 +64,8 @@ If you already have a conda installation, directly go to step 3.
 
       conda list
 
-   shows you the installed python packages. You should find a pyemma 1.2 (or later)
-   and ipython, ipython-notebook 3.1 (or later). If ipython is not up to date, you can still use pyemma,
+   shows you the installed python packages. You should find a pyerna 1.2 (or later)
+   and ipython, ipython-notebook 3.1 (or later). If ipython is not up to date, you can still use pyerna,
    but you won't be able to load our example notebooks. In that case, update it by
 
    .. code::
@@ -99,15 +99,15 @@ various problems have arisen with pip in compiling the packages that PyEMMA depe
 
    ::
 
-      pip install pyemma
+      pip install pyerna
 
 4. Check your installation
 
    ::
 
       python
-      >>> import pyemma
-      >>> pyemma.__version__
+      >>> import pyerna
+      >>> pyerna.__version__
 
    should print 1.2 or later
 
@@ -158,7 +158,7 @@ supplied) from source.
 
    ::
 
-      pip install pyemma
+      pip install pyerna
 
 
 For Developers
@@ -173,7 +173,7 @@ If you are a developer, clone the code repository from GitHub and install it as 
 
       git clone https://github.com/markovmodel/PyEMMA.git
 
-3. install pyemma via
+3. install pyerna via
 
    ::
 
@@ -187,7 +187,7 @@ If you are a developer, clone the code repository from GitHub and install it as 
 Frequently Asked Questions (FAQ)
 ================================
 
-* Q: Installation went fine with conda, but import pyemma leads to the following error: ::
+* Q: Installation went fine with conda, but import pyerna leads to the following error: ::
 
        ImportError: No module named PySide
 

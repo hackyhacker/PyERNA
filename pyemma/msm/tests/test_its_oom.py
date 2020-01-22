@@ -28,9 +28,9 @@ import pkg_resources
 import warnings
 import sys
 
-from pyemma.msm import markov_model
-from pyemma.util.linalg import _sort_by_norm
-from pyemma.msm import timescales_msm as _ts_msm
+from pyerna.msm import markov_model
+from pyerna.util.linalg import _sort_by_norm
+from pyerna.msm import timescales_msm as _ts_msm
 
 
 
@@ -104,8 +104,8 @@ class TestITSFiveState(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Load the data:
-        data = np.load(pkg_resources.resource_filename('pyemma.msm.tests', "data/TestData_OOM_MSM.npz"))
-        data_its = np.load(pkg_resources.resource_filename('pyemma.msm.tests', "data/TestData_ITS_OOM.npz"))
+        data = np.load(pkg_resources.resource_filename('pyerna.msm.tests', "data/TestData_OOM_MSM.npz"))
+        data_its = np.load(pkg_resources.resource_filename('pyerna.msm.tests', "data/TestData_ITS_OOM.npz"))
         cls.dtrajs = [data['arr_%d'%k] for k in range(1000)]
         cls.C2t_list = [data_its['arr_%d'%k] for k in range(10)]
 

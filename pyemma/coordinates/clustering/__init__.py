@@ -19,10 +19,10 @@
 
 r"""
 ===============================================================================
-clustering - Algorithms (:mod:`pyemma.coordinates.clustering`)
+clustering - Algorithms (:mod:`pyerna.coordinates.clustering`)
 ===============================================================================
 
-.. currentmodule: pyemma.coordinates.clustering
+.. currentmodule: pyerna.coordinates.clustering
 
 .. autosummary::
     :toctree: generated/

@@ -6,4 +6,4 @@
 	url = https://github.com/markovmodel/PyEMMA_IPython.git
 [submodule "doc/source/tutorials"]
 	path = doc/source/tutorials
-	url = https://github.com/markovmodel/pyemma_tutorials
+	url = https://github.com/markovmodel/pyerna_tutorials

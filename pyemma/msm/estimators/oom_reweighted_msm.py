@@ -21,10 +21,10 @@ import warnings
 import numpy as _np
 from msmtools import estimation as msmest
 
-from pyemma.msm.estimators._OOM_MSM import bootstrapping_count_matrix, bootstrapping_dtrajs, twostep_count_matrix, \
+from pyerna.msm.estimators._OOM_MSM import bootstrapping_count_matrix, bootstrapping_dtrajs, twostep_count_matrix, \
     rank_decision, oom_components, equilibrium_transition_matrix
-from pyemma.msm.estimators._msm_estimator_base import _MSMEstimator
-from pyemma.util.annotators import fix_docs, aliased
+from pyerna.msm.estimators._msm_estimator_base import _MSMEstimator
+from pyerna.util.annotators import fix_docs, aliased
 
 
 __author__ = 'Feliks Nueske, Fabian Paul'
@@ -204,7 +204,7 @@ class OOMReweightedMSM(_MSMEstimator):
             # Re-sampling:
             if self.rank_Ct == 'bootstrap_counts':
                 Ceff_full = msmest.effective_count_matrix(dtrajs_lag, self.lag)
-                from pyemma.util.linalg import submatrix
+                from pyerna.util.linalg import submatrix
                 Ceff = submatrix(Ceff_full, self.active_set)
                 smean, sdev = bootstrapping_count_matrix(Ceff, nbs=self.nbs)
             else:

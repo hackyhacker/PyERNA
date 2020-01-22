@@ -42,7 +42,7 @@ def _show_stacktrace(sig, frame):
 
     global _logger
     if _logger is None:
-        _logger = getLogger('pyemma.dbg')
+        _logger = getLogger('pyerna.dbg')
 
     out = StringIO()
 

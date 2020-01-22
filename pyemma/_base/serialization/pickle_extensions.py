@@ -78,7 +78,7 @@ class HDF5PersistentPickler(Pickler):
     def dump(self, *args, **kwargs):
         # we temporarily patch mdtraj.Topology to save state to numpy array
         from unittest import mock
-        from pyemma._base.serialization.mdtraj_helpers import getstate
+        from pyerna._base.serialization.mdtraj_helpers import getstate
         with mock.patch('mdtraj.Topology.__getstate__', getstate, create=True):
             super(HDF5PersistentPickler, self).dump(*args, **kwargs)
 
@@ -109,7 +109,7 @@ class HDF5PersistentPickler(Pickler):
 
 class HDF5PersistentUnpickler(Unpickler):
     __allowed_packages = ('builtin',
-                          'pyemma',
+                          'pyerna',
                           'mdtraj',
                           'numpy',
                           'scipy',
@@ -135,7 +135,7 @@ class HDF5PersistentUnpickler(Unpickler):
     def load(self, *args, **kwargs):
         # we temporarily patch mdtraj.Topology to load state from numpy array
         from unittest import mock
-        from pyemma._base.serialization.mdtraj_helpers import setstate
+        from pyerna._base.serialization.mdtraj_helpers import setstate
         with mock.patch('mdtraj.Topology.__setstate__', setstate, create=True):
             return super(HDF5PersistentUnpickler, self).load(*args, **kwargs)
 

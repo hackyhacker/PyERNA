@@ -18,9 +18,9 @@
 from abc import ABCMeta, abstractmethod
 import numpy as np
 
-from pyemma._base.loggable import Loggable
-from pyemma.coordinates.data._base._in_memory_mixin import InMemoryMixin
-from pyemma.util.types import is_int
+from pyerna._base.loggable import Loggable
+from pyerna.coordinates.data._base._in_memory_mixin import InMemoryMixin
+from pyerna.util.types import is_int
 
 
 class Iterable(InMemoryMixin, Loggable, metaclass=ABCMeta):
@@ -42,8 +42,8 @@ class Iterable(InMemoryMixin, Loggable, metaclass=ABCMeta):
     @staticmethod
     def _compute_default_cs(dim, itemsize, logger=None):
         # obtain a human readable memory size from the config, convert it to bytes and calc maximum chunksize.
-        from pyemma import config
-        from pyemma.util.units import string_to_bytes
+        from pyerna import config
+        from pyerna.util.units import string_to_bytes
         max_bytes = string_to_bytes(config.default_chunksize)
 
         # TODO: consider rounding this to some cache size of CPU? e.g py-cpuinfo can obtain it.
@@ -66,7 +66,7 @@ class Iterable(InMemoryMixin, Loggable, metaclass=ABCMeta):
 
         Notes
         -----
-        This variable respects your setting for maximum memory in pyemma.config.default_chunksize
+        This variable respects your setting for maximum memory in pyerna.config.default_chunksize
         """
         if self._default_chunksize is None:
             try:
@@ -124,7 +124,7 @@ class Iterable(InMemoryMixin, Loggable, metaclass=ABCMeta):
         Examples
         --------
 
-        >>> from pyemma.coordinates import source; import numpy as np
+        >>> from pyerna.coordinates import source; import numpy as np
         >>> data = [np.arange(3), np.arange(4, 7)]
         >>> reader = source(data)
         >>> iterator = reader.iterator(chunk=1)
@@ -138,7 +138,7 @@ class Iterable(InMemoryMixin, Loggable, metaclass=ABCMeta):
         1 [[6]]
         """
         if self.in_memory:
-            from pyemma.coordinates.data.data_in_memory import DataInMemory
+            from pyerna.coordinates.data.data_in_memory import DataInMemory
             return DataInMemory(self._Y).iterator(
                 lag=lag, chunk=chunk, stride=stride, return_trajindex=return_trajindex, skip=skip
             )

@@ -1,4 +1,4 @@
-.. automodule:: pyemma.coordinates.clustering
+.. automodule:: pyerna.coordinates.clustering
 
 .. toctree::
    :maxdepth: 1

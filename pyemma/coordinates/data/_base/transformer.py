@@ -22,10 +22,10 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 
 
-from pyemma._ext.sklearn.base import TransformerMixin
-from pyemma.coordinates.data._base.datasource import DataSource, EncapsulatedIterator
-from pyemma.coordinates.data._base.random_accessible import RandomAccessStrategy
-from pyemma.coordinates.data._base.streaming_estimator import StreamingEstimator
+from pyerna._ext.sklearn.base import TransformerMixin
+from pyerna.coordinates.data._base.datasource import DataSource, EncapsulatedIterator
+from pyerna.coordinates.data._base.random_accessible import RandomAccessStrategy
+from pyerna.coordinates.data._base.streaming_estimator import StreamingEstimator
 
 __all__ = ['Transformer', 'StreamingTransformer']
 __author__ = 'noe, marscher'

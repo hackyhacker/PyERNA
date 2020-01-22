@@ -36,7 +36,7 @@ Citation |DOI for Citing PyEMMA|
 
 If you use PyEMMA in scientific software, please cite the following paper: ::
 
-	@article{scherer_pyemma_2015,
+	@article{scherer_pyerna_2015,
 		author = {Scherer, Martin K. and Trendelkamp-Schroer, Benjamin
                           and Paul, Fabian and Pérez-Hernández, Guillermo and Hoffmann, Moritz and
                           Plattner, Nuria and Wehmeyer, Christoph and Prinz, Jan-Hendrik and Noé, Frank},
@@ -54,7 +54,7 @@ If you use PyEMMA in scientific software, please cite the following paper: ::
 		month = oct,
 	}
 
-.. |DOI for Citing PyEMMA| image:: _static/pyemma_paper_doi.svg
+.. |DOI for Citing PyEMMA| image:: _static/pyerna_paper_doi.svg
    :target: https://dx.doi.org/10.1021/acs.jctc.5b00743
 
 

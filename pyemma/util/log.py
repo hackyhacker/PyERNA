@@ -32,8 +32,8 @@ class LoggingConfigurationError(RuntimeError):
 
 
 def setup_logging(config, D=None):
-    """ set up the logging system with the configured (in pyemma.cfg) logging config (logging.yml)
-    @param config: instance of pyemma.config module (wrapper)
+    """ set up the logging system with the configured (in pyerna.cfg) logging config (logging.yml)
+    @param config: instance of pyerna.config module (wrapper)
     """
     if not D:
         import yaml
@@ -71,7 +71,7 @@ def setup_logging(config, D=None):
 
         if D is None:
             raise LoggingConfigurationError('Empty logging config! Try using default config by'
-                                            ' setting logging_conf=DEFAULT in pyemma.cfg')
+                                            ' setting logging_conf=DEFAULT in pyerna.cfg')
     assert D
 
     # this has not been set in PyEMMA version prior 2.0.2+
@@ -87,7 +87,7 @@ def setup_logging(config, D=None):
         # issue with file handler?
         if 'files' in str(ve) and 'rotating_files' in D['handlers']:
             print("cfg dir", config.cfg_dir)
-            new_file = os.path.join(config.cfg_dir, 'pyemma.log')
+            new_file = os.path.join(config.cfg_dir, 'pyerna.log')
             warnings.warn("set logfile to %s, because there was"
                           " an error writing to the desired one" % new_file)
             D['handlers']['rotating_files']['filename'] = new_file
@@ -95,8 +95,8 @@ def setup_logging(config, D=None):
             raise
         dictConfig(D)
 
-    # get log file name of pyemmas root logger
-    logger = logging.getLogger('pyemma')
+    # get log file name of pyernas root logger
+    logger = logging.getLogger('pyerna')
     log_files = [getattr(h, 'baseFilename', None) for h in logger.handlers]
 
     import atexit

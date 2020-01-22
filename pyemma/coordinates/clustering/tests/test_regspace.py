@@ -26,12 +26,12 @@ Created on 26.01.2015
 import itertools
 import unittest
 
-from pyemma.coordinates.clustering.regspace import RegularSpaceClustering
-from pyemma.coordinates.data.data_in_memory import DataInMemory
-from pyemma.coordinates.api import cluster_regspace
+from pyerna.coordinates.clustering.regspace import RegularSpaceClustering
+from pyerna.coordinates.data.data_in_memory import DataInMemory
+from pyerna.coordinates.api import cluster_regspace
 
 import numpy as np
-import pyemma.util.types as types
+import pyerna.util.types as types
 
 
 class RandomDataSource(DataInMemory):

@@ -25,11 +25,11 @@ import functools
 
 import numpy as np
 
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.coordinates.data._base.datasource import DataSourceIterator, DataSource
-from pyemma.coordinates.data.data_in_memory import DataInMemoryIterator
-from pyemma.coordinates.data.util.traj_info_cache import TrajInfo
-from pyemma.util.annotators import fix_docs
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.coordinates.data._base.datasource import DataSourceIterator, DataSource
+from pyerna.coordinates.data.data_in_memory import DataInMemoryIterator
+from pyerna.coordinates.data.util.traj_info_cache import TrajInfo
+from pyerna.util.annotators import fix_docs
 
 
 @fix_docs

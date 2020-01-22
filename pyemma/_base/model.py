@@ -19,9 +19,9 @@
 import numpy as _np
 import warnings
 
-from pyemma._ext.sklearn.base import _pprint
-from pyemma.util.statistics import confidence_interval
-from pyemma.util.reflection import call_member, getargspec_no_self
+from pyerna._ext.sklearn.base import _pprint
+from pyerna.util.statistics import confidence_interval
+from pyerna.util.reflection import call_member, getargspec_no_self
 
 __author__ = 'noe'
 
@@ -102,7 +102,7 @@ class Model(object):
             # catch deprecated param values.
             # This is set in utils/__init__.py but it gets overwritten
             # when running under python3 somehow.
-            from pyemma.util.exceptions import PyEMMA_DeprecationWarning
+            from pyerna.util.exceptions import PyEMMA_DeprecationWarning
             warnings.simplefilter("always", DeprecationWarning)
             warnings.simplefilter("always", PyEMMA_DeprecationWarning)
             try:

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import numpy as np
 
-from pyemma._base.serialization.serialization import SerializableMixIn, Modifications
+from pyerna._base.serialization.serialization import SerializableMixIn, Modifications
 
 
 class test_cls_v1(SerializableMixIn):
@@ -34,7 +34,7 @@ class test_cls_v1(SerializableMixIn):
 
 
 # note: in the real world this decorator would be invoked here!
-#@handle_old_classes('pyemma._base.serialization.tests.test_serialization.test_cls_v1')
+#@handle_old_classes('pyerna._base.serialization.tests.test_serialization.test_cls_v1')
 class test_cls_v2(SerializableMixIn):
     __serialize_fields = ('b', 'y', 'z')
     __serialize_version = 2

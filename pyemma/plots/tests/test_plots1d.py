@@ -19,7 +19,7 @@
 import unittest
 import numpy as np
 
-from pyemma.plots.plots1d import plot_feature_histograms
+from pyerna.plots.plots1d import plot_feature_histograms
 import matplotlib.pyplot as plt
 
 

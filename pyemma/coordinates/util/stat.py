@@ -19,14 +19,14 @@
 
 
 import numpy as np
-from pyemma.util.annotators import deprecated
+from pyerna.util.annotators import deprecated
 
 
 __author__ = 'Fabian Paul'
 __all__ = ['histogram']
 
 
-@deprecated("Please use pyemma.coordinates.histogram()")
+@deprecated("Please use pyerna.coordinates.histogram()")
 def hist(transform, dimensions, nbins):
     return histogram(transform, dimensions, nbins)
 
@@ -36,7 +36,7 @@ def histogram(transform, dimensions, nbins):
 
     Parameters
     ----------
-    transform : pyemma.coordinates.transfrom.Transformer object
+    transform : pyerna.coordinates.transfrom.Transformer object
         transform that provides the input data
     dimensions : tuple of indices
         indices of the dimensions you want to examine

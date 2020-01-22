@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from pyemma._base.serialization.serialization import SerializableMixIn
+from pyerna._base.serialization.serialization import SerializableMixIn
 
 import numpy as np
 import math

@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pyemma.datasets.double_well_thermo import DoubleWellSampler as _DWS
+from pyerna.datasets.double_well_thermo import DoubleWellSampler as _DWS
 __author__ = 'noe'
 
 
@@ -32,7 +32,7 @@ def get_bpti_test_data():
     Notes
     -----
     You will have to load the data from disc yourself. See eg.
-    :py:func:`pyemma.coordinates.load`.
+    :py:func:`pyerna.coordinates.load`.
 
     Returns
     -------
@@ -43,8 +43,8 @@ def get_bpti_test_data():
     import os
     from glob import glob
     import pkg_resources
-    path = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data/')
-    top = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data/bpti_ca.pdb')
+    path = pkg_resources.resource_filename('pyerna.coordinates.tests', 'data/')
+    top = pkg_resources.resource_filename('pyerna.coordinates.tests', 'data/bpti_ca.pdb')
 
     trajs = glob(path + os.sep + "*.xtc")
     trajs = filter(lambda f: not f.endswith("bpti_mini.xtc"), trajs)

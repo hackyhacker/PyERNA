@@ -20,7 +20,7 @@ import warnings
 from decorator import decorator, decorate
 from inspect import stack
 
-from pyemma.util.exceptions import PyEMMA_DeprecationWarning
+from pyerna.util.exceptions import PyEMMA_DeprecationWarning
 
 __all__ = ['alias',
            'aliased',

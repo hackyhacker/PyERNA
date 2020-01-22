@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
-from pyemma.coordinates import source
-from pyemma.coordinates.data._base.transformer import StreamingTransformer
+from pyerna.coordinates import source
+from pyerna.coordinates.data._base.transformer import StreamingTransformer
 
 
 class MyTransformer(StreamingTransformer):

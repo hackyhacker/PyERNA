@@ -15,10 +15,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from pyemma.datasets import get_umbrella_sampling_data
-from pyemma.datasets import get_multi_temperature_data
-from pyemma.thermo import estimate_umbrella_sampling
-from pyemma.thermo import estimate_multi_temperature
+from pyerna.datasets import get_umbrella_sampling_data
+from pyerna.datasets import get_multi_temperature_data
+from pyerna.thermo import estimate_umbrella_sampling
+from pyerna.thermo import estimate_multi_temperature
 from numpy.testing import assert_allclose
 import unittest
 
@@ -86,7 +86,7 @@ def test_multi_temperature_data():
 class TestPrinzPotential(unittest.TestCase):
 
     def test_prinz_potential(self):
-        from pyemma.datasets import get_quadwell_data
+        from pyerna.datasets import get_quadwell_data
         import numpy as np
 
         d = get_quadwell_data(ntraj=1, nstep=int(1e5))

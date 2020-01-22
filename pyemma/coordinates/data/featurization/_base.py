@@ -20,7 +20,7 @@ Created on 15.02.2016
 
 @author: marscher
 '''
-from pyemma._base.serialization.serialization import SerializableMixIn
+from pyerna._base.serialization.serialization import SerializableMixIn
 
 
 class Feature(SerializableMixIn):

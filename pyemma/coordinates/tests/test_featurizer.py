@@ -19,17 +19,17 @@
 import unittest
 import numpy as np
 
-import pyemma
+import pyerna
 
 import os
 import mdtraj
 
 from itertools import combinations, product
 
-from pyemma.coordinates.data.featurization.featurizer import MDFeaturizer, CustomFeature
-from pyemma.coordinates.data.featurization.util import _parse_pairwise_input, _describe_atom
+from pyerna.coordinates.data.featurization.featurizer import MDFeaturizer, CustomFeature
+from pyerna.coordinates.data.featurization.util import _parse_pairwise_input, _describe_atom
 
-from pyemma.coordinates.data.featurization.util import _atoms_in_residues
+from pyerna.coordinates.data.featurization.util import _atoms_in_residues
 import pkg_resources
 
 path = pkg_resources.resource_filename(__name__, 'data') + os.path.sep
@@ -121,10 +121,10 @@ def check_serialized_equal(self):
             self.assertEqual(f1, f2, msg='%s != %s' %(f1,f2))
     feat = self.feat
 
-    from pyemma.util.contexts import named_temporary_file
+    from pyerna.util.contexts import named_temporary_file
     with named_temporary_file() as buff:
         feat.save(buff)
-        restored = pyemma.load(buff)
+        restored = pyerna.load(buff)
     feat_equal(restored, feat)
 
 
@@ -671,7 +671,7 @@ class TestFeaturizer(unittest.TestCase):
         Dperiodic_false = mdtraj.compute_contacts(traj, scheme='ca', contacts=contacts, periodic=False)[0]
         # This asserts that the periodic option is having an effect at all
         assert not np.allclose(Dperiodic_false, Dperiodic_true, )
-        # This asserts that the periodic option is being handled correctly by pyemma
+        # This asserts that the periodic option is being handled correctly by pyerna
         assert np.allclose(D, Dperiodic_false)
         assert len(self.feat.describe()) == self.feat.dimension()
 
@@ -1226,7 +1226,7 @@ class TestCustomFeature(unittest.TestCase):
                                       self.U
                                       )
             self.feat.save(f)
-            from pyemma import load
+            from pyerna import load
             restored = load(f)
             with self.assertRaises(NotImplementedError) as cw:
                 restored.transform(self.traj)

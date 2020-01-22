@@ -26,14 +26,14 @@ r"""Unit test for Chapman-Kolmogorov-Test module
 import unittest
 
 import numpy as np
-import pyemma
+import pyerna
 
-from pyemma import msm
+from pyerna import msm
 from msmtools.generation import generate_traj
 from msmtools.estimation import count_matrix, largest_connected_set, largest_connected_submatrix, transition_matrix
-from pyemma.util.numeric import assert_allclose
-from pyemma.msm.tests.birth_death_chain import BirthDeathChain
-from pyemma.msm import estimate_markov_model
+from pyerna.util.numeric import assert_allclose
+from pyerna.msm.tests.birth_death_chain import BirthDeathChain
+from pyerna.msm import estimate_markov_model
 
 
 import sys
@@ -187,15 +187,15 @@ class TestCK_AllEstimators(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # load double well data
-        import pyemma.datasets
-        cls.double_well_data = pyemma.datasets.load_2well_discrete()
+        import pyerna.datasets
+        cls.double_well_data = pyerna.datasets.load_2well_discrete()
 
     def tearDown(self):
         if py3:
             import tempfile
             with tempfile.NamedTemporaryFile(delete=False) as fh:
                 self.ck.save(fh.name)
-                restored = pyemma.load(fh.name)
+                restored = pyerna.load(fh.name)
                 assert hasattr(restored, 'has_errors')
 
     def test_ck_msm(self):

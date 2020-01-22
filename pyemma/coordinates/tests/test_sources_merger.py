@@ -4,15 +4,15 @@ import os
 from glob import glob
 import numpy as np
 
-from pyemma.coordinates import source, tica
-from pyemma.coordinates.data.sources_merger import SourcesMerger
+from pyerna.coordinates import source, tica
+from pyerna.coordinates.data.sources_merger import SourcesMerger
 
 
 class TestSourcesMerger(unittest.TestCase):
 
     def setUp(self):
         self.readers = []
-        data_dir = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data')
+        data_dir = pkg_resources.resource_filename('pyerna.coordinates.tests', 'data')
         # three md trajs
         trajs = glob(data_dir + "/bpti_0*.xtc")
         top = os.path.join(data_dir, 'bpti_ca.pdb')

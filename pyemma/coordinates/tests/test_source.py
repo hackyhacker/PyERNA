@@ -22,15 +22,15 @@ import unittest
 import os
 import numpy as np
 
-from pyemma.coordinates.data import MDFeaturizer
+from pyerna.coordinates.data import MDFeaturizer
 from logging import getLogger
-import pyemma.coordinates.api as api
-import pyemma.util.types as types
+import pyerna.coordinates.api as api
+import pyerna.util.types as types
 import pkg_resources
 
-from pyemma.util.files import TemporaryDirectory
+from pyerna.util.files import TemporaryDirectory
 
-logger = getLogger('pyemma.'+'TestReaderUtils')
+logger = getLogger('pyerna.'+'TestReaderUtils')
 
 
 def convert_traj(file, format, top, dir=None):
@@ -49,7 +49,7 @@ def convert_traj(file, format, top, dir=None):
 
 class TestSource(unittest.TestCase):
     def setUp(self):
-        path = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data') + os.path.sep
+        path = pkg_resources.resource_filename('pyerna.coordinates.tests', 'data') + os.path.sep
         self.pdb_file = os.path.join(path, 'bpti_ca.pdb')
         self.traj_files = [
             os.path.join(path, 'bpti_001-033.xtc'),
@@ -120,11 +120,11 @@ class TestSource(unittest.TestCase):
         with TemporaryDirectory() as td:
             f = convert_traj(self.traj_files[0], format='h5', dir=td, top=self.pdb_file)
             r = api.source(f, top=self.pdb_file)
-            from pyemma.coordinates.data import FeatureReader
+            from pyerna.coordinates.data import FeatureReader
             self.assertIsInstance(r, FeatureReader)
 
             import h5py
-            from pyemma.coordinates.data.h5_reader import H5Reader
+            from pyerna.coordinates.data.h5_reader import H5Reader
             plain_h5_file = os.path.join(td, 'f.h5')
             with h5py.File(plain_h5_file) as fh:
                 fh.create_dataset('test', data=np.random.random((100, 3)))

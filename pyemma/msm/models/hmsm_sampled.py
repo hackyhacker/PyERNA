@@ -26,9 +26,9 @@ and provides them for later access.
 """
 
 
-from pyemma._base.model import SampledModel as _SampledModel
-from pyemma.msm.models.hmsm import HMSM as _HMSM
-from pyemma.util.types import is_iterable
+from pyerna._base.model import SampledModel as _SampledModel
+from pyerna.msm.models.hmsm import HMSM as _HMSM
+from pyerna.util.types import is_iterable
 
 
 class SampledHMSM(_HMSM, _SampledModel):

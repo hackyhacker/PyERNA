@@ -23,12 +23,12 @@ handlers:
     #rotating_files:
     #    class: logging.handlers.RotatingFileHandler
     #    formatter: simpleFormater
-    #    filename: pyemma.log
+    #    filename: pyerna.log
     #    maxBytes: 1048576 # 1 MB
     #    backupCount: 3
 
 loggers:
-    pyemma:
+    pyerna:
         level: INFO
         # by default no file logging!
         handlers: [console] #, rotating_files]

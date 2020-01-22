@@ -463,7 +463,7 @@ coordinates:
 - clustering: fix parallel cluster assignment with minRMSD metric.
 - base: during estimation the model was accessed in an inappropriate way,
   which led to the crash "AttributeError: object has no attribute '_model'" :pr:`764`.
-- coordinates.io: fixed a bug when trying to pyemma.coordinates.load certain MD formats.
+- coordinates.io: fixed a bug when trying to pyerna.coordinates.load certain MD formats.
   The iterator could have returned None in some cases :pr:`790`.
 - coordiantes.save_traj(s): use new backend introduced in 2.1, speed up for non random
   accessible trajectory formats like XTC. Avoids reading trajectory info for files not
@@ -579,13 +579,13 @@ Patch release to address DeprecationWarning flood in conjunction with Jupyther n
   unit cell with periodic boundary conditions.
 - coordinates: added "count_contacts" keyword to Featurizer.add_contacts() method
   to count formed contacts instead of dimension of all possible contacts.
-- logging: pyemma.log file will be rotated after reaching a size of 1 MB
+- logging: pyerna.log file will be rotated after reaching a size of 1 MB
 
 **Fixes**:
 
 - logging: do not replace existing loggers anymore. Use hierarchical logging (all loggers
-  "derive" from 'pyemma' logger. So log levels etc. can be manipulated by changing this
-  new 'pyemma' root logger.
+  "derive" from 'pyerna' logger. So log levels etc. can be manipulated by changing this
+  new 'pyerna' root logger.
 - some deprecation warnings have been fixed (IPython and Python-3.5 related).
 
 2.0.2 (11-9-2015)
@@ -602,7 +602,7 @@ Patch release to address DeprecationWarning flood in conjunction with Jupyther n
 - coordinates: featurizer.describe uses resSeq instead of residue.index
 - plots: network plots gets new arg state_labels, arg state_colors extended, textkwargs added
 - plots: timescale plot accepts different units for x,y axes
-- logging: full-feature access to Python logging system (edit logging.yml in .pyemma dir)
+- logging: full-feature access to Python logging system (edit logging.yml in .pyerna dir)
 
 **Fixes**:
 
@@ -642,7 +642,7 @@ reorganization of the code.
 **Documentation**:
 
 - One new application-based ipython notebooks and three new methodological ipython notebooks
-  are provided. All Notebooks and most of the data are provided for download at pyemma.org.
+  are provided. All Notebooks and most of the data are provided for download at pyerna.org.
 - Many improvements in API documentation.
 
 **Code architecture**:

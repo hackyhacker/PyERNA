@@ -39,10 +39,10 @@ def create_file_reader(input_files, topology, featurizer, chunksize=None, **kw):
         The chunk size with which the corresponding reader gets initialized.
     :return: Returns the reader.
     """
-    from pyemma.coordinates.data.numpy_filereader import NumPyFileReader
-    from pyemma.coordinates.data.py_csv_reader import PyCSVReader
-    from pyemma.coordinates.data import FeatureReader
-    from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+    from pyerna.coordinates.data.numpy_filereader import NumPyFileReader
+    from pyerna.coordinates.data.py_csv_reader import PyCSVReader
+    from pyerna.coordinates.data import FeatureReader
+    from pyerna.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
 
     # fragmented trajectories
     if (isinstance(input_files, (list, tuple)) and len(input_files) > 0 and
@@ -93,7 +93,7 @@ def create_file_reader(input_files, topology, featurizer, chunksize=None, **kw):
                 # This check is potentially expensive for lots of files, we also re-open the file twice (causing atime updates etc.)
                 # So we simply require that no featurizer option is given.
                 # and not all((_is_mdtraj_hdf5_file(f) for f in input_files)):
-                from pyemma.coordinates.data.h5_reader import H5Reader
+                from pyerna.coordinates.data.h5_reader import H5Reader
                 reader = H5Reader(filenames=input_files, chunk_size=chunksize, **kw)
             # CASE 1.1: file types are MD files
             elif FeatureReader.supports_format(suffix):
@@ -163,7 +163,7 @@ def preallocate_empty_trajectory(top, n_frames=1):
     :return: empty_traj: empty md.Trajectory object with n_frames
     """
     # to assign via [] operator to Trajectory objects
-    from pyemma.coordinates.util.patches import trajectory_set_item
+    from pyerna.coordinates.util.patches import trajectory_set_item
     md.Trajectory.__setitem__ = trajectory_set_item
 
     return md.Trajectory(np.zeros((n_frames, top.n_atoms, 3)),

@@ -28,12 +28,12 @@ import os
 import tempfile
 import numpy as np
 import mdtraj
-from pyemma.coordinates import api
-from pyemma.coordinates.data.feature_reader import FeatureReader
+from pyerna.coordinates import api
+from pyerna.coordinates.data.feature_reader import FeatureReader
 from logging import getLogger
 
 
-log = getLogger('pyemma.'+'TestFeatureReaderAndTICA')
+log = getLogger('pyerna.'+'TestFeatureReaderAndTICA')
 
 
 class TestFeatureReaderAndTICA(unittest.TestCase):

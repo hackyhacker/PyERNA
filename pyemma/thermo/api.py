@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as _np
-from pyemma.util import types as _types
+from pyerna.util import types as _types
 from .util import get_averaged_bias_matrix as _get_averaged_bias_matrix
 from .util import assign_unbiased_state_label as _assign_unbiased_state_label
 
@@ -122,7 +122,7 @@ def estimate_umbrella_sampling(
 
     Returns
     -------
-    A :class:`MultiThermModel <pyemma.thermo.models.multi_therm.MultiThermModel>` or :class:`MEMM <pyemma.thermo.models.memm.MEMM>` object or list thereof
+    A :class:`MultiThermModel <pyerna.thermo.models.multi_therm.MultiThermModel>` or :class:`MEMM <pyerna.thermo.models.memm.MEMM>` object or list thereof
         The requested estimator/model object, i.e., WHAM, MBAR, DTRAM or TRAM. If multiple lag times
         are given, a list of objects is returned (one MEMM per lag time).
 
@@ -133,8 +133,8 @@ def estimate_umbrella_sampling(
 
     We start with a joint clustering and use TRAM for the estimation:
 
-    >>> from pyemma.coordinates import cluster_regspace as regspace
-    >>> from pyemma.thermo import estimate_umbrella_sampling as estimate_us
+    >>> from pyerna.coordinates import cluster_regspace as regspace
+    >>> from pyerna.thermo import estimate_umbrella_sampling as estimate_us
     >>> import numpy as np
     >>> us_centers = [1.1, 1.3]
     >>> us_force_constants = [1.0, 1.0]
@@ -148,35 +148,35 @@ def estimate_umbrella_sampling(
     >>> tram.f # doctest: +ELLIPSIS
     array([ 0.63...,  1.60...,  1.31...])
 
-    See :class:`MultiThermModel <pyemma.thermo.models.multi_therm.MultiThermModel>`
-    or :class:`MEMM <pyemma.thermo.models.memm.MEMM>` for a full documentation.
+    See :class:`MultiThermModel <pyerna.thermo.models.multi_therm.MultiThermModel>`
+    or :class:`MEMM <pyerna.thermo.models.memm.MEMM>` for a full documentation.
 
-    .. autoclass:: pyemma.thermo.models.multi_therm.MultiThermModel
+    .. autoclass:: pyerna.thermo.models.multi_therm.MultiThermModel
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.thermo.models.multi_therm.MultiThermModel
+        .. autoautosummary:: pyerna.thermo.models.multi_therm.MultiThermModel
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.thermo.models.multi_therm.MultiThermModel
+        .. autoautosummary:: pyerna.thermo.models.multi_therm.MultiThermModel
             :attributes:
 
-    .. autoclass:: pyemma.thermo.models.memm.MEMM
+    .. autoclass:: pyerna.thermo.models.memm.MEMM
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.thermo.models.memm.MEMM
+        .. autoautosummary:: pyerna.thermo.models.memm.MEMM
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.thermo.models.memm.MEMM
+        .. autoautosummary:: pyerna.thermo.models.memm.MEMM
             :attributes:
 
     """
@@ -357,7 +357,7 @@ def estimate_multi_temperature(
 
     Returns
     -------
-    A :class:`MultiThermModel <pyemma.thermo.models.multi_therm.MultiThermModel>` or :class:`MEMM <pyemma.thermo.models.memm.MEMM>` object or list thereof
+    A :class:`MultiThermModel <pyerna.thermo.models.multi_therm.MultiThermModel>` or :class:`MEMM <pyerna.thermo.models.memm.MEMM>` object or list thereof
         The requested estimator/model object, i.e., WHAM, MBAR, DTRAM or TRAM. If multiple lag times
         are given, a list of objects is returned (one MEMM per lag time).
 
@@ -366,7 +366,7 @@ def estimate_multi_temperature(
     We look at 1D simulations at two different kT values 1.0 and 2.0, already clustered data, and
     we use TRAM for the estimation:
 
-    >>> from pyemma.thermo import estimate_multi_temperature as estimate_mt
+    >>> from pyerna.thermo import estimate_multi_temperature as estimate_mt
     >>> import numpy as np
     >>> energy_trajs = [np.array([1.6, 1.4, 1.0, 1.0, 1.2, 1.0, 1.0]), np.array([0.8, 0.7, 0.5, 0.6, 0.7, 0.8, 0.7])]
     >>> temp_trajs = [np.array([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]), np.array([2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0])]
@@ -378,35 +378,35 @@ def estimate_multi_temperature(
     Note that alhough we only used one temperature per trajectory, ``estimate_multi_temperature()``
     can handle temperature changes as well.
 
-    See :class:`MultiThermModel <pyemma.thermo.models.multi_therm.MultiThermModel>`
-    or :class:`MEMM <pyemma.thermo.models.memm.MEMM>` for a full documentation.
+    See :class:`MultiThermModel <pyerna.thermo.models.multi_therm.MultiThermModel>`
+    or :class:`MEMM <pyerna.thermo.models.memm.MEMM>` for a full documentation.
 
-    .. autoclass:: pyemma.thermo.models.multi_therm.MultiThermModel
+    .. autoclass:: pyerna.thermo.models.multi_therm.MultiThermModel
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.thermo.models.multi_therm.MultiThermModel
+        .. autoautosummary:: pyerna.thermo.models.multi_therm.MultiThermModel
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.thermo.models.multi_therm.MultiThermModel
+        .. autoautosummary:: pyerna.thermo.models.multi_therm.MultiThermModel
             :attributes:
 
-    .. autoclass:: pyemma.thermo.models.memm.MEMM
+    .. autoclass:: pyerna.thermo.models.memm.MEMM
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.thermo.models.memm.MEMM
+        .. autoautosummary:: pyerna.thermo.models.memm.MEMM
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.thermo.models.memm.MEMM
+        .. autoautosummary:: pyerna.thermo.models.memm.MEMM
             :attributes:
 
     """
@@ -552,7 +552,7 @@ def tram(
           The connected set is then computed by summing the count matrices over
           all thermodynamic states and taking it's largest strongly connected set.
           Not recommended!
-        For more details see :func:`pyemma.thermo.extensions.cset.compute_csets_TRAM`.
+        For more details see :func:`pyerna.thermo.extensions.cset.compute_csets_TRAM`.
     connectivity_factor : float, optional, default=1.0
         Only needed if connectivity='post_hoc_RE' or 'BAR_variance'. Values
         greater than 1.0 weaken the connectivity conditions. For 'post_hoc_RE'
@@ -582,7 +582,7 @@ def tram(
 
     Returns
     -------
-    A :class:`MEMM <pyemma.thermo.models.memm.MEMM>` object or list thereof
+    A :class:`MEMM <pyerna.thermo.models.memm.MEMM>` object or list thereof
         A multi-ensemble Markov state model (for each given lag time) which consists of stationary
         and kinetic quantities at all temperatures/thermodynamic states.
 
@@ -616,7 +616,7 @@ def tram(
 
     Let us try the above example:
 
-    >>> from pyemma.thermo import tram
+    >>> from pyerna.thermo import tram
     >>> import numpy as np
     >>> ttrajs = [np.array([0,0,0,0,0,0,0]), np.array([1,1,1,1,1,1,1])]
     >>> dtrajs = [np.array([0,0,0,0,1,1,1]), np.array([0,1,0,1,0,1,1])]
@@ -632,20 +632,20 @@ def tram(
     >>> tram_obj.stationary_distribution # doctest: +ELLIPSIS
     array([ 0.38...  0.61...])
 
-    See :class:`MEMM <pyemma.thermo.models.memm.MEMM>` for a full documentation.
+    See :class:`MEMM <pyerna.thermo.models.memm.MEMM>` for a full documentation.
 
-    .. autoclass:: pyemma.thermo.models.memm.MEMM
+    .. autoclass:: pyerna.thermo.models.memm.MEMM
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.thermo.models.memm.MEMM
+        .. autoautosummary:: pyerna.thermo.models.memm.MEMM
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.thermo.models.memm.MEMM
+        .. autoautosummary:: pyerna.thermo.models.memm.MEMM
             :attributes:
 
     References
@@ -679,9 +679,9 @@ def tram(
     # check lag time(s)
     lags = _np.asarray(lag, dtype=_np.intc).reshape((-1,)).tolist()
     # build TRAM and run estimation
-    from pyemma.thermo import TRAM as _TRAM
+    from pyerna.thermo import TRAM as _TRAM
     tram_estimators = []
-    from pyemma._base.progress import ProgressReporter
+    from pyerna._base.progress import ProgressReporter
     pg = ProgressReporter()
     pg.register(amount_of_work=len(lags), description='Estimating TRAM for lags')
     with pg.context():
@@ -759,7 +759,7 @@ def dtram(
           all thermodynamic states and taking it's largest strongly connected set.
           Not recommended!
         * None : assume that everything is connected. For debugging.
-        For more details see :func:`pyemma.thermo.extensions.cset.compute_csets_dTRAM`.
+        For more details see :func:`pyerna.thermo.extensions.cset.compute_csets_dTRAM`.
     maxiter : int, optional, default=10000
         The maximum number of dTRAM iterations before the estimator exits unsuccessfully.
     maxerr : float, optional, default=1e-15
@@ -794,7 +794,7 @@ def dtram(
 
     Returns
     -------
-    A :class:`MEMM <pyemma.thermo.models.memm.MEMM>` object or list thereof
+    A :class:`MEMM <pyerna.thermo.models.memm.MEMM>` object or list thereof
         A multi-ensemble Markov state model (for each given lag time) which consists of stationary
         and kinetic quantities at all temperatures/thermodynamic states.
 
@@ -832,7 +832,7 @@ def dtram(
 
     Let us try the above example:
 
-    >>> from pyemma.thermo import dtram
+    >>> from pyerna.thermo import dtram
     >>> import numpy as np
     >>> ttrajs = [np.array([0,0,0,0,0,0,0,0,0,0]), np.array([1,1,1,1,1,1,1,1,1,1])]
     >>> dtrajs = [np.array([0,0,0,0,1,1,1,0,0,0]), np.array([0,1,0,1,0,1,1,0,0,1])]
@@ -848,20 +848,20 @@ def dtram(
     >>> dtram_obj.stationary_distribution # doctest: +ELLIPSIS
     array([ 0.38...,  0.61...])
 
-    See :class:`MEMM <pyemma.thermo.models.memm.MEMM>` for a full documentation.
+    See :class:`MEMM <pyerna.thermo.models.memm.MEMM>` for a full documentation.
 
-    .. autoclass:: pyemma.thermo.models.memm.MEMM
+    .. autoclass:: pyerna.thermo.models.memm.MEMM
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.thermo.models.memm.MEMM
+        .. autoautosummary:: pyerna.thermo.models.memm.MEMM
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.thermo.models.memm.MEMM
+        .. autoautosummary:: pyerna.thermo.models.memm.MEMM
             :attributes:
 
     References
@@ -885,8 +885,8 @@ def dtram(
     # check lag time(s)
     lags = _np.asarray(lag, dtype=_np.intc).reshape((-1,)).tolist()
     # build DTRAM and run estimation
-    from pyemma.thermo import DTRAM
-    from pyemma._base.progress import ProgressReporter
+    from pyerna.thermo import DTRAM
+    from pyerna._base.progress import ProgressReporter
     pg = ProgressReporter()
     pg.register(len(lags), description='Estimating DTRAM for lags')
     dtram_estimators = []
@@ -948,7 +948,7 @@ def wham(
 
     Returns
     -------
-    A :class:`MultiThermModel <pyemma.thermo.models.multi_therm.MultiThermModel>` object
+    A :class:`MultiThermModel <pyerna.thermo.models.multi_therm.MultiThermModel>` object
         A stationary model which consists of thermodynamic quantities at all
         temperatures/thermodynamic states.
 
@@ -986,7 +986,7 @@ def wham(
 
     Let us try the above example:
 
-    >>> from pyemma.thermo import wham
+    >>> from pyerna.thermo import wham
     >>> import numpy as np
     >>> ttrajs = [np.array([0,0,0,0,0,0,0,0,0,0]), np.array([1,1,1,1,1,1,1,1,1,1])]
     >>> dtrajs = [np.array([0,0,0,0,1,1,1,0,0,0]), np.array([0,1,0,1,0,1,1,0,0,1])]
@@ -1000,22 +1000,22 @@ def wham(
     >>> wham_obj.stationary_distribution # doctest: +ELLIPSIS +REPORT_NDIFF
     array([ 0.5...,  0.4...])
 
-    See :class:`MultiThermModel <pyemma.thermo.models.multi_therm.MultiThermModel>` for a full
+    See :class:`MultiThermModel <pyerna.thermo.models.multi_therm.MultiThermModel>` for a full
     documentation.
 
 
-    .. autoclass:: pyemma.thermo.models.multi_therm.MultiThermModel
+    .. autoclass:: pyerna.thermo.models.multi_therm.MultiThermModel
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.thermo.models.multi_therm.MultiThermModel
+        .. autoautosummary:: pyerna.thermo.models.multi_therm.MultiThermModel
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.thermo.models.multi_therm.MultiThermModel
+        .. autoautosummary:: pyerna.thermo.models.multi_therm.MultiThermModel
             :attributes:
 
     References
@@ -1041,7 +1041,7 @@ def wham(
             raise ValueError("Unmatching number of data points in ttraj/dtraj: %d!=%d" % (
                 len(ttraj), len(dtraj)))
     # build WHAM
-    from pyemma.thermo import WHAM
+    from pyerna.thermo import WHAM
     wham_estimator = WHAM(
         bias,
         maxiter=maxiter, maxerr=maxerr,
@@ -1099,7 +1099,7 @@ def mbar(
 
     Returns
     -------
-    A :class:`MultiThermModel <pyemma.thermo.models.multi_therm.MultiThermModel>` object
+    A :class:`MultiThermModel <pyerna.thermo.models.multi_therm.MultiThermModel>` object
         A stationary model which consists of thermodynamic quantities at all
         temperatures/thermodynamic states.
 
@@ -1133,7 +1133,7 @@ def mbar(
 
     Let us try the above example:
 
-    >>> from pyemma.thermo import mbar
+    >>> from pyerna.thermo import mbar
     >>> import numpy as np
     >>> ttrajs = [np.array([0,0,0,0,0,0,0]), np.array([1,1,1,1,1,1,1])]
     >>> dtrajs = [np.array([0,0,0,0,1,1,1]), np.array([0,1,0,1,0,1,1])]
@@ -1142,22 +1142,22 @@ def mbar(
     >>> mbar_obj.stationary_distribution # doctest: +ELLIPSIS
     array([ 0.5...  0.5...])
 
-    See :class:`MultiThermModel <pyemma.thermo.models.multi_therm.MultiThermModel>` for a full
+    See :class:`MultiThermModel <pyerna.thermo.models.multi_therm.MultiThermModel>` for a full
     documentation.
 
 
-    .. autoclass:: pyemma.thermo.models.multi_therm.MultiThermModel
+    .. autoclass:: pyerna.thermo.models.multi_therm.MultiThermModel
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.thermo.models.multi_therm.MultiThermModel
+        .. autoautosummary:: pyerna.thermo.models.multi_therm.MultiThermModel
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.thermo.models.multi_therm.MultiThermModel
+        .. autoautosummary:: pyerna.thermo.models.multi_therm.MultiThermModel
             :attributes:
 
     References
@@ -1185,7 +1185,7 @@ def mbar(
             raise ValueError("Unmatching number of data points in ttraj/bias trajectory: %d!=%d" % (
                 len(ttraj), len(btraj)))
     # build MBAR
-    from pyemma.thermo import MBAR
+    from pyerna.thermo import MBAR
     mbar_estimator = MBAR(
         maxiter=maxiter, maxerr=maxerr, save_convergence_info=save_convergence_info,
         dt_traj=dt_traj, direct_space=direct_space)

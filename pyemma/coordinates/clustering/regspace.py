@@ -26,9 +26,9 @@ Created on 26.01.2015
 
 import warnings
 
-from pyemma.coordinates.clustering.interface import AbstractClustering
-from pyemma.util.annotators import fix_docs
-from pyemma.util.exceptions import NotConvergedWarning
+from pyerna.coordinates.clustering.interface import AbstractClustering
+from pyerna.util.annotators import fix_docs
+from pyerna.util.exceptions import NotConvergedWarning
 
 import numpy as np
 

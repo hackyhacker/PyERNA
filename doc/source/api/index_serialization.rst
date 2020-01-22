@@ -7,19 +7,19 @@ Most of the Estimators and Models in PyEMMA are serializable. If a given PyEMMA 
 it provides a save method:
 
 .. automethod::
-   pyemma._base.serialization.SerializableMixIn.save
+   pyerna._base.serialization.SerializableMixIn.save
 
 
 Use the load function to load a previously saved PyEMMA object. Since a file can contain multiple
-objects saved under different names, you can inspect the files with the :func:`pyemma.list_models` function
-to obtain the previously used names. There is also a command line utility `pyemma_list_models` to inspect these files
+objects saved under different names, you can inspect the files with the :func:`pyerna.list_models` function
+to obtain the previously used names. There is also a command line utility `pyerna_list_models` to inspect these files
 quickly, without the need launching your own Python script.
 
 .. autofunction::
-   pyemma.load
+   pyerna.load
 
 .. autofunction::
-   pyemma.list_models
+   pyerna.list_models
 
 
 Notes

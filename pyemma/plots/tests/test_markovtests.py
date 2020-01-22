@@ -24,9 +24,9 @@ Created on 23.03.2016
 
 import unittest
 import numpy as np
-import pyemma
+import pyerna
 
-from pyemma.plots import plot_cktest
+from pyerna.plots import plot_cktest
 from msmtools.generation import generate_traj, generate_trajs
 
 
@@ -40,7 +40,7 @@ class TestItsPlot(unittest.TestCase):
                   [.25, .25, .25, .25],
                   ])
         dtrajs = generate_trajs(P, 5, 1000)
-        msm_obj = pyemma.msm.MaximumLikelihoodMSM()
+        msm_obj = pyerna.msm.MaximumLikelihoodMSM()
         msm_obj.estimate(dtrajs)
         cls.ck = msm_obj.cktest(3)
     def test_plot(self):

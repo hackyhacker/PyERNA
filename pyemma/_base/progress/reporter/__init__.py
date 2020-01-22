@@ -44,7 +44,7 @@ class ProgressReporterMixin(object):
     @property
     def show_progress(self):
         """ whether to show the progress of heavy calculations on this object. """
-        from pyemma import config
+        from pyerna import config
         # no value yet, obtain from config
         if not hasattr(self, "_show_progress"):
             val = config.show_progress_bars

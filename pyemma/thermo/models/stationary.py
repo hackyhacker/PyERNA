@@ -17,15 +17,15 @@
 
 import numpy as _np
 
-from pyemma._base.model import Model as _Model
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.msm.util.subset import SubSet as _SubSet
-from pyemma.msm.util.subset import add_full_state_methods as _add_full_state_methods
-from pyemma.msm.util.subset import map_to_full_state as _map_to_full_state
-from pyemma.util import types as _types
-from pyemma.util.annotators import aliased as _aliased, alias as _alias
+from pyerna._base.model import Model as _Model
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.msm.util.subset import SubSet as _SubSet
+from pyerna.msm.util.subset import add_full_state_methods as _add_full_state_methods
+from pyerna.msm.util.subset import map_to_full_state as _map_to_full_state
+from pyerna.util import types as _types
+from pyerna.util.annotators import aliased as _aliased, alias as _alias
 
-from pyemma.thermo.extensions.util import logsumexp as _logsumexp
+from pyerna.thermo.extensions.util import logsumexp as _logsumexp
 
 __author__ = 'noe'
 

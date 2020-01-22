@@ -1,4 +1,4 @@
-.. automodule:: pyemma.coordinates.transform
+.. automodule:: pyerna.coordinates.transform
 
 .. toctree::
    :maxdepth: 1

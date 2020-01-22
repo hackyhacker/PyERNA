@@ -18,9 +18,9 @@
 import numpy as _np
 from msmtools import estimation as msmest
 
-from pyemma.msm.estimators._msm_estimator_base import _MSMEstimator
-from pyemma.util.annotators import aliased, fix_docs
-from pyemma.util import types as _types
+from pyerna.msm.estimators._msm_estimator_base import _MSMEstimator
+from pyerna.util.annotators import aliased, fix_docs
+from pyerna.util import types as _types
 
 __all__ = ['MaximumLikelihoodMSM']
 
@@ -323,7 +323,7 @@ class MaximumLikelihoodMSM(_MSMEstimator):
         """
         self._check_is_estimated()
         Ceff_full = msmest.effective_count_matrix(self._dtrajs_full, self.lag)
-        from pyemma.util.linalg import submatrix
+        from pyerna.util.linalg import submatrix
         Ceff = submatrix(Ceff_full, self.active_set)
         return Ceff
         # return self._C_active / float(self.lag)

@@ -17,17 +17,17 @@
 
 import numpy as _np
 
-from pyemma._base.estimator import Estimator as _Estimator
-from pyemma._base.progress import ProgressReporter as _ProgressReporter
-from pyemma.thermo import MEMM as _MEMM
-from pyemma.thermo.estimators._base import ThermoBase
-from pyemma.thermo.models.memm import ThermoMSM as _ThermoMSM
-from pyemma.util import types as _types
-from pyemma.thermo.estimators._callback import _ConvergenceProgressIndicatorCallBack
+from pyerna._base.estimator import Estimator as _Estimator
+from pyerna._base.progress import ProgressReporter as _ProgressReporter
+from pyerna.thermo import MEMM as _MEMM
+from pyerna.thermo.estimators._base import ThermoBase
+from pyerna.thermo.models.memm import ThermoMSM as _ThermoMSM
+from pyerna.util import types as _types
+from pyerna.thermo.estimators._callback import _ConvergenceProgressIndicatorCallBack
 
 from msmtools.estimation import largest_connected_set as _largest_connected_set
 
-from pyemma.thermo.extensions import (
+from pyerna.thermo.extensions import (
     dtram as _dtram,
     wham as _wham,
     util as _util,
@@ -96,7 +96,7 @@ class DTRAM(_Estimator, _MEMM, ThermoBase):
               all thermodynamic states and taking it's largest strongly connected set.
               Not recommended!
             * None : assume that everything is connected. For debugging.
-            For more details see :func:`pyemma.thermo.extensions.cset.compute_csets_dTRAM`.
+            For more details see :func:`pyerna.thermo.extensions.cset.compute_csets_dTRAM`.
         maxiter : int, optional, default=10000
             The maximum number of self-consistent iterations before the estimator exits unsuccessfully.
         maxerr : float, optional, default=1.0E-15
@@ -129,7 +129,7 @@ class DTRAM(_Estimator, _MEMM, ThermoBase):
 
         Example
         -------
-        >>> from pyemma.thermo import DTRAM
+        >>> from pyerna.thermo import DTRAM
         >>> import numpy as np
         >>> B = np.array([[0, 0],[0.5, 1.0]])
         >>> dtram = DTRAM(B, 1)

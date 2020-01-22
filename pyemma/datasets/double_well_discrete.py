@@ -20,7 +20,7 @@
 __author__ = 'noe'
 
 import numpy as np
-from pyemma.msm import markov_model
+from pyerna.msm import markov_model
 
 class DoubleWell_Discrete_Data(object):
     """ MCMC process in a symmetric double well potential, spatially discretized to 100 bins
@@ -29,7 +29,7 @@ class DoubleWell_Discrete_Data(object):
 
     def __init__(self):
         from pkg_resources import resource_filename
-        filename = resource_filename('pyemma.datasets', 'double_well_discrete.npz')
+        filename = resource_filename('pyerna.datasets', 'double_well_discrete.npz')
         datafile = np.load(filename)
         self._dtraj_T100K_dt10 = datafile['dtraj']
         self._P = datafile['P']

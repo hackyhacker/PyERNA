@@ -69,7 +69,7 @@ def random_seed(seed=42):
 @contextmanager
 def settings(**kwargs):
     """ apply given PyEMMA config values temporarily within the given context."""
-    from pyemma import config
+    from pyerna import config
 
     old_settings = {}
     try:

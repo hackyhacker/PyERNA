@@ -28,7 +28,7 @@ the retrival via save_trajs
 import unittest
 
 import numpy as np
-import pyemma.coordinates as coor
+import pyerna.coordinates as coor
 
 class TestClusterSamples(unittest.TestCase):
     @classmethod

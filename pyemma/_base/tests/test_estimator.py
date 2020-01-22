@@ -1,6 +1,6 @@
 import unittest
 
-from pyemma._base.estimator import Estimator
+from pyerna._base.estimator import Estimator
 
 try:
     import sklearn

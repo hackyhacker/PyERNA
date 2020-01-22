@@ -21,15 +21,15 @@ import unittest
 from contextlib import contextmanager
 
 from unittest.mock import patch
-from pyemma.util.files import TemporaryDirectory
+from pyerna.util.files import TemporaryDirectory
 from logging import getLogger
 
 import numpy as np
-import pyemma.coordinates as coor
-import pyemma.util.types as types
+import pyerna.coordinates as coor
+import pyerna.util.types as types
 
 
-logger = getLogger('pyemma.'+'TestCluster')
+logger = getLogger('pyerna.'+'TestCluster')
 
 
 @contextmanager
@@ -240,7 +240,7 @@ class TestClusterAssign(unittest.TestCase):
 
     def test_assignment_multithread_minrsmd(self):
         # re-do assignment with multiple threads and compare results
-        import pyemma.datasets as data
+        import pyerna.datasets as data
         d = data.get_bpti_test_data()
         reader = coor.source(d['trajs'], top=d['top'])
 
@@ -257,7 +257,7 @@ class TestClusterAssign(unittest.TestCase):
         np.testing.assert_equal(assignment_mp, assignment_sp)
 
     def test_min_rmsd(self):
-        import pyemma.datasets as data
+        import pyerna.datasets as data
         d = data.get_bpti_test_data()
         reader = coor.source(d['trajs'], top=d['top'])
 

@@ -22,10 +22,10 @@ from contextlib import contextmanager
 
 import numpy as np
 
-import pyemma
-from pyemma._base.serialization.h5file import H5File
-from pyemma._base.serialization.serialization import ClassVersionException
-from pyemma._base.serialization.serialization import SerializableMixIn
+import pyerna
+from pyerna._base.serialization.h5file import H5File
+from pyerna._base.serialization.serialization import ClassVersionException
+from pyerna._base.serialization.serialization import SerializableMixIn
 from ._test_classes import (test_cls_v1, test_cls_v2, test_cls_v3, _deleted_in_old_version, test_cls_with_old_locations,
                             to_interpolate_with_functions, )
 
@@ -66,16 +66,16 @@ class private_attr(SerializableMixIn):
 @contextmanager
 def patch_old_location(faked_old_class, new_class):
     # register new_class for current context as replacement for faked_old_class
-    from pyemma._base.serialization.util import handle_old_classes, class_rename_registry
+    from pyerna._base.serialization.util import handle_old_classes, class_rename_registry
     import copy
     from unittest import mock
     my_copy = copy.deepcopy(class_rename_registry)
     # mark old_loc as being handled by new_class in newer software versions.
     old_loc = "{mod}.{cls}".format(mod=faked_old_class.__module__,
                                    cls=faked_old_class.__name__)
-    with mock.patch('pyemma._base.serialization.util.class_rename_registry', my_copy):
+    with mock.patch('pyerna._base.serialization.util.class_rename_registry', my_copy):
         handle_old_classes(old_loc)(new_class)
-        from pyemma._base.serialization.util import class_rename_registry as c
+        from pyerna._base.serialization.util import class_rename_registry as c
         assert c.find_replacement_for_old(old_loc) == new_class
 
         yield
@@ -118,7 +118,7 @@ class TestSerialisation(unittest.TestCase):
         inst.save(self.fn)
 
         with patch_old_location(test_cls_v1, test_cls_v2):
-            inst_restored = pyemma.load(self.fn)
+            inst_restored = pyerna.load(self.fn)
 
         self.assertIsInstance(inst_restored, test_cls_v2)
         self.assertEqual(inst_restored.z, 42)
@@ -129,7 +129,7 @@ class TestSerialisation(unittest.TestCase):
         inst.save(self.fn)
 
         with patch_old_location(test_cls_v2, test_cls_v3):
-            inst_restored = pyemma.load(self.fn)
+            inst_restored = pyerna.load(self.fn)
 
         self.assertIsInstance(inst_restored, test_cls_v3)
         self.assertEqual(inst_restored.z, 23)
@@ -140,7 +140,7 @@ class TestSerialisation(unittest.TestCase):
         inst.save(self.fn)
 
         with patch_old_location(test_cls_v1, test_cls_v3):
-            inst_restored = pyemma.load(self.fn)
+            inst_restored = pyerna.load(self.fn)
 
         self.assertIsInstance(inst_restored, test_cls_v3)
         self.assertEqual(inst_restored.z, 23)
@@ -151,7 +151,7 @@ class TestSerialisation(unittest.TestCase):
         c = test_cls_v1()
         c.save(self.fn)
         with patch_old_location(test_cls_v1, to_interpolate_with_functions):
-            inst_restored = pyemma.load(self.fn)
+            inst_restored = pyerna.load(self.fn)
 
         self.assertIsInstance(inst_restored, to_interpolate_with_functions)
         self.assertEqual(inst_restored.y, to_interpolate_with_functions.map_y(None))
@@ -164,7 +164,7 @@ class TestSerialisation(unittest.TestCase):
         # mark old_loc as being handled by test_cls_with_old_locations in newer versions.
         with patch_old_location(_deleted_in_old_version, test_cls_with_old_locations):
             # now restore and check it got properly remapped to the new class
-            restored = pyemma.load(self.fn)
+            restored = pyerna.load(self.fn)
         # assert isinstance(restored, test_cls_with_old_locations)
         self.assertIsInstance(restored, test_cls_with_old_locations)
 
@@ -172,15 +172,15 @@ class TestSerialisation(unittest.TestCase):
         """ no backward compatibility, eg. recent models are not supported by old version of software. """
         inst = test_cls_v3()
         inst.save(self.fn)
-        from pyemma._base.serialization.serialization import OldVersionUnsupported
+        from pyerna._base.serialization.serialization import OldVersionUnsupported
         old = SerializableMixIn._get_version(inst.__class__)
         def _set_version(cls, val):
             setattr(cls, '_%s__serialize_version' % cls.__name__, val)
         _set_version(test_cls_v3, 0)
         try:
             with self.assertRaises(OldVersionUnsupported) as c:
-                pyemma.load(self.fn)
-            self.assertIn("need at least version {version}".format(version=pyemma.version), c.exception.args[0])
+                pyerna.load(self.fn)
+            self.assertIn("need at least version {version}".format(version=pyerna.version), c.exception.args[0])
         finally:
             _set_version(test_cls_v3, old)
 
@@ -208,7 +208,7 @@ class TestSerialisation(unittest.TestCase):
             inst.__class__.__reduce__ = types.MethodType(evil, inst)
             inst.save(self.fn)
             with self.assertRaises(UnpicklingError) as e:
-                pyemma.load(self.fn)
+                pyerna.load(self.fn)
             self.assertIn('not allowed', str(e.exception))
             self.assertTrue(called, 'hack not executed')
         finally:
@@ -218,7 +218,7 @@ class TestSerialisation(unittest.TestCase):
     def test_private(self):
         inst = private_attr()
         inst.save(self.fn)
-        restore = pyemma.load(self.fn)
+        restore = pyerna.load(self.fn)
         assert restore.has_private_attr()
 
     def test_rename(self):

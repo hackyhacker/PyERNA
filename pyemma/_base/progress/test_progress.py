@@ -17,9 +17,9 @@
 
 import unittest
 
-from pyemma._base.progress import ProgressReporterMixin, ProgressReporter
-from pyemma.util.contexts import settings
-import pyemma
+from pyerna._base.progress import ProgressReporterMixin, ProgressReporter
+from pyerna.util.contexts import settings
+import pyerna
 
 
 class TestProgress(unittest.TestCase):
@@ -31,12 +31,12 @@ class TestProgress(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        pyemma.config.show_progress_bars = False
+        pyerna.config.show_progress_bars = False
         import sys
         sys.stderr = cls.old_std_err
 
     def setUp(self):
-        pyemma.config.show_progress_bars = True
+        pyerna.config.show_progress_bars = True
         self.pg = ProgressReporterMixin()
         self.pg._progress_register(100, "test")
 

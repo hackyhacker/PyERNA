@@ -22,13 +22,13 @@ import inspect
 import sys
 import os
 
-from pyemma._ext.sklearn.base import BaseEstimator as _BaseEstimator
-from pyemma._ext.sklearn.parameter_search import ParameterGrid
-from pyemma.util import types as _types
+from pyerna._ext.sklearn.base import BaseEstimator as _BaseEstimator
+from pyerna._ext.sklearn.parameter_search import ParameterGrid
+from pyerna.util import types as _types
 
 # imports for external usage
-from pyemma._ext.sklearn.base import clone as clone_estimator
-from pyemma._base.loggable import Loggable
+from pyerna._ext.sklearn.base import clone as clone_estimator
+from pyerna._base.loggable import Loggable
 
 __author__ = 'noe, marscher'
 
@@ -251,7 +251,7 @@ def estimate_param_scan(estimator, X, param_sets, evaluate=None, evaluate_args=N
 
     Estimate a maximum likelihood Markov model at lag times 1, 2, 3.
 
-    >>> from pyemma.msm.estimators import MaximumLikelihoodMSM, BayesianMSM
+    >>> from pyerna.msm.estimators import MaximumLikelihoodMSM, BayesianMSM
     >>>
     >>> dtraj = [0,0,1,2,1,0,1,0,1,2,2,0,0,0,1,1,2,1,0,0,1,2,1,0,0,0,1,1,0,1,2]  # mini-trajectory
     >>> param_sets=param_grid({'lag': [1,2,3]})
@@ -279,13 +279,13 @@ def estimate_param_scan(estimator, X, param_sets, evaluate=None, evaluate_args=N
         estimator.show_progress = show_progress
 
     if n_jobs is None:
-        from pyemma._base.parallel import get_n_jobs
+        from pyerna._base.parallel import get_n_jobs
         n_jobs = get_n_jobs(logger=getattr(estimator, 'logger', None))
 
     # if we want to return estimators, make clones. Otherwise just copy references.
     # For parallel processing we always need clones.
     # Also if the Estimator is its own Model, we have to clone.
-    from pyemma._base.model import Model
+    from pyerna._base.model import Model
     if (return_estimators or
         n_jobs > 1 or n_jobs is None or
         isinstance(estimator, Model)):
@@ -462,7 +462,7 @@ class Estimator(_BaseEstimator, Loggable):
         """
         out = dict()
         import warnings
-        from pyemma.util.exceptions import PyEMMA_DeprecationWarning
+        from pyerna.util.exceptions import PyEMMA_DeprecationWarning
 
         for key in self._get_param_names():
             # We need deprecation warnings to always be on in order to

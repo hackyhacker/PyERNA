@@ -17,10 +17,10 @@
 import os
 import unittest
 from unittest import mock
-from pyemma import msm
+from pyerna import msm
 from functools import wraps
 
-from pyemma._base.estimator import param_grid, estimate_param_scan, Estimator
+from pyerna._base.estimator import param_grid, estimate_param_scan, Estimator
 
 
 class TestCK_MSM(unittest.TestCase):
@@ -28,7 +28,7 @@ class TestCK_MSM(unittest.TestCase):
     @unittest.skipIf(os.name == 'nt', 'known to be broken on win')
     def test_failfast_true(self):
         """ test that exception is thrown for failfast=True"""
-        from pyemma._base.estimator import _estimate_param_scan_worker
+        from pyerna._base.estimator import _estimate_param_scan_worker
         failfast = True
 
         @wraps(_estimate_param_scan_worker)
@@ -38,13 +38,13 @@ class TestCK_MSM(unittest.TestCase):
             return _estimate_param_scan_worker(*args)
 
         with self.assertRaises(NotImplementedError):
-            with mock.patch('pyemma._base.estimator._estimate_param_scan_worker', worker_wrapper):
+            with mock.patch('pyerna._base.estimator._estimate_param_scan_worker', worker_wrapper):
                 hmm = msm.estimate_hidden_markov_model([0, 0, 0, 1, 1, 1, 0, 0], 2, 1, )
                 hmm.cktest()
 
     def test_failfast_false(self):
         """ test, that no exception is raised during estimation"""
-        from pyemma._base.estimator import _estimate_param_scan_worker
+        from pyerna._base.estimator import _estimate_param_scan_worker
         failfast = False
 
         @wraps(_estimate_param_scan_worker)
@@ -53,7 +53,7 @@ class TestCK_MSM(unittest.TestCase):
             args[5] = failfast
             return _estimate_param_scan_worker(*args)
 
-        with mock.patch('pyemma._base.estimator._estimate_param_scan_worker', worker_wrapper):
+        with mock.patch('pyerna._base.estimator._estimate_param_scan_worker', worker_wrapper):
             hmm = msm.estimate_hidden_markov_model([0, 0, 0, 1, 1, 1, 0, 0], 2, 1, )
             hmm.cktest()
 
@@ -72,7 +72,7 @@ class TestCK_MSM(unittest.TestCase):
             estimate_param_scan(sleeping_estimator, X=None, param_sets=[{'raise_': (False, True)}], failfast=False)
 
     def test_evaluate_msm(self):
-        from pyemma.msm.estimators import MaximumLikelihoodMSM
+        from pyerna.msm.estimators import MaximumLikelihoodMSM
         dtraj = [0, 0, 1, 2, 1, 0, 1, 0, 1, 2, 2, 0, 0, 0, 1, 1, 2, 1, 0, 0, 1, 2, 1, 0, 0, 0, 1, 1, 0, 1,
                  2]  # mini-trajectory
         param_sets = param_grid({'lag': [1, 2, 3]})
@@ -80,7 +80,7 @@ class TestCK_MSM(unittest.TestCase):
         self.assertIsInstance(res, list)
 
     def test_evaluate_bmsm_single_arg(self):
-        from pyemma.msm.estimators import BayesianMSM
+        from pyerna.msm.estimators import BayesianMSM
         dtraj = [0, 0, 1, 2, 1, 0, 1, 0, 1, 2, 2, 0, 0, 0, 1, 1, 2, 1, 0, 0, 1, 2, 1, 0, 0, 0, 1, 1, 0, 1,
                  2]  # mini-trajectory
         n_samples = 52
@@ -92,7 +92,7 @@ class TestCK_MSM(unittest.TestCase):
         self.assertEqual(len(res[0]), n_samples)
 
     def test_evaluate_msm_multi_arg(self):
-        from pyemma.msm.estimators import MaximumLikelihoodMSM
+        from pyerna.msm.estimators import MaximumLikelihoodMSM
         dtraj = [0, 0, 1, 2, 1, 0, 1, 0, 1, 2, 2, 0, 0, 0, 1, 1, 2, 1, 0, 0, 1, 2, 1, 0, 0, 0, 1, 1, 0, 1,
                  2]  # mini-trajectory
         traj_len = 10

@@ -1,7 +1,7 @@
 import numpy as np
 
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.coordinates.data._base.datasource import DataSourceIterator, DataSource
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.coordinates.data._base.datasource import DataSourceIterator, DataSource
 
 __author__ = 'marscher'
 

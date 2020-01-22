@@ -32,10 +32,10 @@ from mdtraj.core.trajectory import Trajectory
 from mdtraj.core.element import hydrogen, oxygen
 from mdtraj.core.topology import Topology
 
-from pyemma.coordinates.clustering.uniform_time import UniformTimeClustering
-from pyemma.coordinates.pipelines import Discretizer
-from pyemma.coordinates.data.data_in_memory import DataInMemory
-from pyemma.coordinates.api import cluster_kmeans, pca, source
+from pyerna.coordinates.clustering.uniform_time import UniformTimeClustering
+from pyerna.coordinates.pipelines import Discretizer
+from pyerna.coordinates.data.data_in_memory import DataInMemory
+from pyerna.coordinates.api import cluster_kmeans, pca, source
 
 
 
@@ -118,7 +118,7 @@ class TestDiscretizer(unittest.TestCase):
             self.assertEqual(unique.shape[0], n_clusters)
 
     def test_with_data_in_mem(self):
-        import pyemma.coordinates as api
+        import pyerna.coordinates as api
 
         data = [np.random.random((100, 50)),
                 np.random.random((103, 50)),

@@ -14,7 +14,7 @@ After you have successfully installed these dependencies, you can invoke::
 
 	make ipython-rst
 
-to execute and convert the notebooks found in ../pyemma-ipython
+to execute and convert the notebooks found in ../pyerna-ipython
 
 After this step you are ready to convert the generated RST files to HTML via::
 

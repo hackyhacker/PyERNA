@@ -20,11 +20,11 @@ import unittest
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pyemma.plots.plots2d import contour, scatter_contour
-from pyemma.plots.plots2d import plot_density
-from pyemma.plots.plots2d import plot_free_energy
-from pyemma.plots.plots2d import plot_contour
-from pyemma.plots.plots2d import plot_state_map
+from pyerna.plots.plots2d import contour, scatter_contour
+from pyerna.plots.plots2d import plot_density
+from pyerna.plots.plots2d import plot_free_energy
+from pyerna.plots.plots2d import plot_contour
+from pyerna.plots.plots2d import plot_state_map
 
 
 class TestPlots2d(unittest.TestCase):

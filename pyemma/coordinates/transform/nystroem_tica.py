@@ -21,15 +21,15 @@
 from types import FunctionType
 
 import numpy as np
-from pyemma.util.types import ensure_int_vector
+from pyerna.util.types import ensure_int_vector
 
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma._ext.variational.solvers.direct import sort_by_norm, spd_inv_split, eig_corr
-from pyemma._ext.variational.util import ZeroRankError
-from pyemma.coordinates.estimation.covariance import LaggedCovariance
-from pyemma.coordinates.transform._tica_base import TICABase, TICAModelBase
-from pyemma.util.annotators import fix_docs
-from pyemma.util.reflection import get_default_args
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna._ext.variational.solvers.direct import sort_by_norm, spd_inv_split, eig_corr
+from pyerna._ext.variational.util import ZeroRankError
+from pyerna.coordinates.estimation.covariance import LaggedCovariance
+from pyerna.coordinates.transform._tica_base import TICABase, TICAModelBase
+from pyerna.util.annotators import fix_docs
+from pyerna.util.reflection import get_default_args
 import warnings
 
 __all__ = ['NystroemTICA']
@@ -101,7 +101,7 @@ class NystroemTICA(TICABase, SerializableMixIn):
         Notes
         -----
         Perform a sparse approximation of time-lagged independent component analysis (TICA)
-        :class:`TICA <pyemma.coordinates.transform.TICA>`. The starting point is the
+        :class:`TICA <pyerna.coordinates.transform.TICA>`. The starting point is the
         generalized eigenvalue problem
 
         .. math:: C_{\tau} r_i = C_0 \lambda_i(\tau) r_i.
@@ -199,7 +199,7 @@ class NystroemTICA(TICABase, SerializableMixIn):
         return super(NystroemTICA, self).estimate(X, **kwargs)
 
     def _estimate(self, iterable, **kw):
-        from pyemma.coordinates.data import DataInMemory
+        from pyerna.coordinates.data import DataInMemory
         if not isinstance(iterable, DataInMemory):
             self.logger.warning('Every iteration of the selection process involves streaming of all data and featurization. '
                                 'Depending on your setup, this might be inefficient.')

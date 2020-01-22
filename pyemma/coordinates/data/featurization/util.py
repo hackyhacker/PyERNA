@@ -19,10 +19,10 @@ Created on 15.02.2016
 
 @author: marscher
 '''
-from pyemma.util.indices import (combinations,
+from pyerna.util.indices import (combinations,
                                  product)
-from pyemma.util.numeric import _hash_numpy_array
-from pyemma.util.types import is_iterable_of_int, is_string
+from pyerna.util.numeric import _hash_numpy_array
+from pyerna.util.types import is_iterable_of_int, is_string
 
 import numpy as np
 

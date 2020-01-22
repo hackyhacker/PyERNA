@@ -26,9 +26,9 @@ import random
 import unittest
 import numpy as np
 
-from pyemma.coordinates.api import cluster_kmeans
-from pyemma.util.files import TemporaryDirectory
-from pyemma.util.contexts import settings, Capturing
+from pyerna.coordinates.api import cluster_kmeans
+from pyerna.util.files import TemporaryDirectory
+from pyerna.util.contexts import settings, Capturing
 
 
 class TestKmeans(unittest.TestCase):
@@ -59,14 +59,14 @@ class TestKmeans(unittest.TestCase):
     def test_3gaussian_1d_singletraj(self):
         # generate 1D data from three gaussians
 
-        from pyemma.util.contexts import numpy_random_seed
+        from pyerna.util.contexts import numpy_random_seed
         with numpy_random_seed(42):
             X = [np.random.randn(200)-2.0,
                  np.random.randn(200),
                  np.random.randn(200)+2.0]
         X = np.hstack(X)
         k = 50
-        from pyemma._base.estimator import param_grid
+        from pyerna._base.estimator import param_grid
         grid = param_grid({'init_strategy': ['uniform', 'kmeans++'], 'fixed_seed': [True, 463498]})
         for param in grid:
             init_strategy = param['init_strategy']
@@ -106,7 +106,7 @@ class TestKmeans(unittest.TestCase):
         """
         k = 6
         max_iter = 50
-        from pyemma.coordinates.clustering.tests.util import make_blobs
+        from pyerna.coordinates.clustering.tests.util import make_blobs
         data = make_blobs(n_samples=500, random_state=45, centers=k, cluster_std=0.5, shuffle=False)[0]
         repeat = True
         it = 0
@@ -243,16 +243,16 @@ class TestKmeans(unittest.TestCase):
 
     def test_with_pg_data_not_in_memory(self):
         import pkg_resources
-        import pyemma
+        import pyerna
 
-        path = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data') + os.path.sep
+        path = pkg_resources.resource_filename('pyerna.coordinates.tests', 'data') + os.path.sep
         pdb_file = os.path.join(path, 'bpti_ca.pdb')
         traj_files = [
             os.path.join(path, 'bpti_001-033.xtc'),
             os.path.join(path, 'bpti_034-066.xtc'),
             os.path.join(path, 'bpti_067-100.xtc')
         ]
-        reader = pyemma.coordinates.source(traj_files, top=pdb_file)
+        reader = pyerna.coordinates.source(traj_files, top=pdb_file)
 
         with settings(show_progress_bars=True), Capturing(which='stderr') as out:
             cluster_kmeans(reader)
@@ -263,7 +263,7 @@ class TestKmeansResume(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        from pyemma.util.contexts import numpy_random_seed
+        from pyerna.util.contexts import numpy_random_seed
         with numpy_random_seed(32):
             # three gaussians
             X = [np.random.randn(1000)-2.0,
@@ -291,7 +291,7 @@ class TestKmeansResume(unittest.TestCase):
         self.assertLess(diff_next, diff, 'resume_centers=%s, new_centers=%s' % (resume_centers, new_centers))
 
     def test_inefficient_args_log(self):
-        from pyemma.util.testing_tools import MockLoggingHandler
+        from pyerna.util.testing_tools import MockLoggingHandler
         m = MockLoggingHandler()
         cl = cluster_kmeans(self.X, max_iter=1, keep_data=False)
         cl.logger.addHandler(m)

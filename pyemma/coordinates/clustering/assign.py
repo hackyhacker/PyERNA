@@ -25,8 +25,8 @@ Created on 18.02.2015
 
 import numpy as np
 
-from pyemma.coordinates.clustering.interface import AbstractClustering
-from pyemma.util.annotators import fix_docs
+from pyerna.coordinates.clustering.interface import AbstractClustering
+from pyerna.util.annotators import fix_docs
 
 
 @fix_docs
@@ -52,8 +52,8 @@ class AssignCenters(AbstractClustering):
     --------
     Assuming you have stored your centers in a CSV file:
 
-    >>> from pyemma.coordinates.clustering import AssignCenters
-    >>> from pyemma.coordinates import pipeline
+    >>> from pyerna.coordinates.clustering import AssignCenters
+    >>> from pyerna.coordinates import pipeline
     >>> reader = ... # doctest: +SKIP
     >>> assign = AssignCenters('my_centers.dat') # doctest: +SKIP
     >>> disc = pipeline(reader, cluster=assign) # doctest: +SKIP
@@ -66,7 +66,7 @@ class AssignCenters(AbstractClustering):
         super(AssignCenters, self).__init__(metric=metric, n_jobs=n_jobs)
 
         if isinstance(clustercenters, str):
-            from pyemma.coordinates.data import create_file_reader
+            from pyerna.coordinates.data import create_file_reader
             reader = create_file_reader(clustercenters, None, None)
             clustercenters = reader.get_output()[0]
         else:

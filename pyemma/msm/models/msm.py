@@ -26,17 +26,17 @@ and provides them for later access.
 """
 
 
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.util.annotators import aliased, alias
-from pyemma.util.numeric import _hash_numpy_array
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.util.annotators import aliased, alias
+from pyerna.util.numeric import _hash_numpy_array
 
 __docformat__ = "restructuredtext en"
 
 import copy
 import numpy as _np
 from math import ceil
-from pyemma._base.model import Model as _Model
-from pyemma.util import types as _types
+from pyerna._base.model import Model as _Model
+from pyerna.util import types as _types
 
 
 # TODO: Explain concept of an active set
@@ -263,7 +263,7 @@ class MSM(_Model, SerializableMixIn):
     @dt_model.setter
     def dt_model(self, value):
         self._dt_model = value
-        from pyemma.util.units import TimeUnit
+        from pyerna.util.units import TimeUnit
         # this is used internally to scale output times to a physical time unit.
         if value is not None:
             self._timeunit_model = TimeUnit(self.dt_model)
@@ -485,7 +485,7 @@ class MSM(_Model, SerializableMixIn):
                 pk = _np.dot(pk.T, self.transition_matrix)
         else:  # dense: employ eigenvalue decomposition
             self._ensure_eigendecomposition(self.nstates)
-            from pyemma.util.linalg import mdot
+            from pyerna.util.linalg import mdot
             pk = mdot(p0.T,
                       self.eigenvectors_right(),
                       _np.diag(_np.power(self.eigenvalues(), k)),
@@ -680,7 +680,7 @@ class MSM(_Model, SerializableMixIn):
         on a three-state Markov model and plots the result using matplotlib:
 
         >>> import numpy as np
-        >>> import pyemma.msm as msm
+        >>> import pyerna.msm as msm
         >>>
         >>> P = np.array([[0.99, 0.01, 0], [0.01, 0.9, 0.09], [0, 0.1, 0.9]])
         >>> a = np.array([0.0, 0.5, 1.0])
@@ -911,7 +911,7 @@ class MSM(_Model, SerializableMixIn):
 
         Returns
         -------
-        pcca_obj : :class:`PCCA <pyemma.msm.PCCA>`
+        pcca_obj : :class:`PCCA <pyerna.msm.PCCA>`
             An object containing all PCCA quantities. However, you can also
             ignore this return value and instead retrieve the quantities of
             your interest with the following MSM functions: :func:`metastable_memberships`,
@@ -937,7 +937,7 @@ class MSM(_Model, SerializableMixIn):
             raise ValueError('Cannot compute PCCA for non-reversible matrices. '
                              'Set reversible=True when constructing the MSM.')
 
-        from pyemma.msm.models.pcca import PCCA
+        from pyerna.msm.models.pcca import PCCA
         # ensure that we have a pcca object with the right number of states
         try:
             # this will except if we don't have a pcca object

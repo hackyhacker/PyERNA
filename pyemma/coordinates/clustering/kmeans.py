@@ -29,12 +29,12 @@ import psutil
 import random
 import tempfile
 
-from pyemma._base.progress.reporter import ProgressReporterMixin
-from pyemma.coordinates.clustering.interface import AbstractClustering
-from pyemma.util.annotators import fix_docs
-from pyemma.util.units import bytes_to_string
+from pyerna._base.progress.reporter import ProgressReporterMixin
+from pyerna.coordinates.clustering.interface import AbstractClustering
+from pyerna.util.annotators import fix_docs
+from pyerna.util.units import bytes_to_string
 
-from pyemma.util.contexts import random_seed, nullcontext
+from pyerna.util.contexts import random_seed, nullcontext
 import numpy as np
 
 
@@ -136,7 +136,7 @@ class KmeansClustering(AbstractClustering, ProgressReporterMixin):
 
     @fixed_seed.setter
     def fixed_seed(self, val):
-        from pyemma.util import types
+        from pyerna.util import types
         if isinstance(val, bool) or val is None:
             if val:
                 self._fixed_seed = 42

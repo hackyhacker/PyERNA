@@ -21,10 +21,10 @@ from logging import getLogger
 
 import numpy as np
 
-from pyemma.coordinates import source
-from pyemma.coordinates.data import FeatureReader
-from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
-from pyemma.coordinates.data.util.reader_utils import (copy_traj_attributes as _copy_traj_attributes,
+from pyerna.coordinates import source
+from pyerna.coordinates.data import FeatureReader
+from pyerna.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+from pyerna.coordinates.data.util.reader_utils import (copy_traj_attributes as _copy_traj_attributes,
                                                        preallocate_empty_trajectory as _preallocate_empty_trajectory,
                                                        enforce_top as _enforce_top)
 

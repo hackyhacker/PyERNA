@@ -27,8 +27,8 @@ import unittest
 
 import numpy as np
 
-from pyemma.coordinates import api
-from pyemma.coordinates.data.data_in_memory import DataInMemory
+from pyerna.coordinates import api
+from pyerna.coordinates.data.data_in_memory import DataInMemory
 
 
 class TestUniformTimeClustering(unittest.TestCase):

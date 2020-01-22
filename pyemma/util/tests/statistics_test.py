@@ -24,7 +24,7 @@ Created on Jul 25, 2014
 '''
 
 import unittest
-from pyemma.util import statistics
+from pyerna.util import statistics
 import numpy as np
 
 

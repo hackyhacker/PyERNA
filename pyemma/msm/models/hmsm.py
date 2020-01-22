@@ -29,9 +29,9 @@ and provides them for later access.
 import numpy as _np
 
 
-from pyemma.msm.models.msm import MSM as _MSM
-from pyemma.util import types as _types
-from pyemma.util.annotators import fix_docs
+from pyerna.msm.models.msm import MSM as _MSM
+from pyerna.util import types as _types
+from pyerna.util.annotators import fix_docs
 
 
 @fix_docs
@@ -222,7 +222,7 @@ class HMSM(_MSM):
             p0 = _np.dot(self.observation_probabilities, p0)
 
         self._ensure_eigendecomposition(self.nstates)
-        from pyemma.util.linalg import mdot
+        from pyerna.util.linalg import mdot
         pk = mdot(p0.T, self.eigenvectors_right(), _np.diag(_np.power(self.eigenvalues(), k)), self.eigenvectors_left())
 
         if micro:

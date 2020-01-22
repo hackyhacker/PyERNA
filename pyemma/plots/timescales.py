@@ -19,7 +19,7 @@
 
 
 import numpy as _np
-from pyemma.util.types import  is_iterable_of_int as _is_iterable_of_int, is_int as _is_int
+from pyerna.util.types import  is_iterable_of_int as _is_iterable_of_int, is_int as _is_int
 
 __author__ = 'noe'
 

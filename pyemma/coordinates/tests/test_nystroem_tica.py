@@ -18,8 +18,8 @@
 import unittest
 import numpy as np
 
-from pyemma.coordinates import tica, tica_nystroem
-from pyemma.coordinates.transform.nystroem_tica import oASIS_Nystroem
+from pyerna.coordinates import tica, tica_nystroem
+from pyerna.coordinates.transform.nystroem_tica import oASIS_Nystroem
 
 import sys
 use_assert_warns = (sys.version_info >= (3, 4))
@@ -73,7 +73,7 @@ class TestNystroemTICA_Simple(unittest.TestCase):
 class TestNystroemTICA_DoubleWell(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        from pyemma.datasets import load_2well_discrete
+        from pyerna.datasets import load_2well_discrete
         dw = load_2well_discrete()
         v = dw.dtraj_T100K_dt10[:10000]
         cls.T = v.size
@@ -160,7 +160,7 @@ class TestNystroemTICA_oASIS(unittest.TestCase):
                        np.array([0, 0, 1, -1])]).T
         M = np.dot(U, np.dot(np.diag([1, 0.95, 0.7]), U.T))
         oasis = oASIS_Nystroem(np.diag(M), M[:, 0:2], np.array([0, 1]))
-        from pyemma.coordinates.transform.nystroem_tica import SelectionStrategySpectralOasis
+        from pyerna.coordinates.transform.nystroem_tica import SelectionStrategySpectralOasis
         sel = SelectionStrategySpectralOasis(oasis, strategy='spectral-oasis')
         evecs = oasis.approximate_eig()[1]
         fixed_evecs = sel._fix_constant_evec(evecs)

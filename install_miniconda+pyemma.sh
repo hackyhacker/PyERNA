@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # This script installs Miniconda and PyEMMA. If conda is already available, we install PyEMMA in a new environment.
-# By default, we use the name 'pyemma' as environment name.
+# By default, we use the name 'pyerna' as environment name.
 # The desired output folders and env names can be set by arguments.
 # Author: Martin Scherer, 2018
 
 function usage {
     echo "Usage of installation script:"
     echo "bash $0 -t 'miniconda_target_directory' path to Miniconda"
-    echo "bash $0 -e 'conda_environment' environment name in which pyemma will be installed."
+    echo "bash $0 -e 'conda_environment' environment name in which pyerna will be installed."
     echo "bash $0 -i ignore existing miniconda installation. Get a fresh copy."
     echo "bash $0 -n do not add the new path of miniconda installation to PATH (bashrc update) [off by default]."
     echo "bash $0 -m minimal set of packags, eg. omit jupyter notebook installation."
@@ -15,7 +15,7 @@ function usage {
 
 # default values for arguments.
 target=$HOME/miniconda3
-env_name="pyemma"
+env_name="pyerna"
 ignore=1 # dont ignore existing miniconda installation, but just use it to install our environment.
 no_add_bashrc=1 # add new target to PATH in .bashrc
 minimal=1 # minimal set of packags, eg. omit jupyter notebook installation
@@ -91,22 +91,22 @@ function install_miniconda {
 }
 
 
-function install_pyemma {
-    # installs pyemma in an env named pyemma
-    packages="pyemma numpy"
+function install_pyerna {
+    # installs pyerna in an env named pyerna
+    packages="pyerna numpy"
     if [ ! minimal ]; then
         # add optional packages.
         packages="$packages notebook ipython ipywidgets"
     fi
     # we add numpy here to get the openblas variant (instead of MKL).
-    echo "creating pyemma environment..."
+    echo "creating pyerna environment..."
     conda=${target}/bin/conda
     if [[ -z $($conda env list | grep ${env_name}) ]]; then
         echo "env '$env_name' does not exist. Create new one."
         $conda create -n ${env_name} ${packages} -y -c conda-forge
 	source activate ${env_name}
         $conda config --env --add channels conda-forge
-	echo "execute the following command to activate your newly created pyemma environment:"
+	echo "execute the following command to activate your newly created pyerna environment:"
 	echo "> source activate ${env_name}"
     else
         echo "environment with name='${env_name}' already exists. Please specify a different name by -e new_name"
@@ -117,13 +117,13 @@ function install_pyemma {
 # probe for conda, install miniconda otherwise.
 if [ -x "$(command -v conda)" ] && [ $ignore -eq 1 ]; then
     echo "Found conda. Will install to a new environment named ${env_name}"
-    install_pyemma
+    install_pyerna
 else
     if [ -d ${target} ]; then
         echo "ERROR: Destination directory for Miniconda $target already exists, please choose another one."
         exit 1
     else
         install_miniconda
-        install_pyemma
+        install_pyerna
     fi
 fi

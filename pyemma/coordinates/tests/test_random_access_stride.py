@@ -24,16 +24,16 @@ from unittest import TestCase
 import mdtraj
 import numpy as np
 import pkg_resources
-import pyemma.coordinates.api as coor
-from pyemma.coordinates.data import DataInMemory, FeatureReader
-from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
-from pyemma.coordinates.tests.util import create_traj, get_top
-from pyemma.util.files import TemporaryDirectory
+import pyerna.coordinates.api as coor
+from pyerna.coordinates.data import DataInMemory, FeatureReader
+from pyerna.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+from pyerna.coordinates.tests.util import create_traj, get_top
+from pyerna.util.files import TemporaryDirectory
 
 
 
 def _test_ra_with_format(format, stride):
-    from pyemma.coordinates.tests.test_featurereader import create_traj
+    from pyerna.coordinates.tests.test_featurereader import create_traj
 
     topfile = pkg_resources.resource_filename(__name__, 'data/test.pdb')
     trajfiles = []
@@ -140,19 +140,19 @@ class TestRandomAccessStride(TestCase):
         tica = coor.tica(feature_reader)
         # everything normal
         assert tica.is_random_accessible
-        from pyemma.coordinates.data._base.transformer import StreamingTransformerRandomAccessStrategy
+        from pyerna.coordinates.data._base.transformer import StreamingTransformerRandomAccessStrategy
         assert isinstance(tica._ra_jagged, StreamingTransformerRandomAccessStrategy)
 
         # set to memory
         tica.in_memory = True
         assert tica.is_random_accessible
-        from pyemma.coordinates.data.data_in_memory import DataInMemoryJaggedRandomAccessStrategy
+        from pyerna.coordinates.data.data_in_memory import DataInMemoryJaggedRandomAccessStrategy
         assert isinstance(tica._ra_jagged, DataInMemoryJaggedRandomAccessStrategy)
 
         # not in memory anymore, expect to fall back
         tica.in_memory = False
         assert tica.is_random_accessible
-        from pyemma.coordinates.data._base.transformer import StreamingTransformerRandomAccessStrategy
+        from pyerna.coordinates.data._base.transformer import StreamingTransformerRandomAccessStrategy
         assert isinstance(tica._ra_jagged, StreamingTransformerRandomAccessStrategy)
 
         # remove data source
@@ -459,7 +459,7 @@ class TestRandomAccessStride(TestCase):
 
     def test_RA_high_stride(self):
         """ ensure we use a random access pattern for high strides chunksize combinations to avoid memory issues."""
-        from pyemma.coordinates.util.patches import iterload
+        from pyerna.coordinates.util.patches import iterload
 
         n=int(1e5)
         n_bytes = 3*3*8*n # ~8Mb
@@ -471,7 +471,7 @@ class TestRandomAccessStride(TestCase):
 
             from unittest.mock import patch
             # temporarily overwrite the memory cutoff with a smaller value, to trigger the switch to RA stride.
-            with patch('pyemma.coordinates.util.patches.iterload.MEMORY_CUTOFF', n_bytes - 1):
+            with patch('pyerna.coordinates.util.patches.iterload.MEMORY_CUTOFF', n_bytes - 1):
                 r = coor.source(traj, top=get_top())
                 it = r.iterator(stride=1000, chunk=100000)
                 next(it)

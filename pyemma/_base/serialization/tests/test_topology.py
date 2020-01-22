@@ -21,7 +21,7 @@ import unittest
 import pkg_resources
 import mdtraj
 
-from pyemma._base.serialization.h5file import H5File
+from pyerna._base.serialization.h5file import H5File
 
 
 class TestTopology(unittest.TestCase):
@@ -58,9 +58,9 @@ class TestTopology(unittest.TestCase):
             self.assertEqual(tuple(top.residues), tuple(restored.residues))
 
     def test_opsin(self):
-        traj = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data/opsin_aa_1_frame.pdb.gz')
+        traj = pkg_resources.resource_filename('pyerna.coordinates.tests', 'data/opsin_aa_1_frame.pdb.gz')
         self._load_cmp(traj)
 
     def test_bpti(self):
-        traj = pkg_resources.resource_filename('pyemma.coordinates.tests', 'data/bpti_ca.pdb')
+        traj = pkg_resources.resource_filename('pyerna.coordinates.tests', 'data/bpti_ca.pdb')
         self._load_cmp(traj)

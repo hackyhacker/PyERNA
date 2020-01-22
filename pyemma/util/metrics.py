@@ -1,7 +1,7 @@
 __author__ = 'noe'
 
 import numpy as np
-from pyemma.util.linalg import mdot
+from pyerna.util.linalg import mdot
 
 """
 Contains various metrics for ranking kinetic models
@@ -11,7 +11,7 @@ Contains various metrics for ranking kinetic models
 def _svd_sym_koopman(K, C00_train, Ctt_train):
     """ Computes the SVD of the symmetrized Koopman operator in the empirical distribution.
     """
-    from pyemma._ext.variational.solvers.direct import spd_inv_sqrt
+    from pyerna._ext.variational.solvers.direct import spd_inv_sqrt
     # reweight operator to empirical distribution
     C0t_re = mdot(C00_train, K)
     # symmetrized operator and SVD
@@ -74,7 +74,7 @@ def vamp_1_score(K, C00_train, C0t_train, Ctt_train, C00_test, C0t_test, Ctt_tes
         VAMP-1 score
 
     """
-    from pyemma._ext.variational.solvers.direct import spd_inv_sqrt
+    from pyerna._ext.variational.solvers.direct import spd_inv_sqrt
 
     # SVD of symmetrized operator in empirical distribution
     U, S, V = _svd_sym_koopman(K, C00_train, Ctt_train)
@@ -142,7 +142,7 @@ def vamp_2_score(K, C00_train, C0t_train, Ctt_train, C00_test, C0t_test, Ctt_tes
         VAMP-2 score
 
     """
-    from pyemma._ext.variational.solvers.direct import spd_inv_sqrt
+    from pyerna._ext.variational.solvers.direct import spd_inv_sqrt
 
     # SVD of symmetrized operator in empirical distribution
     U, _, V = _svd_sym_koopman(K, C00_train, Ctt_train)

@@ -32,14 +32,14 @@ class H5File(object):
                          'class_str',
                          'class_repr',
                          'saved_streaming_chain',
-                         'pyemma_version',
+                         'pyerna_version',
                          'digest',
                          )
 
     def __init__(self, file_name, model_name=None, mode='r'):
         import h5py
         self._file = h5py.File(file_name, mode=mode)
-        self._parent = self._file.require_group('pyemma')
+        self._parent = self._file.require_group('pyerna')
         self._current_model_group = model_name
 
     def rename(self, old, new, overwrite=False):
@@ -119,13 +119,13 @@ class H5File(object):
         self._hash(g.attrs, inp, compare_to=g.attrs['digest'])
         unpickler = HDF5PersistentUnpickler(g, file=file)
         obj = unpickler.load()
-        obj._restored_from_pyemma_version = self.pyemma_version
+        obj._restored_from_pyerna_version = self.pyerna_version
 
         return obj
 
     def add_serializable(self, name, obj, overwrite=False, save_streaming_chain=False):
         # create new group with given name and serialize the object in it.
-        from pyemma._base.serialization.serialization import SerializableMixIn
+        from pyerna._base.serialization.serialization import SerializableMixIn
         assert isinstance(obj, SerializableMixIn)
 
         # save data producer chain?
@@ -154,14 +154,14 @@ class H5File(object):
         self._pickle_and_attach_object(obj)
 
     def _save_attributes(self, obj):
-        from pyemma import version
+        from pyerna import version
         import time
         self.created = time.time()
         self.created_readable = time.asctime()
         self.class_str = str(obj)
         self.class_repr = repr(obj)
         # store the current software version
-        self.pyemma_version = version
+        self.pyerna_version = version
 
     def _pickle_and_attach_object(self, obj):
         # now encode the object (this will write all numpy arrays to current group).
@@ -209,7 +209,7 @@ class H5File(object):
             digest.update(pair)
         hex = digest.hexdigest()
         if compare_to is not None and hex != compare_to:
-            from pyemma._base.serialization.serialization import IntegrityError
+            from pyerna._base.serialization.serialization import IntegrityError
             raise IntegrityError('mismatch:{} !=\n{}'.format(digest, compare_to))
         return digest.hexdigest()
 
@@ -254,12 +254,12 @@ class H5File(object):
         self._current_model_group.attrs['saved_streaming_chain'] = value
 
     @property
-    def pyemma_version(self):
-        return self._current_model_group.attrs['pyemma_version']
+    def pyerna_version(self):
+        return self._current_model_group.attrs['pyerna_version']
 
-    @pyemma_version.setter
-    def pyemma_version(self, value):
-        self._current_model_group.attrs['pyemma_version'] = value
+    @pyerna_version.setter
+    def pyerna_version(self, value):
+        self._current_model_group.attrs['pyerna_version'] = value
 
     def __enter__(self):
         return self

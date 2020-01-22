@@ -18,18 +18,18 @@
 
 import warnings
 
-from pyemma._base.loggable import Loggable
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.util.annotators import deprecated
-from pyemma.util.types import is_string
+from pyerna._base.loggable import Loggable
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.util.annotators import deprecated
+from pyerna.util.types import is_string
 import mdtraj
 
-from pyemma.coordinates.data.featurization.util import (_parse_pairwise_input,
+from pyerna.coordinates.data.featurization.util import (_parse_pairwise_input,
                                                         _parse_groupwise_input)
 
 from .misc import CustomFeature
 import numpy as np
-from pyemma.coordinates.util.patches import load_topology_cached
+from pyerna.coordinates.util.patches import load_topology_cached
 from mdtraj import load_topology as load_topology_uncached
 
 
@@ -581,7 +581,7 @@ class MDFeaturizer(SerializableMixIn, Loggable):
         """
 
         from .misc import ResidueCOMFeature
-        from pyemma.coordinates.data.featurization.util import _atoms_in_residues
+        from pyerna.coordinates.data.featurization.util import _atoms_in_residues
         assert scheme in ['all', 'backbone', 'sidechain']
 
         residue_atoms = _atoms_in_residues(self.topology, residue_indices, subset_of_atom_idxs=self.topology.select(scheme), MDlogger=self.logger)
@@ -594,7 +594,7 @@ class MDFeaturizer(SerializableMixIn, Loggable):
                           periodic=True, count_contacts=False):
         r"""
         Adds the minimum distance between groups of atoms to the feature list. If the groups of
-        atoms are identical to residues, use :py:obj:`add_residue_mindist <pyemma.coordinates.data.featurizer.MDFeaturizer.add_residue_mindist>`.
+        atoms are identical to residues, use :py:obj:`add_residue_mindist <pyerna.coordinates.data.featurizer.MDFeaturizer.add_residue_mindist>`.
 
         Parameters
         ----------

@@ -19,10 +19,10 @@ import itertools
 
 import numpy as np
 
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.coordinates.data._base.datasource import DataSourceIterator, DataSource, EncapsulatedIterator
-from pyemma.coordinates.data.util.reader_utils import preallocate_empty_trajectory
-from pyemma.util.annotators import fix_docs
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.coordinates.data._base.datasource import DataSourceIterator, DataSource, EncapsulatedIterator
+from pyerna.coordinates.data.util.reader_utils import preallocate_empty_trajectory
+from pyerna.util.annotators import fix_docs
 
 # NEVER AGAIN TOUCH THIS BEAST!!!!!11111elevenoneoneone
 class _FragmentedTrajectoryIterator(object):
@@ -142,7 +142,7 @@ class _FragmentedTrajectoryIterator(object):
         return trajlen - self._reader_t - self._chunksize > 0
 
     def _allocate_chunk(self, expected_length, ndim):
-        from pyemma.coordinates.data.feature_reader import FeatureReader
+        from pyerna.coordinates.data.feature_reader import FeatureReader
         if all(isinstance(r, FeatureReader) and r._return_traj_obj for r in self._readers):
             X = preallocate_empty_trajectory(n_frames=expected_length,
                                              top=self._readers[0].featurizer.topology)
@@ -299,7 +299,7 @@ class FragmentedTrajectoryReader(DataSource, SerializableMixIn):
         # number of trajectories
         self._ntraj = len(trajectories)
         # store readers
-        from pyemma.coordinates.api import source
+        from pyerna.coordinates.api import source
 
         self._readers = [[source(input_item, features=featurizer, top=topologyfile, chunksize=chunksize)
                           for input_item in trajectories[itraj]] for itraj in range(0, self._ntraj)]

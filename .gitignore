@@ -30,11 +30,11 @@ doc/source/api/generated/
 .idea
 
 # generated from setup.py
-pyemma/_extensions.json
-pyemma/setup.cfg
+pyerna/_extensions.json
+pyerna/setup.cfg
 
 # generated c-files:
-pyemma/_ext/variational/estimators/covar_c/covartools.c
+pyerna/_ext/variational/estimators/covar_c/covartools.c
 
 # pytest
 .pytest_cache

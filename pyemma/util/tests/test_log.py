@@ -25,8 +25,8 @@ import unittest
 import logging
 
 
-from pyemma.util import log
-from pyemma.util import config
+from pyerna.util import log
+from pyerna.util import config
 from unittest import mock
 
 
@@ -48,34 +48,34 @@ version: 1
 handlers:
     rotating_files:
         class: logging.handlers.RotatingFileHandler
-        filename: /pyemma.log
+        filename: /pyerna.log
 
 loggers:
-    pyemma:
+    pyerna:
         level: INFO
         handlers: [rotating_files]
         """
         with NamedTemporaryFile(delete=False) as f:
             f.write(conf)
             f.close()
-            with mock.patch('pyemma.util.log.open', create=True) as mock_open:
+            with mock.patch('pyerna.util.log.open', create=True) as mock_open:
                 mock_open.return_value = open(f.name)
 
                 log.setup_logging(config)
-                assert logging.getLogger('pyemma').handlers[0].baseFilename.startswith(config.cfg_dir)
+                assert logging.getLogger('pyerna').handlers[0].baseFilename.startswith(config.cfg_dir)
 
     @unittest.skip("not yet functional")
     def test_set_new_log_conf(self):
         import logging, copy, tempfile
-        old_handlers = copy.copy(logging.getLogger('pyemma').handlers)
+        old_handlers = copy.copy(logging.getLogger('pyerna').handlers)
         log_file = tempfile.mktemp()
         file_handler = {'my_filehandler': {'class': 'logging.FileHandler', 'filename': log_file}, }
         new_conf = {'handlers': file_handler}
 
-        from pyemma import config
+        from pyerna import config
         config.logging_config = new_conf
 
-        logger = logging.getLogger('pyemma')
+        logger = logging.getLogger('pyerna')
         log_str = "test-test-test-test-" + self.test_set_new_log_conf.__name__
         logger.info(log_str)
         for h in logger.handlers:

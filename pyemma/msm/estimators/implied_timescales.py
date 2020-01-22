@@ -26,15 +26,15 @@ Created on Jul 26, 2014
 
 import numpy as np
 
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma._base.parallel import NJobsMixIn
-from pyemma.util.annotators import alias, aliased
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna._base.parallel import NJobsMixIn
+from pyerna.util.annotators import alias, aliased
 
-from pyemma.util.statistics import confidence_interval
-from pyemma.util import types as _types
-from pyemma._base.estimator import Estimator, get_estimator, param_grid, estimate_param_scan
-from pyemma._base.progress import ProgressReporter
-from pyemma._base.model import SampledModel
+from pyerna.util.statistics import confidence_interval
+from pyerna.util import types as _types
+from pyerna._base.estimator import Estimator, get_estimator, param_grid, estimate_param_scan
+from pyerna._base.progress import ProgressReporter
+from pyerna._base.model import SampledModel
 
 __docformat__ = "restructuredtext en"
 
@@ -69,7 +69,7 @@ def _generate_lags(maxlag, multiplier):
 
 
 def _hash_dtrajs(dtraj_list):
-    from pyemma.util.numeric import _hash_numpy_array
+    from pyerna.util.numeric import _hash_numpy_array
     x = _hash_numpy_array(dtraj_list[0])
     for d in dtraj_list[1:]:
         x ^= _hash_numpy_array(d)
@@ -580,8 +580,8 @@ class ImpliedTimescales(Estimator, NJobsMixIn, SerializableMixIn):
 
         **Be aware**: this fraction refers to the **full count matrix**, and not that of the largest connected
         set. Hence, the output is not necessarily the **active** fraction. For that, use the
-        :py:meth:`activte_count_fraction <pyemma.msm.MaximumLikelihoodMSM.active_count_fraction>` function of
-        the :py:class:`pyemma.msm.MaximumLikelihoodMSM` class object or for HMM respectively.
+        :py:meth:`activte_count_fraction <pyerna.msm.MaximumLikelihoodMSM.active_count_fraction>` function of
+        the :py:class:`pyerna.msm.MaximumLikelihoodMSM` class object or for HMM respectively.
         """
         # TODO : implement fraction_of_active_frames
         # Are we computing this for the first time?

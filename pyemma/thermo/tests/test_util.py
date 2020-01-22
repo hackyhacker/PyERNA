@@ -17,7 +17,7 @@
 
 import unittest
 import numpy as np
-import pyemma.thermo.util.util as util
+import pyerna.thermo.util.util as util
 
 # ==================================================================================================
 # tests for protected umbrella sampling convenience functions

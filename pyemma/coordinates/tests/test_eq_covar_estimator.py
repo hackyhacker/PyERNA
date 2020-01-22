@@ -3,9 +3,9 @@ import scipy.linalg as scl
 import unittest
 import pkg_resources
 
-from pyemma.coordinates import covariance_lagged
-from pyemma.coordinates.estimation.koopman import _KoopmanEstimator
-from pyemma.coordinates import source
+from pyerna.coordinates import covariance_lagged
+from pyerna.coordinates.estimation.koopman import _KoopmanEstimator
+from pyerna.coordinates import source
 
 
 class TestEqCovar(unittest.TestCase):

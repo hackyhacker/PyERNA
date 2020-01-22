@@ -29,11 +29,11 @@ import scipy.linalg as scl
 import warnings
 import pkg_resources
 
-from pyemma.msm import estimate_markov_model
-from pyemma.msm import markov_model
-from pyemma.msm.estimators import OOMReweightedMSM
-from pyemma.util.linalg import _sort_by_norm
-from pyemma.util.discrete_trajectories import count_states
+from pyerna.msm import estimate_markov_model
+from pyerna.msm import markov_model
+from pyerna.msm.estimators import OOMReweightedMSM
+from pyerna.util.linalg import _sort_by_norm
+from pyerna.util.discrete_trajectories import count_states
 import msmtools.estimation as msmest
 import msmtools.analysis as ma
 
@@ -93,7 +93,7 @@ class TestMSMFiveState(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Load the data:
-        data = np.load(pkg_resources.resource_filename('pyemma.msm.tests', "data/TestData_OOM_MSM.npz"))
+        data = np.load(pkg_resources.resource_filename('pyerna.msm.tests', "data/TestData_OOM_MSM.npz"))
         cls.dtrajs = [data['arr_%d'%k] for k in range(1000)]
 
         # Number of states:
@@ -818,7 +818,7 @@ class TestMSMFiveState(unittest.TestCase):
         I = msm.active_state_indexes
         assert (len(I) == msm.nstates)
         # compare to histogram
-        import pyemma.util.discrete_trajectories as dt
+        import pyerna.util.discrete_trajectories as dt
         hist = dt.count_states(msm.discrete_trajectories_full)
         # number of frames should match on active subset
         A = msm.active_set
@@ -899,7 +899,7 @@ class TestMSM_Incomplete(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Load the data:
-        data = np.load(pkg_resources.resource_filename('pyemma.msm.tests', "data/TestData_OOM_MSM.npz"))
+        data = np.load(pkg_resources.resource_filename('pyerna.msm.tests', "data/TestData_OOM_MSM.npz"))
         indices = np.array([21, 25, 30, 40, 66, 72, 74, 91, 116, 158, 171, 175, 201, 239, 246, 280, 300, 301, 310, 318,
                             322, 323, 339, 352, 365, 368, 407, 412, 444, 475, 486, 494, 510, 529, 560, 617, 623, 637,
                             676, 689, 728, 731, 778, 780, 811, 828, 838, 845, 851, 859, 868, 874, 895, 933, 935, 938,
@@ -1578,7 +1578,7 @@ class TestMSM_Incomplete(unittest.TestCase):
         I = msm.active_state_indexes
         assert (len(I) == msm.nstates)
         # compare to histogram
-        import pyemma.util.discrete_trajectories as dt
+        import pyerna.util.discrete_trajectories as dt
         hist = dt.count_states(msm.discrete_trajectories_full)
         # number of frames should match on active subset
         A = msm.active_set

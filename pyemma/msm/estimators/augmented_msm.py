@@ -19,9 +19,9 @@
 import numpy as _np
 from msmtools import estimation as msmest
 
-from pyemma.msm.estimators import MaximumLikelihoodMSM
-from pyemma.util.annotators import fix_docs, aliased
-from pyemma.util.statistics import confidence_interval as _ci
+from pyerna.msm.estimators import MaximumLikelihoodMSM
+from pyerna.util.annotators import fix_docs, aliased
+from pyerna.util.statistics import confidence_interval as _ci
 
 
 __all__ = ['AugmentedMarkovModel']

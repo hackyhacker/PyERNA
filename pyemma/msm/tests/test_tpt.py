@@ -26,9 +26,9 @@ r"""Unit test for the tpt-function
 
 import unittest
 import numpy as np
-from pyemma.util.numeric import assert_allclose
+from pyerna.util.numeric import assert_allclose
 
-from pyemma.msm import markov_model, estimate_markov_model, tpt
+from pyerna.msm import markov_model, estimate_markov_model, tpt
 import msmtools.analysis as msmana
 
 

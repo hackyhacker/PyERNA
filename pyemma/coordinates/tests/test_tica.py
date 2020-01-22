@@ -29,21 +29,21 @@ import pkg_resources
 import numpy as np
 import scipy.linalg as scl
 
-from pyemma.coordinates import api
+from pyerna.coordinates import api
 
-from pyemma.coordinates.data.data_in_memory import DataInMemory
-from pyemma.coordinates import source, tica
-from pyemma.coordinates.transform import TICA as _internal_tica
-from pyemma.util.contexts import numpy_random_seed
-from pyemma.coordinates.estimation.koopman import _KoopmanWeights
-from pyemma._ext.variational.solvers.direct import sort_by_norm
-from pyemma._ext.variational.solvers.direct import eig_corr
-from pyemma._ext.variational.util import ZeroRankError
+from pyerna.coordinates.data.data_in_memory import DataInMemory
+from pyerna.coordinates import source, tica
+from pyerna.coordinates.transform import TICA as _internal_tica
+from pyerna.util.contexts import numpy_random_seed
+from pyerna.coordinates.estimation.koopman import _KoopmanWeights
+from pyerna._ext.variational.solvers.direct import sort_by_norm
+from pyerna._ext.variational.solvers.direct import eig_corr
+from pyerna._ext.variational.util import ZeroRankError
 from logging import getLogger
-import pyemma.util.types as types
+import pyerna.util.types as types
 
 
-logger = getLogger('pyemma.'+'TestTICA')
+logger = getLogger('pyerna.'+'TestTICA')
 
 
 def mycorrcoef(X, Y, lag):
@@ -179,7 +179,7 @@ class TestTICA_Basic(unittest.TestCase):
         tica_obj = api.tica(data, lag=10, dim=1, skip=1)
 
     def test_pipelining_sklearn_compat(self):
-        from pyemma.coordinates.transform import TICA
+        from pyerna.coordinates.transform import TICA
         t = TICA(1)
         x = np.random.random((20, 3))
         y = t.fit_transform(x)
@@ -422,10 +422,10 @@ class TestTICAExtensive(unittest.TestCase):
         data = [np.empty((20, 3)), np.empty((10, 3))]
         lag = 11
         tica_obj = tica(lag=lag)
-        from pyemma.util.testing_tools import MockLoggingHandler
+        from pyerna.util.testing_tools import MockLoggingHandler
         log_handler = MockLoggingHandler()
         import logging
-        L = logging.getLogger('pyemma.coordinates.estimation.covariance')
+        L = logging.getLogger('pyerna.coordinates.estimation.covariance')
         L.addHandler(log_handler)
         try:
             for x in data:

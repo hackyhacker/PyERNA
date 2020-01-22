@@ -24,11 +24,11 @@ Created on 14.04.2015
 '''
 
 import unittest
-from pyemma.coordinates.api import load
+from pyerna.coordinates.api import load
 import os
 
 import numpy as np
-from pyemma.coordinates import api
+from pyerna.coordinates import api
 
 import pkg_resources
 path = pkg_resources.resource_filename(__name__, 'data') + os.path.sep

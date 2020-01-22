@@ -21,7 +21,7 @@
 import unittest
 import numpy as np
 
-from pyemma.coordinates.acf import acf
+from pyerna.coordinates.acf import acf
 
 
 

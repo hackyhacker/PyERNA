@@ -28,8 +28,8 @@ from mdtraj.geometry.dihedral import (indices_phi,
                                       indices_chi1,
                                       indices_omega)
 
-from pyemma.coordinates.data.featurization._base import Feature
-from pyemma.coordinates.data.featurization.util import _describe_atom
+from pyerna.coordinates.data.featurization._base import Feature
+from pyerna.coordinates.data.featurization.util import _describe_atom
 
 
 class AngleFeature(Feature):

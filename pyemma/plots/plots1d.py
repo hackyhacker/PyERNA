@@ -36,7 +36,7 @@ def plot_feature_histograms(xyzall,
     xyzall : np.ndarray(T, d)
         (Concatenated list of) input features; containing time series data to be plotted.
         Array of T data points in d dimensions (features).
-    feature_labels : iterable of str or pyemma.Featurizer, optional, default=None
+    feature_labels : iterable of str or pyerna.Featurizer, optional, default=None
         Labels of histogramed features, defaults to feature index.
     ax : matplotlib.Axes object, optional, default=None.
         The ax to plot to; if ax=None, a new ax (and fig) is created.
@@ -68,12 +68,12 @@ def plot_feature_histograms(xyzall,
 
     if feature_labels is not None:
         if not isinstance(feature_labels, list):
-            from pyemma.coordinates.data.featurization.featurizer import MDFeaturizer as _MDFeaturizer
+            from pyerna.coordinates.data.featurization.featurizer import MDFeaturizer as _MDFeaturizer
             if isinstance(feature_labels, _MDFeaturizer):
                 feature_labels = feature_labels.describe()
             else:
                 raise ValueError('feature_labels must be a list of feature labels, '
-                                 'a pyemma featurizer object or None.')
+                                 'a pyerna featurizer object or None.')
         if not xyzall.shape[1] == len(feature_labels):
             raise ValueError('feature_labels must have the same dimension as the input data xyzall.')
 

@@ -42,8 +42,8 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = "pep440"
     cfg.tag_prefix = "v"
-    cfg.parentdir_prefix = "pyemma-"
-    cfg.versionfile_source = "pyemma/_version.py"
+    cfg.parentdir_prefix = "pyerna-"
+    cfg.versionfile_source = "pyerna/_version.py"
     cfg.verbose = False
     return cfg
 

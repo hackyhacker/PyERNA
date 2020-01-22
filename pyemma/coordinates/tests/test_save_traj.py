@@ -32,16 +32,16 @@ import tempfile
 import pkg_resources
 
 import numpy as np
-import pyemma
+import pyerna
 
-import pyemma.coordinates as coor
+import pyerna.coordinates as coor
 import mdtraj as md
-from pyemma.coordinates.data.util.reader_utils import single_traj_from_n_files, save_traj_w_md_load_frame, \
+from pyerna.coordinates.data.util.reader_utils import single_traj_from_n_files, save_traj_w_md_load_frame, \
     compare_coords_md_trajectory_objects
-from pyemma.coordinates.api import save_traj
+from pyerna.coordinates.api import save_traj
 
 
-from pyemma.coordinates.tests.util import create_traj, get_top
+from pyerna.coordinates.tests.util import create_traj, get_top
 
 
 class TestSaveTraj(unittest.TestCase):
@@ -58,7 +58,7 @@ class TestSaveTraj(unittest.TestCase):
         # Create random sets of files and frames to be retrieved from trajfiles
         n_members_set1 = 10
         n_members_set2 = 20
-        from pyemma.util.contexts import numpy_random_seed
+        from pyerna.util.contexts import numpy_random_seed
         with numpy_random_seed(34):
             set_1 = np.vstack((np.random.permutation([0, 2] * n_members_set1)[:n_members_set1],
                                np.random.randint(32, size=n_members_set1))).T
@@ -175,7 +175,7 @@ class TestSaveTraj(unittest.TestCase):
             self.assertFalse(found_diff, errmsg)
 
     def test_with_fragmented_reader(self):
-        from pyemma.util.files import TemporaryDirectory
+        from pyerna.util.files import TemporaryDirectory
         trajlen = 35
         # trajectory 0 (first trajectory, is trajfiles[2])
         #   -> skipped
@@ -224,7 +224,7 @@ class TestSaveTraj(unittest.TestCase):
     def test_invalid_maximum_traj_index(self):
         frag_traj = [[self.trajfiles[0], self.trajfiles[1]], self.trajfiles[2], self.trajfiles[2]]
         set = [[0,2], [0,1], [2,42]]
-        from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+        from pyerna.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
         reader = FragmentedTrajectoryReader(frag_traj, topologyfile=self.pdbfile)
         with self.assertRaises(ValueError) as cm:
             save_traj(reader, set, None)
@@ -232,7 +232,7 @@ class TestSaveTraj(unittest.TestCase):
 
     def test_invalid_readers_in_frag_traj(self):
         data = [np.array([[[1,2], [3,4]],[0,1]])]
-        from pyemma.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
+        from pyerna.coordinates.data.fragmented_trajectory_reader import FragmentedTrajectoryReader
         reader = FragmentedTrajectoryReader(data)
         with self.assertRaises(ValueError) as cm:
             save_traj(reader, self.sets, None)

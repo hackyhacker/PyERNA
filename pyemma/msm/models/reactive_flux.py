@@ -27,10 +27,10 @@ from msmtools import flux as tptapi
 
 
 # we use a order preserving set data structure here, because we would loose order eg. in _compute_coarse_sets
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma._ext.orderedset import OrderedSet as set
-from pyemma._base.model import Model
-from pyemma.util.annotators import alias, aliased
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna._ext.orderedset import OrderedSet as set
+from pyerna._base.model import Model
+from pyerna.util.annotators import alias, aliased
 
 __all__ = ['ReactiveFlux']
 
@@ -103,7 +103,7 @@ class ReactiveFlux(Model, SerializableMixIn):
     @dt_model.setter
     def dt_model(self, value):
         self._dt_model = value
-        from pyemma.util.units import TimeUnit
+        from pyerna.util.units import TimeUnit
         self._timeunit_model = TimeUnit(self._dt_model)
 
     @property

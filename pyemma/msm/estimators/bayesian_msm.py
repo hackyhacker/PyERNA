@@ -17,13 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from pyemma._base.parallel import NJobsMixIn as _NJobsMixIn
-from pyemma._base.progress import ProgressReporterMixin as _ProgressReporterMixin
-from pyemma.msm.estimators.maximum_likelihood_msm import MaximumLikelihoodMSM as _MLMSM
-from pyemma.msm.models.msm import MSM as _MSM
-from pyemma.msm.models.msm_sampled import SampledMSM as _SampledMSM
-from pyemma.util.annotators import fix_docs
-from pyemma.util.types import ensure_dtraj_list
+from pyerna._base.parallel import NJobsMixIn as _NJobsMixIn
+from pyerna._base.progress import ProgressReporterMixin as _ProgressReporterMixin
+from pyerna.msm.estimators.maximum_likelihood_msm import MaximumLikelihoodMSM as _MLMSM
+from pyerna.msm.models.msm import MSM as _MSM
+from pyerna.msm.models.msm_sampled import SampledMSM as _SampledMSM
+from pyerna.util.annotators import fix_docs
+from pyerna.util.types import ensure_dtraj_list
 
 __author__ = 'noe'
 
@@ -176,7 +176,7 @@ class BayesianMSM(_MLMSM, _SampledMSM, _ProgressReporterMixin, _NJobsMixIn):
 
         Return
         ------
-        msm : :class:`BayesianMSM <pyemma.msm.BayesianMSM>`
+        msm : :class:`BayesianMSM <pyerna.msm.BayesianMSM>`
             Estimated Hidden Markov state model
 
         """

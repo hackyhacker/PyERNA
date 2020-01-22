@@ -25,8 +25,8 @@ from itertools import count
 import mdtraj
 import numpy as np
 
-from pyemma.coordinates.data.featurization._base import Feature
-from pyemma.coordinates.data.featurization.util import (_describe_atom,
+from pyerna.coordinates.data.featurization._base import Feature
+from pyerna.coordinates.data.featurization.util import (_describe_atom,
                                                         cmp_traj)
 
 
@@ -55,8 +55,8 @@ class CustomFeature(Feature):
     --------
     We define a feature that transforms all coordinates by :math:`x^2`:
 
-    >>> from pyemma.coordinates import source
-    >>> from pyemma.datasets import get_bpti_test_data
+    >>> from pyerna.coordinates import source
+    >>> from pyerna.datasets import get_bpti_test_data
     >>> inp = get_bpti_test_data()
 
     Define a function which transforms the coordinates of the trajectory object.

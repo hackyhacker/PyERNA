@@ -1,8 +1,8 @@
 import unittest
 import numpy as np
 
-from pyemma.coordinates import covariance_lagged
-from pyemma.coordinates import source
+from pyerna.coordinates import covariance_lagged
+from pyerna.coordinates import source
 
 
 __author__ = 'noe'

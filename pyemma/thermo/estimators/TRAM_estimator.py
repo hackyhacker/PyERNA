@@ -18,17 +18,17 @@
 import numpy as _np
 import warnings as _warnings
 
-from pyemma._base.estimator import Estimator as _Estimator
-from pyemma._base.progress import ProgressReporter as _ProgressReporter
-from pyemma.thermo import MEMM as _MEMM
-from pyemma.thermo.estimators._base import ThermoBase
-from pyemma.thermo.models.memm import ThermoMSM as _ThermoMSM
-from pyemma.util import types as _types
-from pyemma.thermo.estimators._callback import _ConvergenceProgressIndicatorCallBack
-from pyemma.thermo.estimators._callback import _IterationProgressIndicatorCallBack
+from pyerna._base.estimator import Estimator as _Estimator
+from pyerna._base.progress import ProgressReporter as _ProgressReporter
+from pyerna.thermo import MEMM as _MEMM
+from pyerna.thermo.estimators._base import ThermoBase
+from pyerna.thermo.models.memm import ThermoMSM as _ThermoMSM
+from pyerna.util import types as _types
+from pyerna.thermo.estimators._callback import _ConvergenceProgressIndicatorCallBack
+from pyerna.thermo.estimators._callback import _IterationProgressIndicatorCallBack
 
 
-from pyemma.thermo.extensions import (
+from pyerna.thermo.extensions import (
     tram as _tram,
     tram_direct as _tram_direct,
     trammbar as _trammbar,
@@ -137,7 +137,7 @@ class TRAM(_Estimator, _MEMM, ThermoBase):
               The connected set is then computed by summing the count matrices over
               all thermodynamic states and taking it's largest strongly connected set.
               Not recommended!
-            For more details see :func:`pyemma.thermo.extensions.cset.compute_csets_TRAM`.
+            For more details see :func:`pyerna.thermo.extensions.cset.compute_csets_TRAM`.
         nstates_full : int, optional, default=None
             Number of cluster centers, i.e., the size of the full set of states.
         equilibrium : list of booleans, optional

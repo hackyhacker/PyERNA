@@ -50,7 +50,7 @@ class ParameterGrid(object):
 
     Examples
     --------
-    >>> from pyemma._ext.sklearn.parameter_search import ParameterGrid
+    >>> from pyerna._ext.sklearn.parameter_search import ParameterGrid
     >>> param_grid = {'a': [1, 2], 'b': [True, False]}
     >>> list(ParameterGrid(param_grid)) == (
     ...    [{'a': 1, 'b': True}, {'a': 1, 'b': False},

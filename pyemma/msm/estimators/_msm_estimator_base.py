@@ -1,13 +1,13 @@
 import numpy as _np
 from msmtools import estimation as msmest
 
-from pyemma._base.estimator import Estimator as _Estimator
-from pyemma.msm import MSM as _MSM
-from pyemma.msm.estimators._dtraj_stats import DiscreteTrajectoryStats as _DiscreteTrajectoryStats
-from pyemma.util import types as _types
-from pyemma.util.annotators import fix_docs, aliased, alias
-from pyemma.util.types import ensure_dtraj_list
-from pyemma.util.units import TimeUnit as _TimeUnit
+from pyerna._base.estimator import Estimator as _Estimator
+from pyerna.msm import MSM as _MSM
+from pyerna.msm.estimators._dtraj_stats import DiscreteTrajectoryStats as _DiscreteTrajectoryStats
+from pyerna.util import types as _types
+from pyerna.util.annotators import fix_docs, aliased, alias
+from pyerna.util.types import ensure_dtraj_list
+from pyerna.util.units import TimeUnit as _TimeUnit
 from decorator import decorator as _decorator
 
 @_decorator
@@ -21,7 +21,7 @@ def _remap_indices_coring(func, self, *args, **kwargs):
 
     if any(dtraj_offsets):  # need to remap indices?
         import numpy as np
-        from pyemma.util.discrete_trajectories import _apply_offsets_to_samples
+        from pyerna.util.discrete_trajectories import _apply_offsets_to_samples
 
         # we handle 1d and 2d indices
         if isinstance(indices, np.ndarray) and indices.dtype == np.int_:
@@ -187,7 +187,7 @@ class _MSMEstimator(_Estimator, _MSM):
 
         Parameters
         ----------
-        dtrajs : list containing ndarrays(dtype=int) or ndarray(n, dtype=int) or :class:`DiscreteTrajectoryStats <pyemma.msm.estimators._dtraj_stats.DiscreteTrajectoryStats>`
+        dtrajs : list containing ndarrays(dtype=int) or ndarray(n, dtype=int) or :class:`DiscreteTrajectoryStats <pyerna.msm.estimators._dtraj_stats.DiscreteTrajectoryStats>`
             discrete trajectories, stored as integer ndarrays (arbitrary size)
             or a single ndarray for only one trajectory.
 
@@ -209,7 +209,7 @@ class _MSMEstimator(_Estimator, _MSM):
             if self.core_set is not None:
                 self._dtrajs_original = dtrajs
 
-                from pyemma.util.discrete_trajectories import rewrite_dtrajs_to_core_sets
+                from pyerna.util.discrete_trajectories import rewrite_dtrajs_to_core_sets
                 self._dtrajs_full, self._dtrajs_milestone_counting_offsets, self.n_cores = \
                     rewrite_dtrajs_to_core_sets(dtrajs, core_set=self.core_set, in_place=False)
             else:
@@ -239,7 +239,7 @@ class _MSMEstimator(_Estimator, _MSM):
         """
         Parameters
         ----------
-        dtrajs : list containing ndarrays(dtype=int) or ndarray(n, dtype=int) or :class:`DiscreteTrajectoryStats <pyemma.msm.estimators._dtraj_stats.DiscreteTrajectoryStats>`
+        dtrajs : list containing ndarrays(dtype=int) or ndarray(n, dtype=int) or :class:`DiscreteTrajectoryStats <pyerna.msm.estimators._dtraj_stats.DiscreteTrajectoryStats>`
             discrete trajectories, stored as integer ndarrays (arbitrary size)
             or a single ndarray for only one trajectory.
         **kwargs :
@@ -247,7 +247,7 @@ class _MSMEstimator(_Estimator, _MSM):
 
         Returns
         -------
-        MSM : :class:`pyemma.msm.MSM`
+        MSM : :class:`pyerna.msm.MSM`
             Note that this class is specialized by the used estimator, eg. it has more functionality than the plain
             MSM class.
 
@@ -338,12 +338,12 @@ class _MSMEstimator(_Estimator, _MSM):
         Ctt_test = _np.diag(C0t_test.sum(axis=0))
 
         # score
-        from pyemma.util.metrics import vamp_score
+        from pyerna.util.metrics import vamp_score
         return vamp_score(K, C00_train, C0t_train, Ctt_train, C00_test, C0t_test, Ctt_test,
                           k=self.score_k, score=self.score_method)
 
     def _blocksplit_dtrajs(self, dtrajs, sliding):
-        from pyemma.msm.estimators._dtraj_stats import blocksplit_dtrajs
+        from pyerna.msm.estimators._dtraj_stats import blocksplit_dtrajs
         return blocksplit_dtrajs(dtrajs, lag=self.lag, sliding=sliding)
 
     def score_cv(self, dtrajs, n=10, score_method=None, score_k=None):
@@ -394,12 +394,12 @@ class _MSMEstimator(_Estimator, _MSM):
         """
         dtrajs = ensure_dtraj_list(dtrajs)  # ensure format
 
-        from pyemma.msm.estimators._dtraj_stats import cvsplit_dtrajs
+        from pyerna.msm.estimators._dtraj_stats import cvsplit_dtrajs
         if self.count_mode not in ('sliding', 'sample'):
             raise ValueError('score_cv currently only supports count modes "sliding" and "sample"')
         sliding = self.count_mode == 'sliding'
         scores = []
-        from pyemma._ext.sklearn.base import clone
+        from pyerna._ext.sklearn.base import clone
         estimator = clone(self)
         for i in range(n):
             dtrajs_split = self._blocksplit_dtrajs(dtrajs, sliding)
@@ -569,7 +569,7 @@ class _MSMEstimator(_Estimator, _MSM):
 
         """
         self._check_is_estimated()
-        from pyemma.util.discrete_trajectories import count_states
+        from pyerna.util.discrete_trajectories import count_states
 
         hist = count_states(self._dtrajs_full)
         hist_active = hist[self.active_set]
@@ -625,7 +625,7 @@ class _MSMEstimator(_Estimator, _MSM):
         """
         self._check_is_estimated()
         if not hasattr(self, '_active_state_indexes'):
-            from pyemma.util.discrete_trajectories import index_states
+            from pyerna.util.discrete_trajectories import index_states
             self._active_state_indexes = index_states(self.discrete_trajectories_active)
         return self._active_state_indexes
 
@@ -635,7 +635,7 @@ class _MSMEstimator(_Estimator, _MSM):
 
         This information can be used
         in order to generate a synthetic molecular dynamics trajectory - see
-        :func:`pyemma.coordinates.save_traj`
+        :func:`pyerna.coordinates.save_traj`
 
         Note that the time different between two samples is the Markov model lag time tau. When comparing
         quantities computing from this synthetic trajectory and from the input trajectories, the time points of this
@@ -662,7 +662,7 @@ class _MSMEstimator(_Estimator, _MSM):
 
         See also
         --------
-        pyemma.coordinates.save_traj
+        pyerna.coordinates.save_traj
             in order to save this synthetic trajectory as a trajectory file with molecular structures
 
         """
@@ -676,7 +676,7 @@ class _MSMEstimator(_Estimator, _MSM):
 
         syntraj = _generate_traj(self.transition_matrix, N, start=start, stop=stop, dt=stride)
         # result
-        from pyemma.util.discrete_trajectories import sample_indexes_by_sequence
+        from pyerna.util.discrete_trajectories import sample_indexes_by_sequence
 
         return sample_indexes_by_sequence(self.active_state_indexes, syntraj)
 
@@ -686,8 +686,8 @@ class _MSMEstimator(_Estimator, _MSM):
 
         For each state in the active set of states, generates nsample samples with trajectory/time indexes.
         This information can be used in order to generate a trajectory of length nsample * nconnected using
-        :func:`pyemma.coordinates.save_traj` or nconnected trajectories of length nsample each using
-        :func:`pyemma.coordinates.save_traj`
+        :func:`pyerna.coordinates.save_traj` or nconnected trajectories of length nsample each using
+        :func:`pyerna.coordinates.save_traj`
 
         Parameters
         ----------
@@ -708,15 +708,15 @@ class _MSMEstimator(_Estimator, _MSM):
 
         See also
         --------
-        pyemma.coordinates.save_traj
+        pyerna.coordinates.save_traj
             in order to save the sampled frames sequentially in a trajectory file with molecular structures
-        pyemma.coordinates.save_trajs
+        pyerna.coordinates.save_trajs
             in order to save the sampled frames in nconnected trajectory files with molecular structures
 
         """
         self._check_is_estimated()
         # generate connected state indexes
-        import pyemma.util.discrete_trajectories as dt
+        import pyerna.util.discrete_trajectories as dt
 
         return dt.sample_indexes_by_state(self.active_state_indexes, nsample, subset=subset, replace=replace)
 
@@ -743,7 +743,7 @@ class _MSMEstimator(_Estimator, _MSM):
         """
         self._check_is_estimated()
         # generate connected state indexes
-        import pyemma.util.discrete_trajectories as dt
+        import pyerna.util.discrete_trajectories as dt
 
         return dt.sample_indexes_by_distribution(self.active_state_indexes, distributions, nsample)
 
@@ -856,7 +856,7 @@ class _MSMEstimator(_Estimator, _MSM):
                     ratio=timescale_ratios[nhidden - 2],
                 ))
         # run HMM estimate
-        from pyemma.msm.estimators.maximum_likelihood_hmsm import MaximumLikelihoodHMSM
+        from pyerna.msm.estimators.maximum_likelihood_hmsm import MaximumLikelihoodHMSM
         estimator = MaximumLikelihoodHMSM(lag=self.lagtime, nstates=nhidden, msm_init=self,
                                           reversible=self.is_reversible, dt_traj=self.dt_traj)
         estimator.estimate(self.discrete_trajectories_full)
@@ -923,7 +923,7 @@ class _MSMEstimator(_Estimator, _MSM):
 
         Returns
         -------
-        cktest : :class:`ChapmanKolmogorovValidator <pyemma.msm.ChapmanKolmogorovValidator>`
+        cktest : :class:`ChapmanKolmogorovValidator <pyerna.msm.ChapmanKolmogorovValidator>`
 
 
         References
@@ -940,7 +940,7 @@ class _MSMEstimator(_Estimator, _MSM):
             134: 174105
 
         """
-        from pyemma.msm.estimators import ChapmanKolmogorovValidator
+        from pyerna.msm.estimators import ChapmanKolmogorovValidator
         if memberships is None:
             self.pcca(nsets)
             memberships = self.metastable_memberships

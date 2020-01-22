@@ -28,12 +28,12 @@ import numpy as np
 import warnings
 
 from msmtools.generation import generate_traj
-from pyemma.msm.tests.birth_death_chain import BirthDeathChain
-from pyemma.msm import estimate_augmented_markov_model
-from pyemma.msm.estimators import AugmentedMarkovModel
-from pyemma.msm.tests.test_msm import TestMSMDoubleWell as _tmsm
-from pyemma.msm.tests.test_cmsm import TestCMSMDoubleWell as _ctmsm
-from pyemma.util.numeric import assert_allclose
+from pyerna.msm.tests.birth_death_chain import BirthDeathChain
+from pyerna.msm import estimate_augmented_markov_model
+from pyerna.msm.estimators import AugmentedMarkovModel
+from pyerna.msm.tests.test_msm import TestMSMDoubleWell as _tmsm
+from pyerna.msm.tests.test_cmsm import TestCMSMDoubleWell as _ctmsm
+from pyerna.util.numeric import assert_allclose
 
 
 class TestAMMSimple(unittest.TestCase):
@@ -94,8 +94,8 @@ class TestAMMDoubleWell(_tmsm):
 
     @classmethod
     def setUpClass(cls):
-        import pyemma.datasets
-        cls.dtraj = pyemma.datasets.load_2well_discrete().dtraj_T100K_dt10
+        import pyerna.datasets
+        cls.dtraj = pyerna.datasets.load_2well_discrete().dtraj_T100K_dt10
         cls.E_ = np.linspace(0.01, 2.*np.pi, 66).reshape(-1,1)**(0.5)
         cls.m = np.array([1.9])
         cls.w = np.array([2.0])
@@ -337,11 +337,11 @@ class TestAMMDoubleWell(_tmsm):
 
     def test_serialize(self):
         import tempfile
-        import pyemma
+        import pyerna
         f = tempfile.mktemp()
         try:
             self.amm.save(f)
-            restored = pyemma.load(f)
+            restored = pyerna.load(f)
 
             # check estimation parameters
             np.testing.assert_equal(self.amm.lag, restored.lag)
@@ -380,9 +380,9 @@ class TestCoreAMMDoubleWell(_ctmsm):
 
     @classmethod
     def setUpClass(cls):
-        import pyemma.datasets
+        import pyerna.datasets
         cls.core_set = [34, 65]
-        cls.dtraj = pyemma.datasets.load_2well_discrete().dtraj_T100K_dt10
+        cls.dtraj = pyerna.datasets.load_2well_discrete().dtraj_T100K_dt10
         cls.E_ = np.linspace(0.01, 2.*np.pi, 66).reshape(-1,1)**(0.5)
         cls.m = np.array([1.9])
         cls.w = np.array([2.0])
@@ -604,11 +604,11 @@ class TestCoreAMMDoubleWell(_ctmsm):
 
     def test_serialize(self):
         import tempfile
-        import pyemma
+        import pyerna
         f = tempfile.mktemp()
         try:
             self.amm.save(f)
-            restored = pyemma.load(f)
+            restored = pyerna.load(f)
 
             # check estimation parameters
             np.testing.assert_equal(self.amm.lag, restored.lag)

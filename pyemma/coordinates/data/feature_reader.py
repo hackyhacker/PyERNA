@@ -20,13 +20,13 @@
 import mdtraj
 import numpy as np
 
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.coordinates.data._base.datasource import DataSource, EncapsulatedIterator
-from pyemma.coordinates.data._base.random_accessible import RandomAccessStrategy
-from pyemma.coordinates.data.featurization.featurizer import MDFeaturizer
-from pyemma.coordinates.data.util.traj_info_cache import TrajInfo
-from pyemma.coordinates.util import patches
-from pyemma.util.annotators import deprecated, fix_docs
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.coordinates.data._base.datasource import DataSource, EncapsulatedIterator
+from pyerna.coordinates.data._base.random_accessible import RandomAccessStrategy
+from pyerna.coordinates.data.featurization.featurizer import MDFeaturizer
+from pyerna.coordinates.data.util.traj_info_cache import TrajInfo
+from pyerna.coordinates.util import patches
+from pyerna.util.annotators import deprecated, fix_docs
 
 __author__ = 'noe, marscher'
 __all__ = ['FeatureReader']
@@ -56,8 +56,8 @@ class FeatureReader(DataSource, SerializableMixIn):
 
     Examples
     --------
-    >>> from pyemma.datasets import get_bpti_test_data
-    >>> from pyemma.util.contexts import settings
+    >>> from pyerna.datasets import get_bpti_test_data
+    >>> from pyerna.util.contexts import settings
 
     Iterator access:
 
@@ -287,7 +287,7 @@ class FeatureReaderLinearItrajRandomAccessStrategy(FeatureReaderCuboidRandomAcce
 
         cumsum = np.cumsum(self._source.trajectory_lengths()[itrajs])
 
-        from pyemma.coordinates.clustering import UniformTimeClustering
+        from pyerna.coordinates.clustering import UniformTimeClustering
         ra = np.array([self._map_to_absolute_traj_idx(UniformTimeClustering._idx_to_traj_idx(x, cumsum), itrajs)
                        for x in frames])
 
@@ -330,7 +330,7 @@ class FeatureReaderLinearRandomAccessStrategy(RandomAccessStrategy):
         frames_order = frames.argsort().argsort()
         frames_sorted = np.sort(frames)
 
-        from pyemma.coordinates.clustering import UniformTimeClustering
+        from pyerna.coordinates.clustering import UniformTimeClustering
         ra_stride = np.array([UniformTimeClustering._idx_to_traj_idx(x, cumsum) for x in frames_sorted])
         data = np.empty((nframes, ndims), dtype=self._source.output_type())
 

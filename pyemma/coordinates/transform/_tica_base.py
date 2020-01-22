@@ -2,10 +2,10 @@ from abc import abstractproperty
 
 import numpy as np
 from decorator import decorator
-from pyemma._base.model import Model
-from pyemma._base.serialization.serialization import SerializableMixIn
+from pyerna._base.model import Model
+from pyerna._base.serialization.serialization import SerializableMixIn
 
-from pyemma.coordinates.data._base.transformer import StreamingEstimationTransformer
+from pyerna.coordinates.data._base.transformer import StreamingEstimationTransformer
 
 __author__ = 'marscher'
 

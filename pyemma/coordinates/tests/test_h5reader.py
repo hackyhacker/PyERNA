@@ -2,9 +2,9 @@ import unittest
 import numpy as np
 import h5py
 
-from pyemma.coordinates.data.h5_reader import H5Reader
-from pyemma.util.testing_tools import MockLoggingHandler
-from pyemma.coordinates import source
+from pyerna.coordinates.data.h5_reader import H5Reader
+from pyerna.util.testing_tools import MockLoggingHandler
+from pyerna.coordinates import source
 
 
 class TestH5Reader(unittest.TestCase):
@@ -50,7 +50,7 @@ class TestH5Reader(unittest.TestCase):
         with self.assertRaises(ValueError):
             h = MockLoggingHandler()
             import logging
-            logging.getLogger('pyemma.coordinates').addHandler(h)
+            logging.getLogger('pyerna.coordinates').addHandler(h)
             r = H5Reader(self.f1, selection='/non_existent')
 
             self.assertIn('did not match', h.messages['warning'])

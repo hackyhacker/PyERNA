@@ -19,8 +19,8 @@ import unittest
 import numpy as np
 import numpy.testing as npt
 
-from pyemma.thermo.models.memm import ThermoMSM
-from pyemma.msm import MSM
+from pyerna.thermo.models.memm import ThermoMSM
+from pyerna.msm import MSM
 
 
 class TestThermoMSM(unittest.TestCase):
@@ -74,7 +74,7 @@ class TestThermoMSM(unittest.TestCase):
         f = tempfile.mktemp()
         try:
             self.msm.save(f)
-            from pyemma import load
+            from pyerna import load
             restored = load(f)
             self.msm = restored
             self.test_eigenvectors()

@@ -17,10 +17,10 @@
 
 
 
-from pyemma._base.estimator import Estimator
-from pyemma.coordinates.data import DataInMemory
-from pyemma.coordinates.data._base.iterable import Iterable
-from pyemma.util.exceptions import NotConvergedWarning
+from pyerna._base.estimator import Estimator
+from pyerna.coordinates.data import DataInMemory
+from pyerna.coordinates.data._base.iterable import Iterable
+from pyerna.util.exceptions import NotConvergedWarning
 
 
 class StreamingEstimator(Estimator):
@@ -33,7 +33,7 @@ class StreamingEstimator(Estimator):
     def estimate(self, X, chunksize=None, **kwargs):
         # ensure the input is able to provide a stream
         if not isinstance(X, Iterable):
-            from pyemma.util import types
+            from pyerna.util import types
             array_list = types.ensure_traj_list(X)
             X = DataInMemory(array_list, chunksize=chunksize)
         # Because we want to use pipelining methods like get_output, we have to set a data producer.

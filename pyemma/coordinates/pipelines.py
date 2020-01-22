@@ -19,11 +19,11 @@
 
 from logging import getLogger
 
-from pyemma._base.loggable import Loggable
-from pyemma.coordinates.data._base.datasource import DataSource
-from pyemma.coordinates.data._base.iterable import Iterable
-from pyemma.coordinates.data._base.transformer import StreamingTransformer
-from pyemma.coordinates.data.feature_reader import FeatureReader
+from pyerna._base.loggable import Loggable
+from pyerna.coordinates.data._base.datasource import DataSource
+from pyerna.coordinates.data._base.iterable import Iterable
+from pyerna.coordinates.data._base.transformer import StreamingTransformer
+from pyerna.coordinates.data.feature_reader import FeatureReader
 
 __all__ = ['Discretizer',
            'Pipeline',
@@ -195,7 +195,7 @@ class Discretizer(Pipeline):
         if cluster is None:
             raise ValueError('Must specify a clustering algorithm!')
         else:
-            from pyemma.coordinates.clustering.interface import AbstractClustering
+            from pyerna.coordinates.clustering.interface import AbstractClustering
             assert isinstance(cluster, AbstractClustering), \
                 'cluster is not of the correct type'
 
@@ -243,7 +243,7 @@ class Discretizer(Pipeline):
 
         clustering = self._chain[-1]
         reader = self._chain[0]
-        from pyemma.coordinates.clustering.interface import AbstractClustering
+        from pyerna.coordinates.clustering.interface import AbstractClustering
         assert isinstance(clustering, AbstractClustering)
 
         trajfiles = None

@@ -19,9 +19,9 @@
 
 r"""
 ===============================================================================
-transform - Transformation Utilities (:mod:`pyemma.coordinates.transform`)
+transform - Transformation Utilities (:mod:`pyerna.coordinates.transform`)
 ===============================================================================
-.. currentmodule:: pyemma.coordinates.transform
+.. currentmodule:: pyerna.coordinates.transform
 
 .. autosummary::
     :toctree: generated/

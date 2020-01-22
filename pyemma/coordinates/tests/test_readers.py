@@ -7,14 +7,14 @@ from collections import defaultdict
 
 import numpy as np
 
-import pyemma.coordinates as coor
-import pyemma.coordinates.tests.util as util
-from pyemma.coordinates.data import FragmentedTrajectoryReader
+import pyerna.coordinates as coor
+import pyerna.coordinates.tests.util as util
+from pyerna.coordinates.data import FragmentedTrajectoryReader
 
 
 def max_chunksize_from_config(itemsize):
-    from pyemma import config
-    from pyemma.util.units import string_to_bytes
+    from pyerna import config
+    from pyerna.util.units import string_to_bytes
     max_bytes = string_to_bytes(config.default_chunksize)
     max_frames = max(1, int(np.floor(max_bytes / itemsize)))
     return max_frames
@@ -108,7 +108,7 @@ class TestReaders(unittest.TestCase, metaclass=GenerateTestMatrix):
                     'xtc',
                     'trr',
                     'dcd',
-                    'h5',  # pyemma H5Reader
+                    'h5',  # pyerna H5Reader
                     'csv',
                     )
     # transform data or not (identity does not change the data, but pushes it through a StreamingTransformer).

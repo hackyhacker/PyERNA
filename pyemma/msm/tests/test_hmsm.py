@@ -24,7 +24,7 @@ Test MLHMM.
 
 import unittest
 import numpy as np
-from pyemma import msm
+from pyerna import msm
 from msmtools import analysis as msmana
 
 
@@ -34,8 +34,8 @@ class TestMLHMM(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # load observations
-        import pyemma.datasets
-        obs = pyemma.datasets.load_2well_discrete().dtraj_T100K_dt10
+        import pyerna.datasets
+        obs = pyerna.datasets.load_2well_discrete().dtraj_T100K_dt10
         obs -= np.min(obs)  # remove empty states
 
         # hidden states
@@ -52,7 +52,7 @@ class TestMLHMM(unittest.TestCase):
     # =============================================================================
 
     def test_hmm_type(self):
-        from pyemma.msm.estimators.maximum_likelihood_hmsm import MaximumLikelihoodHMSM
+        from pyerna.msm.estimators.maximum_likelihood_hmsm import MaximumLikelihoodHMSM
         assert isinstance(self.hmsm_lag1, MaximumLikelihoodHMSM)
         assert isinstance(self.hmsm_lag10, MaximumLikelihoodHMSM)
 
@@ -374,7 +374,7 @@ class TestMLHMM(unittest.TestCase):
         I = hmsm.observable_state_indexes
         assert (len(I) == hmsm.nstates_obs)
         # compare to histogram
-        import pyemma.util.discrete_trajectories as dt
+        import pyerna.util.discrete_trajectories as dt
 
         hist = dt.count_states(hmsm.discrete_trajectories_full)
         # number of frames should match on active subset
@@ -406,7 +406,7 @@ class TestMLHMM(unittest.TestCase):
         assert (len(np.unique(traj)) <= len(hmsm.transition_matrix))
 
     def test_dt_model(self):
-        from pyemma.util.units import TimeUnit
+        from pyerna.util.units import TimeUnit
         tu = TimeUnit("1 step").get_scaled(self.hmsm_lag10.lag)
         self.assertEqual(self.hmsm_lag10.dt_model, tu)
 

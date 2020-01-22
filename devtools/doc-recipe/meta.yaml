@@ -1,6 +1,6 @@
 
 package:
-  name: pyemma-doc
+  name: pyerna-doc
   # version number: [base tag]+[commits-upstream]_[git_hash]
   # eg. v2.0+0_g8824162
   version: "0"
@@ -8,12 +8,12 @@ package:
 source:
   - path: ../../doc/
   # TODO: does not cure that this file can not be icnluded in docs. (relative path issue)
-  - path: ../../pyemma/pyemma.cfg
-    folder: pyemma
+  - path: ../../pyerna/pyerna.cfg
+    folder: pyerna
 
 requirements:
   build:
-    - pyemma-dev
+    - pyerna-dev
     - make
     - mdshare
     - nglview

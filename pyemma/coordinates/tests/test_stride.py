@@ -24,7 +24,7 @@ import os
 import tempfile
 import numpy as np
 import mdtraj
-import pyemma.coordinates as coor
+import pyerna.coordinates as coor
 
 
 

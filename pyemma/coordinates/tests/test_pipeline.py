@@ -24,15 +24,15 @@ import os
 
 import numpy as np
 
-from pyemma.coordinates.data import DataInMemory
-from pyemma.coordinates.data import MDFeaturizer
-from pyemma.coordinates import api
+from pyerna.coordinates.data import DataInMemory
+from pyerna.coordinates.data import MDFeaturizer
+from pyerna.coordinates import api
 import msmtools.generation as msmgen
 import tempfile
 
 import pkg_resources
-from pyemma.util.files import TemporaryDirectory
-import pyemma.coordinates as coor
+from pyerna.util.files import TemporaryDirectory
+import pyerna.coordinates as coor
 
 class TestPipeline(unittest.TestCase):
     @classmethod

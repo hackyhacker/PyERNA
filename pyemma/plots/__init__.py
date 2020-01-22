@@ -20,10 +20,10 @@
 r"""
 
 ============================================
-plots - Plotting tools (:mod:`pyemma.plots`)
+plots - Plotting tools (:mod:`pyerna.plots`)
 ============================================
 
-.. currentmodule:: pyemma.plots
+.. currentmodule:: pyerna.plots
 
 User-API
 ========

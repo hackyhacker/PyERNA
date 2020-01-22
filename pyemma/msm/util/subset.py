@@ -73,7 +73,7 @@ def _globalize(data, axis, active_set, default_value, n_centers):
 
 
 def _wrap_to_full_state(name, default_value, axis):
-    from pyemma._base.estimator import _call_member
+    from pyerna._base.estimator import _call_member
 
     def alias_to_full_state(self, *args, **kw):
         data = _call_member(self, name, *args, **kw)

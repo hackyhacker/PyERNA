@@ -30,15 +30,15 @@ import unittest
 
 import mdtraj
 
-from pyemma.coordinates.api import tica
-from pyemma.coordinates.data.feature_reader import FeatureReader
-from pyemma.util.contexts import numpy_random_seed
+from pyerna.coordinates.api import tica
+from pyerna.coordinates.data.feature_reader import FeatureReader
+from pyerna.util.contexts import numpy_random_seed
 from logging import getLogger
 
 import numpy as np
 
 
-log = getLogger('pyemma.'+'TestFeatureReaderAndTICAProjection')
+log = getLogger('pyerna.'+'TestFeatureReaderAndTICAProjection')
 
 
 def random_invertible(n, eps=0.01):
@@ -113,7 +113,7 @@ class TestFeatureReaderAndTICAProjection(unittest.TestCase):
             np.testing.assert_allclose(ic_cov_tau, check.cov_tau, atol=1e-8)
 
     def test_partial_fit(self):
-        from pyemma.coordinates import source
+        from pyerna.coordinates import source
         reader = source(self.trajnames, top=self.temppdb)
         reader_output = reader.get_output()
 

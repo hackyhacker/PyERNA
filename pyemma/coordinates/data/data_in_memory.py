@@ -22,10 +22,10 @@ import numbers
 
 import numpy as np
 
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.coordinates.data._base.datasource import DataSourceIterator, DataSource
-from pyemma.coordinates.data._base.random_accessible import RandomAccessStrategy
-from pyemma.util.annotators import fix_docs
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.coordinates.data._base.datasource import DataSourceIterator, DataSource
+from pyerna.coordinates.data._base.random_accessible import RandomAccessStrategy
+from pyerna.util.annotators import fix_docs
 
 __author__ = 'noe, marscher'
 
@@ -135,7 +135,7 @@ class DataInMemory(DataSource, SerializableMixIn):
             filenames to read from
         """
         # import here to avoid cyclic import
-        from pyemma.coordinates.data.numpy_filereader import NumPyFileReader
+        from pyerna.coordinates.data.numpy_filereader import NumPyFileReader
 
         reader = NumPyFileReader(files)
         data = reader.get_output()
@@ -208,7 +208,7 @@ class DataInMemoryLinearRandomAccessStrategy(RandomAccessStrategy):
 
         data = np.empty((nframes, ndims), dtype=self._source.output_type())
 
-        from pyemma.coordinates.clustering import UniformTimeClustering
+        from pyerna.coordinates.clustering import UniformTimeClustering
         for i, x in enumerate(frames):
             traj, idx = UniformTimeClustering._idx_to_traj_idx(x, cumsum)
             data[i, :] = self._source.data[traj][idx, dims]
@@ -231,7 +231,7 @@ class DataInMemoryLinearItrajRandomAccessStrategy(DataInMemoryCuboidRandomAccess
         cumsum = np.cumsum(self._source.trajectory_lengths()[itrajs])
         data = np.empty((nframes, ndims), dtype=self._source.output_type())
 
-        from pyemma.coordinates.clustering import UniformTimeClustering
+        from pyerna.coordinates.clustering import UniformTimeClustering
         for i, x in enumerate(frames):
             traj, idx = self._map_to_absolute_traj_idx(UniformTimeClustering._idx_to_traj_idx(x, cumsum), itrajs)
             data[i, :] = self._source.data[traj][idx, dims]

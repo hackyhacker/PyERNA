@@ -20,10 +20,10 @@ import unittest
 
 import numpy as np
 
-import pyemma
-from pyemma import datasets
-from pyemma import load
-from pyemma.msm import bayesian_markov_model
+import pyerna
+from pyerna import datasets
+from pyerna import load
+from pyerna.msm import bayesian_markov_model
 
 
 class TestMSMSerialization(unittest.TestCase):
@@ -46,7 +46,7 @@ class TestMSMSerialization(unittest.TestCase):
         cls.msm = datasets.load_2well_discrete().msm
         cls.bmsm_rev = bayesian_markov_model(cls.obs_macro, cls.lag,
                                              reversible=True, nsamples=cls.nsamples)
-        cls.oom = pyemma.msm.estimate_markov_model(cls.obs_macro, cls.lag, weights='oom')
+        cls.oom = pyerna.msm.estimate_markov_model(cls.obs_macro, cls.lag, weights='oom')
 
     def setUp(self):
         self.f = tempfile.mktemp()
@@ -89,8 +89,8 @@ class TestMSMSerialization(unittest.TestCase):
                       [[0, 1, 2, 2, 2, 2, 1, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0],
                        [0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 0, 0]],
                   'lag': 2}
-        ml_msm = pyemma.msm.estimate_markov_model(**params)
-        assert isinstance(ml_msm, pyemma.msm.MaximumLikelihoodMSM)
+        ml_msm = pyerna.msm.estimate_markov_model(**params)
+        assert isinstance(ml_msm, pyerna.msm.MaximumLikelihoodMSM)
 
         ml_msm.save(self.f)
         new_obj = load(self.f)
@@ -114,7 +114,7 @@ class TestMSMSerialization(unittest.TestCase):
     def _compare_MLHMM(self, actual, desired):
         assert actual._estimated == desired._estimated
         np.testing.assert_equal(actual.P, desired.P)
-        from pyemma.msm import BayesianHMSM
+        from pyerna.msm import BayesianHMSM
         if not isinstance(desired, BayesianHMSM):
             np.testing.assert_equal(actual.pobs, desired.pobs)
 
@@ -171,7 +171,7 @@ class TestMSMSerialization(unittest.TestCase):
                   'lag': 2,
                   'nstates': 2
                   }
-        hmm = pyemma.msm.estimate_hidden_markov_model(**params)
+        hmm = pyerna.msm.estimate_hidden_markov_model(**params)
         hmm.save(self.f)
 
         new_obj = load(self.f)
@@ -185,7 +185,7 @@ class TestMSMSerialization(unittest.TestCase):
                   'nstates': 2,
                   'nsamples': 2,
                   }
-        hmm = pyemma.msm.bayesian_hidden_markov_model(**params)
+        hmm = pyerna.msm.bayesian_hidden_markov_model(**params)
         hmm.save(self.f)
 
         new_obj = load(self.f)
@@ -196,14 +196,14 @@ class TestMSMSerialization(unittest.TestCase):
     def test_its_bmsm_njobs(self):
         # triggers serialisation by using multiple jobs
         lags = [1, 2]
-        its_n1 = pyemma.msm.timescales_msm(self.obs_micro, nsamples=2, lags=lags, errors='bayes', n_jobs=1)
-        its_n2 = pyemma.msm.timescales_msm(self.obs_micro, nsamples=2, lags=lags, errors='bayes', n_jobs=2)
+        its_n1 = pyerna.msm.timescales_msm(self.obs_micro, nsamples=2, lags=lags, errors='bayes', n_jobs=1)
+        its_n2 = pyerna.msm.timescales_msm(self.obs_micro, nsamples=2, lags=lags, errors='bayes', n_jobs=2)
         np.testing.assert_allclose(its_n1.nits, its_n2.nits)
         np.testing.assert_allclose(its_n1.timescales, its_n2.timescales)
 
     def test_its(self):
         lags = [1, 2, 3]
-        its = pyemma.msm.timescales_msm(self.obs_micro, lags=lags)
+        its = pyerna.msm.timescales_msm(self.obs_micro, lags=lags)
 
         its.save(self.f)
         restored = load(self.f)
@@ -214,7 +214,7 @@ class TestMSMSerialization(unittest.TestCase):
 
     def test_its_sampled(self):
         lags = [1, 3]
-        its = pyemma.msm.timescales_msm(self.obs_micro, lags=lags, errors='bayes', nsamples=10)
+        its = pyerna.msm.timescales_msm(self.obs_micro, lags=lags, errors='bayes', nsamples=10)
 
         its.save(self.f)
         restored = load(self.f)
@@ -226,7 +226,7 @@ class TestMSMSerialization(unittest.TestCase):
 
     def test_its_sampled_only_ts(self):
         lags = [1, 3]
-        its = pyemma.msm.timescales_msm(self.obs_micro, lags=lags, errors='bayes', nsamples=2, only_timescales=True)
+        its = pyerna.msm.timescales_msm(self.obs_micro, lags=lags, errors='bayes', nsamples=2, only_timescales=True)
 
         its.save(self.f)
         restored = load(self.f)
@@ -249,7 +249,7 @@ class TestMSMSerialization(unittest.TestCase):
         np.testing.assert_equal(restored.estimates_conf, ck.estimates_conf)
 
     def test_oom(self):
-        oom = pyemma.msm.estimate_markov_model(self.obs_macro, self.lag, weights='oom')
+        oom = pyerna.msm.estimate_markov_model(self.obs_macro, self.lag, weights='oom')
 
         oom.save(self.f)
 
@@ -261,9 +261,9 @@ class TestMSMSerialization(unittest.TestCase):
         np.testing.assert_equal(oom.OOM_sigma, restored.OOM_sigma)
 
     def test_ml_msm_sparse(self):
-        from pyemma.util.contexts import numpy_random_seed
+        from pyerna.util.contexts import numpy_random_seed
         with numpy_random_seed(42):
-            msm = pyemma.msm.estimate_markov_model([np.random.randint(0, 1000, size=10000)], sparse=True, lag=1)
+            msm = pyerna.msm.estimate_markov_model([np.random.randint(0, 1000, size=10000)], sparse=True, lag=1)
             assert msm.sparse
             msm.save(self.f)
             restored = load(self.f)

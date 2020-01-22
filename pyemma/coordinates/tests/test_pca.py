@@ -29,13 +29,13 @@ import pkg_resources
 
 import numpy as np
 
-from pyemma.coordinates import pca, source
+from pyerna.coordinates import pca, source
 from logging import getLogger
-import pyemma.util.types as types
+import pyerna.util.types as types
 
 
 
-logger = getLogger('pyemma.'+'TestPCA')
+logger = getLogger('pyerna.'+'TestPCA')
 
 
 class TestPCAExtensive(unittest.TestCase):
@@ -222,7 +222,7 @@ class TestPCAExtensive(unittest.TestCase):
         np.testing.assert_allclose(test_corr, true_corr, atol=1.E-8)
 
     def test_pipelining_sklearn_compat(self):
-        from pyemma.coordinates.transform import PCA
+        from pyerna.coordinates.transform import PCA
         t = PCA(dim=2)
         x = np.random.random((20, 3))
         y = t.fit_transform(x)

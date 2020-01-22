@@ -26,16 +26,16 @@ import unittest
 
 
 
-from pyemma.util.files import TemporaryDirectory
-from pyemma.util.exceptions import ConfigDirectoryException
+from pyerna.util.files import TemporaryDirectory
+from pyerna.util.exceptions import ConfigDirectoryException
 import pkg_resources
-import pyemma
+import pyerna
 
 
 class TestConfig(unittest.TestCase):
 
     def setUp(self):
-        self.config_inst = pyemma.config()
+        self.config_inst = pyerna.config()
 
     def tearDown(self):
         try:
@@ -47,15 +47,15 @@ class TestConfig(unittest.TestCase):
         with TemporaryDirectory() as td:
             self.config_inst.cfg_dir = td
             self.assertEqual(self.config_inst.cfg_dir, td)
-            from pyemma import config as config_module
+            from pyerna import config as config_module
             assert hasattr(config_module, 'default_config_file')
-            my_cfg = os.path.join(td, 'pyemma.cfg')
-            self.assertEqual(pkg_resources.resource_filename('pyemma', 'pyemma.cfg'),
+            my_cfg = os.path.join(td, 'pyerna.cfg')
+            self.assertEqual(pkg_resources.resource_filename('pyerna', 'pyerna.cfg'),
                              config_module.default_config_file)
             reader = configparser.ConfigParser()
             reader.read(my_cfg)
 
-            opts = sorted(reader.options('pyemma'))
+            opts = sorted(reader.options('pyerna'))
             actual = sorted(config_module.keys())
             self.assertEqual(opts, actual)
 
@@ -113,7 +113,7 @@ class TestConfig(unittest.TestCase):
             self.config_inst.save(f.name)
             cfg = configparser.ConfigParser()
             cfg.read(f.name)
-            self.assertEqual(cfg.getboolean('pyemma', 'show_progress_bars'), self.config_inst.show_progress_bars)
+            self.assertEqual(cfg.getboolean('pyerna', 'show_progress_bars'), self.config_inst.show_progress_bars)
 
     def test_save_load_no_cfg_file_given(self):
         """ test that in case no cfg dir has been set, the default location is being used and values changed at
@@ -121,7 +121,7 @@ class TestConfig(unittest.TestCase):
         # replace a value with a non default value:
         with TemporaryDirectory() as td:
             os.environ['PYEMMA_CFG_DIR'] = td
-            self.config_inst = pyemma.config()
+            self.config_inst = pyerna.config()
             self.config_inst.show_progress_bars = not self.config_inst.show_progress_bars
             self.config_inst.save()
 
@@ -129,7 +129,7 @@ class TestConfig(unittest.TestCase):
 
             cfg = configparser.RawConfigParser()
             cfg.read(supposed_to_use_cfg)
-            self.assertEqual(cfg.getboolean('pyemma', 'show_progress_bars'),
+            self.assertEqual(cfg.getboolean('pyerna', 'show_progress_bars'),
                              self.config_inst.show_progress_bars)
 
     def test_load(self):
@@ -158,7 +158,7 @@ class TestConfig(unittest.TestCase):
         self.config_inst.mute = False
 
         import logging
-        logger = logging.getLogger('pyemma')
+        logger = logging.getLogger('pyerna')
         old_level = logger.level
 
         self.config_inst.mute = True
@@ -170,12 +170,12 @@ class TestConfig(unittest.TestCase):
 
     def test_mute_progress(self):
         """ switch mute on shall turn off progress bars"""
-        from pyemma._base.progress import ProgressReporterMixin
+        from pyerna._base.progress import ProgressReporterMixin
         from unittest import mock
         rp = ProgressReporterMixin()
 
         self.config_inst.mute = True
-        with mock.patch('pyemma.config', self.config_inst):
+        with mock.patch('pyerna.config', self.config_inst):
             assert not rp.show_progress
 
     def test_default_chunksize(self):

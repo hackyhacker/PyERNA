@@ -3,16 +3,16 @@ import sys
 import os
 
 # this is import for measuring coverage
-assert 'pyemma' not in sys.modules
+assert 'pyerna' not in sys.modules
 
 
-def setup_pyemma_config():
+def setup_pyerna_config():
     """ set config flags for testing """
-    if 'pyemma' in sys.modules:
-        pyemma = sys.modules['pyemma']
-        pyemma.config.show_progress_bars = False
-        pyemma.config.coordinates_check_output = True
-        pyemma.config.use_trajectory_lengths_cache = False
+    if 'pyerna' in sys.modules:
+        pyerna = sys.modules['pyerna']
+        pyerna.config.show_progress_bars = False
+        pyerna.config.coordinates_check_output = True
+        pyerna.config.use_trajectory_lengths_cache = False
 
 
 def add_np():
@@ -27,13 +27,13 @@ def add_np():
 
 @pytest.fixture('session')
 def session_fixture():
-    setup_pyemma_config()
+    setup_pyerna_config()
     add_np()
 
-    # redirect tempdir to a subdir called pyemma-test-$random to clean all temporary files after testing.
+    # redirect tempdir to a subdir called pyerna-test-$random to clean all temporary files after testing.
     import tempfile, uuid
     org = tempfile.gettempdir()
-    tempfile.tempdir = os.path.join(org, 'pyemma_test-{}'.format(uuid.uuid4()))
+    tempfile.tempdir = os.path.join(org, 'pyerna_test-{}'.format(uuid.uuid4()))
     print('session temporary dir:', tempfile.tempdir)
     try:
         os.mkdir(tempfile.tempdir)

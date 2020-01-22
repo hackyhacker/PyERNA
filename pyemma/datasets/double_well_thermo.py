@@ -17,7 +17,7 @@
 
 
 import numpy as _np
-from pyemma.coordinates import assign_to_centers as _assign_to_centers
+from pyerna.coordinates import assign_to_centers as _assign_to_centers
 
 __all__ = [
     'DoubleWellSampler']

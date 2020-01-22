@@ -21,8 +21,8 @@ import sys
 
 def main(argv=None):
     import argparse
-    from pyemma import load
-    from pyemma._base.serialization.h5file import H5File
+    from pyerna import load
+    from pyerna._base.serialization.h5file import H5File
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--json', action='store_true', default=False)

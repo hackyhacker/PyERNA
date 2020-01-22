@@ -22,8 +22,8 @@ Created on 15.02.2016
 import mdtraj
 import numpy as np
 
-from pyemma.coordinates.data.featurization._base import Feature
-from pyemma.coordinates.data.featurization.util import _describe_atom
+from pyerna.coordinates.data.featurization._base import Feature
+from pyerna.coordinates.data.featurization.util import _describe_atom
 
 
 class DistanceFeature(Feature):

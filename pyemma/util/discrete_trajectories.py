@@ -28,8 +28,8 @@ We store them either as single column ascii files or as ndarrays of shape (n,) i
 from functools import reduce
 import warnings
 import numpy as np
-from pyemma.util.types import ensure_dtraj_list as _ensure_dtraj_list
-from pyemma.util.annotators import shortcut
+from pyerna.util.types import ensure_dtraj_list as _ensure_dtraj_list
+from pyerna.util.annotators import shortcut
 
 
 __author__ = 'noe'
@@ -268,7 +268,7 @@ def rewrite_dtrajs_to_core_sets(dtrajs, core_set, in_place=False):
 
     """
     import copy
-    from pyemma.util import types
+    from pyerna.util import types
 
     dtrajs = types.ensure_dtraj_list(dtrajs)
 
@@ -328,7 +328,7 @@ def _apply_offsets_to_samples(indices, offsets):
     offsets: dict {itraj, offset}
 
     """
-    from pyemma.util import types
+    from pyerna.util import types
     assert types.is_int_matrix(indices)
     assert isinstance(offsets, list), offsets
 

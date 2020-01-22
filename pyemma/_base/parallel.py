@@ -19,15 +19,15 @@ def get_n_jobs(logger=None):
         return None
 
     slurm_njobs = _from_env('SLURM_CPUS_ON_NODE')  # Number of CPUS on the allocated SLURM node.
-    pyemma_njobs = _from_env('PYEMMA_NJOBS')
+    pyerna_njobs = _from_env('PYEMMA_NJOBS')
 
-    if slurm_njobs and pyemma_njobs:
+    if slurm_njobs and pyerna_njobs:
         import warnings
         warnings.warn('two settings for n_jobs from environment: PYEMMA_NJOBS and SLURM_CPUS_ON_NODE. '
                       'Respecting the SLURM setting to avoid overprovisioning resources.')
 
     # slurm njobs will be used preferably.
-    val = slurm_njobs or pyemma_njobs
+    val = slurm_njobs or pyerna_njobs
     if not val:
         val = _from_hardware()
     if logger is not None:

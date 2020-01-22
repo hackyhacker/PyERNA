@@ -19,7 +19,7 @@
 import numpy as np
 import scipy.linalg as scl
 import scipy.sparse
-from pyemma.util.linalg import _sort_by_norm
+from pyerna.util.linalg import _sort_by_norm
 
 __all__ = ['bootstrapping_count_matrix', 'bootstrapping_dtrajs', 'twostep_count_matrix', 'rank_decision',
            'oom_components', 'equilibrium_transition_matrix']
@@ -84,7 +84,7 @@ def bootstrapping_dtrajs(dtrajs, lag, N_full, nbs=10000, active_set=None):
         Ct_sel = Ct_traj[sel, :].sum(axis=0)
         Ct_sel = np.asarray(Ct_sel).reshape((N_full, N_full))
         if active_set is not None:
-            from pyemma.util.linalg import submatrix
+            from pyerna.util.linalg import submatrix
             Ct_sel = submatrix(Ct_sel, active_set)
         svals[s, :] = scl.svdvals(Ct_sel)
     # Compute mean and uncertainties:

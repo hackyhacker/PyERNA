@@ -22,16 +22,16 @@ import unittest
 import os
 import tempfile
 
-from pyemma.coordinates.data import MDFeaturizer
+from pyerna.coordinates.data import MDFeaturizer
 from logging import getLogger
-import pyemma.coordinates.api as api
+import pyerna.coordinates.api as api
 import numpy as np
-from pyemma.coordinates.data.numpy_filereader import NumPyFileReader
-from pyemma.coordinates.data.py_csv_reader import PyCSVReader as CSVReader
+from pyerna.coordinates.data.numpy_filereader import NumPyFileReader
+from pyerna.coordinates.data.py_csv_reader import PyCSVReader as CSVReader
 import shutil
 import pkg_resources
 
-logger = getLogger('pyemma.'+'TestReaderUtils')
+logger = getLogger('pyerna.'+'TestReaderUtils')
 
 
 class TestApiSourceFileReader(unittest.TestCase):

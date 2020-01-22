@@ -18,9 +18,9 @@
 import unittest
 import numpy as np
 import numpy.testing as npt
-from pyemma.thermo import estimate_umbrella_sampling, estimate_multi_temperature
-from pyemma.coordinates import cluster_regspace, assign_to_centers
-from pyemma.thermo.extensions.util import logsumexp
+from pyerna.thermo import estimate_umbrella_sampling, estimate_multi_temperature
+from pyerna.coordinates import cluster_regspace, assign_to_centers
+from pyerna.thermo.extensions.util import logsumexp
 
 # ==================================================================================================
 # helper functions
@@ -69,15 +69,15 @@ def validate_kinetics(obj, estimator):
 
 def check_serialization(estimator):
     # check if the serialized and restored estimator still holds the derived quantities.
-    import pyemma
-    from pyemma.thermo import WHAM, TRAM, DTRAM, MBAR
-    from pyemma._base.serialization.serialization import SerializableMixIn
+    import pyerna
+    from pyerna.thermo import WHAM, TRAM, DTRAM, MBAR
+    from pyerna._base.serialization.serialization import SerializableMixIn
     import tempfile
 
     assert isinstance(estimator, SerializableMixIn)
     f = tempfile.mktemp()
     estimator.save(f)
-    restored = pyemma.load(f)
+    restored = pyerna.load(f)
 
     def check(a, b):
         if isinstance(a, np.ndarray):

@@ -45,11 +45,11 @@ def _version_check(current, testing=False):
     Can be disabled by setting config.check_version = False.
 
     >>> from unittest.mock import patch
-    >>> import warnings, pyemma
-    >>> with warnings.catch_warnings(record=True) as cw, patch('pyemma.version', '0.1'):
+    >>> import warnings, pyerna
+    >>> with warnings.catch_warnings(record=True) as cw, patch('pyerna.version', '0.1'):
     ...     warnings.simplefilter('always', UserWarning)
-    ...     v = pyemma.version
-    ...     t = pyemma._version_check(v, testing=True)
+    ...     v = pyerna.version
+    ...     t = pyerna._version_check(v, testing=True)
     ...     t.start()
     ...     t.join()
     ...     assert cw, "no warning captured"
@@ -96,7 +96,7 @@ def _version_check(current, testing=False):
                               "Please upgrade your Python installation.", category=UserWarning)
         except Exception:
             import logging
-            logging.getLogger('pyemma').debug("error during version check", exc_info=True)
+            logging.getLogger('pyerna').debug("error during version check", exc_info=True)
     return threading.Thread(target=_impl)
 
 

@@ -46,7 +46,7 @@ Commit messages
 ---------------
 
 Use commit messages in the style "[$package]: change" whenever the changes belong
-to one package or module. You can suppress "pyemma" (that is trivial) and
+to one package or module. You can suppress "pyerna" (that is trivial) and
 "api" (which doesn't show up in the import).
 
 E.g.: ::
@@ -69,7 +69,7 @@ To run all tests invoke: ::
 
     python setup.py test
 
-or directly invoke nosetests in pyemma working copy: ::
+or directly invoke nosetests in pyerna working copy: ::
 
     nosetests $PYEMMA_DIR
 

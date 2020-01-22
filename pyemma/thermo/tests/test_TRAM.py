@@ -19,8 +19,8 @@ import unittest
 
 
 import numpy as np
-import pyemma.thermo
-from pyemma.thermo import EmptyState
+import pyerna.thermo
+from pyerna.thermo import EmptyState
 import warnings
 import msmtools
 
@@ -96,7 +96,7 @@ class TestTRAMexceptions(unittest.TestCase):
         n_samples = 100
         trajs = generate_trajectory(T, bias_energies, 1, n_samples, 0)
         trajs = ([trajs[0]], [trajs[1]], [trajs[2]])
-        tram = pyemma.thermo.TRAM(lag=1)
+        tram = pyerna.thermo.TRAM(lag=1)
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
             tram.estimate(trajs)
@@ -107,7 +107,7 @@ class TestTRAMexceptions(unittest.TestCase):
         btraj = np.zeros((10,3))
         ttraj = 4*np.ones(10, dtype=int)
         dtraj = np.ones(10, dtype=int)
-        tram = pyemma.thermo.TRAM(lag=1)
+        tram = pyerna.thermo.TRAM(lag=1)
         with self.assertRaises(AssertionError):
             tram.estimate(([ttraj], [dtraj], [btraj]))
 
@@ -138,7 +138,7 @@ class TestTRAMwith5StateDTRAMModel(unittest.TestCase):
         self.run_5_state_model(True)
 
     def run_5_state_model(self, direct_space):
-        tram = pyemma.thermo.TRAM(lag=1, maxerr=1E-12, save_convergence_info=10, direct_space=direct_space, nn=1, init='mbar', connectivity='reversible_pathways')
+        tram = pyerna.thermo.TRAM(lag=1, maxerr=1E-12, save_convergence_info=10, direct_space=direct_space, nn=1, init='mbar', connectivity='reversible_pathways')
         tram.estimate(self.trajs)
 
         log_pi_K_i = tram.biased_conf_energies.copy()
@@ -183,7 +183,7 @@ class TestTRAMasReversibleMSM(unittest.TestCase):
         self.reversible_msm(True)
 
     def reversible_msm(self, direct_space):
-        tram = pyemma.thermo.TRAM(lag=1, maxerr=1.E-12, save_convergence_info=10, direct_space=direct_space, nn=None, connectivity='reversible_pathways')
+        tram = pyerna.thermo.TRAM(lag=1, maxerr=1.E-12, save_convergence_info=10, direct_space=direct_space, nn=None, connectivity='reversible_pathways')
         tram.estimate(self.tram_trajs)
         assert np.allclose(self.T_ref,  tram.models[0].transition_matrix, atol=1.E-4)
 
@@ -312,7 +312,7 @@ class TRAMandTRAMMBARBaseClass(object):
 
     def with_TRAM_model(self, direct_space):
         # run TRAM
-        tram = pyemma.thermo.TRAM(lag=1, maxerr=1E-12, save_convergence_info=10, direct_space=direct_space, nn=None, init='mbar', equilibrium=self.eq, connectivity='reversible_pathways')
+        tram = pyerna.thermo.TRAM(lag=1, maxerr=1E-12, save_convergence_info=10, direct_space=direct_space, nn=None, init='mbar', equilibrium=self.eq, connectivity='reversible_pathways')
         if not self.test_trammbar:
             tram.estimate((self.ttrajs, self.dtrajs, self.btrajs))
         else:

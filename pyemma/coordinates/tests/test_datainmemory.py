@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import pyemma
+import pyerna
 
 
 
@@ -28,10 +28,10 @@ Created on 04.02.2015
 import unittest
 import numpy as np
 
-from pyemma.coordinates.data.data_in_memory import DataInMemory
+from pyerna.coordinates.data.data_in_memory import DataInMemory
 from logging import getLogger
 
-logger = getLogger('pyemma.'+'TestDataInMemory')
+logger = getLogger('pyerna.'+'TestDataInMemory')
 
 
 class TestDataInMemory(unittest.TestCase):
@@ -166,7 +166,7 @@ class TestDataInMemory(unittest.TestCase):
     def test_chunksize(self):
         data = np.random.randn(200, 2)
         cs = 100
-        source = pyemma.coordinates.source(data, chunksize=cs)
+        source = pyerna.coordinates.source(data, chunksize=cs)
         source.chunksize = 100
         for i, ch in source.iterator():
             assert ch.shape[0] <= cs, ch.shape
@@ -182,7 +182,7 @@ class TestDataInMemory(unittest.TestCase):
         reader = DataInMemory(data, chunksize=chunksize)
         it = reader.iterator(chunk=chunksize, stride=stride, lag=lag)
         # lag > chunksize, so we expect a LegacyLaggedIter
-        from pyemma.coordinates.data._base.iterable import _LegacyLaggedIterator
+        from pyerna.coordinates.data._base.iterable import _LegacyLaggedIterator
         self.assertIsInstance(it, _LegacyLaggedIterator)
         assert reader.chunksize == chunksize
 
@@ -223,7 +223,7 @@ class TestDataInMemory(unittest.TestCase):
         reader = DataInMemory(data, chunksize=chunksize)
         it = reader.iterator(chunk=chunksize, stride=stride, lag=lag)
         # lag < chunksize, so we expect a LaggedIter
-        from pyemma.coordinates.data._base.iterable import _LaggedIterator
+        from pyerna.coordinates.data._base.iterable import _LaggedIterator
         self.assertIsInstance(it, _LaggedIterator)
         assert reader.chunksize == chunksize
 
@@ -273,11 +273,11 @@ class TestDataInMemory(unittest.TestCase):
 
     def test_exception_getoutput_invalid_data(self):
         """ensure we get a proper exception if invalid data is contained in the stream"""
-        from pyemma.util.contexts import settings
+        from pyerna.util.contexts import settings
         data = np.ones(10)
         data[-1] = np.nan
-        reader = pyemma.coordinates.source(data)
-        from pyemma.coordinates.data._base.datasource import InvalidDataInStreamException
+        reader = pyerna.coordinates.source(data)
+        from pyerna.coordinates.data._base.datasource import InvalidDataInStreamException
         with settings(coordinates_check_output=True), self.assertRaises(InvalidDataInStreamException):
             reader.get_output()
 

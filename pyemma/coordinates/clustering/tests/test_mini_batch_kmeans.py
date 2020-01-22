@@ -19,7 +19,7 @@
 import unittest
 from unittest import TestCase
 import numpy as np
-from pyemma.coordinates.api import cluster_mini_batch_kmeans
+from pyerna.coordinates.api import cluster_mini_batch_kmeans
 
 
 class TestMiniBatchKmeans(TestCase):
@@ -55,7 +55,7 @@ class TestMiniBatchKmeansResume(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        from pyemma.util.contexts import numpy_random_seed
+        from pyerna.util.contexts import numpy_random_seed
         with numpy_random_seed(32):
             # three gaussians
             X = [np.random.randn(1000)-2.0,

@@ -1,9 +1,9 @@
 import numpy as np
 
-from pyemma._base.serialization.serialization import SerializableMixIn
+from pyerna._base.serialization.serialization import SerializableMixIn
 
-from pyemma.coordinates.data._base.datasource import DataSource, DataSourceIterator
-from pyemma.coordinates.data.util.traj_info_cache import TrajInfo
+from pyerna.coordinates.data._base.datasource import DataSource, DataSourceIterator
+from pyerna.coordinates.data.util.traj_info_cache import TrajInfo
 
 __author__ = 'marscher'
 
@@ -39,7 +39,7 @@ class H5Reader(DataSource, SerializableMixIn):
         self._is_reader = True
         self._is_random_accessible = True
 
-        from pyemma.coordinates.data.data_in_memory import (DataInMemoryCuboidRandomAccessStrategy,
+        from pyerna.coordinates.data.data_in_memory import (DataInMemoryCuboidRandomAccessStrategy,
                                                             DataInMemoryJaggedRandomAccessStrategy,
                                                             DataInMemoryLinearRandomAccessStrategy,
                                                             DataInMemoryLinearItrajRandomAccessStrategy)
@@ -56,7 +56,7 @@ class H5Reader(DataSource, SerializableMixIn):
 
         # we explicitly do not want to cache anything for H5, because the user can provide different selections
         # and the interface of the cache does not allow for such a mapping (1:1 relation filename:(dimension, len)).
-        from pyemma.util.contexts import settings
+        from pyerna.util.contexts import settings
         with settings(use_trajectory_lengths_cache=False):
             self.filenames = filenames
 

@@ -16,11 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as _np
-from pyemma.thermo import WHAM as _WHAM
-from pyemma.thermo import MBAR as _MBAR
-from pyemma.thermo import DTRAM as _DTRAM
-from pyemma.thermo import TRAM as _TRAM
-from pyemma.msm import MSM as _MSM
+from pyerna.thermo import WHAM as _WHAM
+from pyerna.thermo import MBAR as _MBAR
+from pyerna.thermo import DTRAM as _DTRAM
+from pyerna.thermo import TRAM as _TRAM
+from pyerna.msm import MSM as _MSM
 
 __all__ = [
     'plot_increments',

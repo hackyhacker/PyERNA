@@ -20,9 +20,9 @@ from math import ceil
 
 import numpy as np
 
-from pyemma.coordinates.data._base.iterable import Iterable
-from pyemma.coordinates.data._base.random_accessible import TrajectoryRandomAccessible
-from pyemma.util import config
+from pyerna.coordinates.data._base.iterable import Iterable
+from pyerna.coordinates.data._base.random_accessible import TrajectoryRandomAccessible
+from pyerna.util import config
 
 import os
 
@@ -79,7 +79,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
             self.logger.warning("duplicate files/arrays detected")
             filename_list = list(uniq)
 
-        from pyemma.coordinates.data.data_in_memory import DataInMemory
+        from pyerna.coordinates.data.data_in_memory import DataInMemory
 
         if self._is_reader:
             if isinstance(self, DataInMemory):
@@ -112,8 +112,8 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
             offsets = []
             ndims = []
             # avoid cyclic imports
-            from pyemma.coordinates.data.util.traj_info_cache import TrajectoryInfoCache
-            from pyemma._base.progress import ProgressReporter
+            from pyerna.coordinates.data.util.traj_info_cache import TrajectoryInfoCache
+            from pyerna._base.progress import ProgressReporter
             pg = ProgressReporter()
             pg.register(len(filename_list), 'Obtaining file info')
             with pg.context():
@@ -216,7 +216,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
         return True
 
     def _source_from_memory(self, data_producer=None):
-        from pyemma.coordinates.data import DataInMemory
+        from pyerna.coordinates.data import DataInMemory
         if data_producer is None:
             data_producer = self
         while data_producer is not data_producer.data_producer:
@@ -371,7 +371,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
 
         # create iterator
         if self.in_memory and not self._mapping_to_mem_active:
-            from pyemma.coordinates.data.data_in_memory import DataInMemory
+            from pyerna.coordinates.data.data_in_memory import DataInMemory
             assert self._Y is not None
             it = DataInMemory(self._Y)._create_iterator(skip=skip, chunk=chunk,
                                                         stride=stride, return_trajindex=True)
@@ -381,7 +381,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
         with it:
             # allocate memory
             try:
-                from pyemma import config
+                from pyerna import config
                 if config.coordinates_check_output:
                     trajs = [np.full((l, ndim), np.nan, dtype=self.output_type()) for l in it.trajectory_lengths()]
                 else:
@@ -399,7 +399,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
                                    % [x.shape for x in trajs])
                 self.logger.debug("nchunks :%s, chunksize=%s" % (it.n_chunks, it.chunksize))
             # fetch data
-            from pyemma._base.progress import ProgressReporter
+            from pyerna._base.progress import ProgressReporter
             pg = ProgressReporter()
             pg.register(it.n_chunks, description='getting output of %s' % self.__class__.__name__)
             with pg.context(), it:
@@ -424,7 +424,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
     def write_to_hdf5(self, filename, group='/', data_set_prefix='', overwrite=False,
                       stride=1, chunksize=None, h5_opt=None):
         """ writes all data of this Iterable to a given HDF5 file.
-        This is equivalent of writing the result of func:`pyemma.coordinates.data._base.DataSource.get_output` to a file.
+        This is equivalent of writing the result of func:`pyerna.coordinates.data._base.DataSource.get_output` to a file.
 
         Parameters
         ----------
@@ -483,7 +483,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
         if h5_opt is None:
             h5_opt = {}
         import h5py
-        from pyemma._base.progress import ProgressReporter
+        from pyerna._base.progress import ProgressReporter
         pg = ProgressReporter()
         it = self.iterator(stride=stride, chunk=chunksize, return_trajindex=True)
         pg.register(it.n_chunks, 'writing output')
@@ -545,12 +545,12 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
         -------
         Assume you want to save features calculated by some FeatureReader to ASCII:
 
-        >>> import numpy as np, pyemma
+        >>> import numpy as np, pyerna
         >>> import os
-        >>> from pyemma.util.files import TemporaryDirectory
-        >>> from pyemma.util.contexts import settings
+        >>> from pyerna.util.files import TemporaryDirectory
+        >>> from pyerna.util.contexts import settings
         >>> data = [np.random.random((10,3))] * 3
-        >>> reader = pyemma.coordinates.source(data)
+        >>> reader = pyerna.coordinates.source(data)
         >>> filename = "distances_{itraj}.dat"
         >>> with TemporaryDirectory() as td, settings(show_progress_bars=False):
         ...    out = os.path.join(td, filename)
@@ -587,7 +587,7 @@ class DataSource(Iterable, TrajectoryRandomAccessible):
                     continue
                 raise
         f = None
-        from pyemma._base.progress import ProgressReporter
+        from pyerna._base.progress import ProgressReporter
         pg = ProgressReporter()
         it = self.iterator(stride, chunk=chunksize, return_trajindex=False)
         pg.register(it.n_chunks, "saving to csv")

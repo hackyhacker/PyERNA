@@ -30,11 +30,11 @@ from operator import itemgetter
 
 import numpy as np
 
-from pyemma.coordinates.data.util.traj_info_cache import (UnknownDBFormatException,
+from pyerna.coordinates.data.util.traj_info_cache import (UnknownDBFormatException,
                                                           TrajInfo,
                                                           TrajectoryInfoCache,
                                                           logger)
-from pyemma.util import config
+from pyerna.util import config
 
 
 class AbstractDB(object):
@@ -247,7 +247,7 @@ class SqliteDB(AbstractDB):
         if not self.filename:
             return None
 
-        from pyemma.util.files import mkdir_p
+        from pyerna.util.files import mkdir_p
         hash_value_long = int(key, 16)
         # bin hash to one of either 10 different databases
         # TODO: make a configuration parameter out of this number

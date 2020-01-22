@@ -4,9 +4,9 @@ from glob import glob
 
 import numpy as np
 
-from pyemma.coordinates.data import DataInMemory
-from pyemma.util.contexts import settings
-from pyemma.util.files import TemporaryDirectory
+from pyerna.coordinates.data import DataInMemory
+from pyerna.util.contexts import settings
+from pyerna.util.files import TemporaryDirectory
 
 
 class TestCoordinatesIterator(unittest.TestCase):
@@ -115,7 +115,7 @@ class TestCoordinatesIterator(unittest.TestCase):
             assert it.chunksize == cs[i]
 
     def test_chunksize_max_memory(self):
-        from pyemma.util.contexts import settings
+        from pyerna.util.contexts import settings
         data = np.random.random((10000, 10))
         max_size = 1024
         with settings(default_chunksize=str(max_size)):
@@ -176,7 +176,7 @@ class TestCoordinatesIterator(unittest.TestCase):
                 t = 0
 
     def test_write_to_csv_propagate_filenames(self):
-        from pyemma.coordinates import source, tica
+        from pyerna.coordinates import source, tica
         with TemporaryDirectory() as td:
             data = [np.random.random((20, 3))] * 3
             fns = [os.path.join(td, f)
@@ -200,7 +200,7 @@ class TestCoordinatesIterator(unittest.TestCase):
                 np.testing.assert_allclose(a, e)
 
     def test_write_h5(self):
-        from pyemma.coordinates import tica
+        from pyerna.coordinates import tica
         dim = 10
         data = [np.random.random((np.random.randint(50, 150), dim)) for _ in range(4)]
         tica = tica(data, lag=1)
@@ -255,7 +255,7 @@ class TestCoordinatesIterator(unittest.TestCase):
         self.d[0][-1] = np.nan
         r = DataInMemory(self.d)
         it = r.iterator()
-        from pyemma.coordinates.data._base.datasource import InvalidDataInStreamException
+        from pyerna.coordinates.data._base.datasource import InvalidDataInStreamException
         with settings(coordinates_check_output=True):
             with self.assertRaises(InvalidDataInStreamException):
                 for itraj, X in it:
@@ -265,15 +265,15 @@ class TestCoordinatesIterator(unittest.TestCase):
         self.d[1][-1] = np.inf
         r = DataInMemory(self.d, chunksize=5)
         it = r.iterator()
-        from pyemma.coordinates.data._base.datasource import InvalidDataInStreamException
+        from pyerna.coordinates.data._base.datasource import InvalidDataInStreamException
         with settings(coordinates_check_output=True):
             with self.assertRaises(InvalidDataInStreamException) as cm:
                 for itraj, X in it:
                     pass
 
     def test_lagged_iterator(self):
-        import pyemma.coordinates as coor
-        from pyemma.coordinates.tests.util import create_traj, get_top
+        import pyerna.coordinates as coor
+        from pyerna.coordinates.tests.util import create_traj, get_top
 
         trajectory_length = 4720
         lagtime = 1000
@@ -296,9 +296,9 @@ class TestCoordinatesIterator(unittest.TestCase):
                     np.testing.assert_array_almost_equal(Y, xyzs[itraj][lagtime:])
 
     def test_lagged_iterator_optimized(self):
-        import pyemma.coordinates as coor
-        from pyemma.coordinates.tests.util import create_traj, get_top
-        from pyemma.coordinates.util.patches import iterload
+        import pyerna.coordinates as coor
+        from pyerna.coordinates.tests.util import create_traj, get_top
+        from pyerna.coordinates.util.patches import iterload
 
         trajectory_length = 4720
         lagtime = 20

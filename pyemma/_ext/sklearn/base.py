@@ -21,7 +21,7 @@ import warnings
 import numpy as np
 from scipy import sparse
 
-from pyemma.util.reflection import getargspec_no_self
+from pyerna.util.reflection import getargspec_no_self
 
 ###############################################################################
 def _first_and_last_element(arr):

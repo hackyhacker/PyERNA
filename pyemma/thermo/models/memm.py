@@ -16,12 +16,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as _np
-from pyemma.msm import MSM as _MSM
-from pyemma.msm.util.subset import SubSet as _SubSet
-from pyemma.msm.util.subset import add_full_state_methods as _add_full_state_methods
-from pyemma.msm.util.subset import map_to_full_state as _map_to_full_state
-from pyemma.util.annotators import aliased as _aliased, alias as _alias
-from pyemma.thermo.models.multi_therm import MultiThermModel as _MultiThermModel
+from pyerna.msm import MSM as _MSM
+from pyerna.msm.util.subset import SubSet as _SubSet
+from pyerna.msm.util.subset import add_full_state_methods as _add_full_state_methods
+from pyerna.msm.util.subset import map_to_full_state as _map_to_full_state
+from pyerna.util.annotators import aliased as _aliased, alias as _alias
+from pyerna.thermo.models.multi_therm import MultiThermModel as _MultiThermModel
 
 
 @_add_full_state_methods

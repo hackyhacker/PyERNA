@@ -1,5 +1,5 @@
 import unittest
-from pyemma.util.units import bytes_to_string
+from pyerna.util.units import bytes_to_string
 
 class TestUnits(unittest.TestCase):
 

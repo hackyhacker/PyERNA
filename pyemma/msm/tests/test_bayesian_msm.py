@@ -18,7 +18,7 @@
 
 import unittest
 import numpy as np
-from pyemma.msm import bayesian_markov_model
+from pyerna.msm import bayesian_markov_model
 
 
 class TestBMSM(unittest.TestCase):
@@ -26,8 +26,8 @@ class TestBMSM(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # load observations
-        import pyemma.datasets
-        data = pyemma.datasets.load_2well_discrete()
+        import pyerna.datasets
+        data = pyerna.datasets.load_2well_discrete()
         obs_micro = data.dtraj_T100K_dt10
 
         # stationary distribution
@@ -307,7 +307,7 @@ class TestBMSM(unittest.TestCase):
     # TODO: samples and stats, only need to implement consistency check individually.
 
     def test_dt_model(self):
-        from pyemma.util.units import TimeUnit
+        from pyerna.util.units import TimeUnit
         tu = TimeUnit("4 fs").get_scaled(self.bmsm_rev.lag)
         self.assertEqual(self.bmsm_rev.dt_model, tu)
     

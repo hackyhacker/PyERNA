@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-r"""User API for the pyemma.msm package
+r"""User API for the pyerna.msm package
 
 """
 
@@ -29,8 +29,8 @@ from .estimators import OOMReweightedMSM as _OOM_MSM
 from .estimators import ImpliedTimescales as _ImpliedTimescales
 
 from .models import MSM
-from pyemma.util.annotators import shortcut
-from pyemma.util import types as _types
+from pyerna.util.annotators import shortcut
+from pyerna.util import types as _types
 
 import numpy as _np
 
@@ -146,11 +146,11 @@ def timescales_msm(dtrajs, lags=None, nits=None, reversible=True, connected=True
 
     Returns
     -------
-    itsobj : :class:`ImpliedTimescales <pyemma.msm.estimators.implied_timescales.ImpliedTimescales>` object
+    itsobj : :class:`ImpliedTimescales <pyerna.msm.estimators.implied_timescales.ImpliedTimescales>` object
 
     Example
     -------
-    >>> from pyemma import msm
+    >>> from pyerna import msm
     >>> dtraj = [0,1,1,2,2,2,1,2,2,2,1,0,0,1,1,1,2,2,1,1,2,1,1,0,0,0,1,1,2,2,1]   # mini-trajectory
     >>> ts = msm.its(dtraj, [1,2,3,4,5], show_progress=False)
     >>> print(ts.timescales)  # doctest: +ELLIPSIS
@@ -164,24 +164,24 @@ def timescales_msm(dtrajs, lags=None, nits=None, reversible=True, connected=True
     --------
     ImpliedTimescales
         The object returned by this function.
-    pyemma.plots.plot_implied_timescales
+    pyerna.plots.plot_implied_timescales
         Implied timescales plotting function. Just call it with the
-        :class:`ImpliedTimescales <pyemma.msm.estimators.ImpliedTimescales>`
+        :class:`ImpliedTimescales <pyerna.msm.estimators.ImpliedTimescales>`
         object produced by this function as an argument.
 
 
-    .. autoclass:: pyemma.msm.estimators.implied_timescales.ImpliedTimescales
+    .. autoclass:: pyerna.msm.estimators.implied_timescales.ImpliedTimescales
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.msm.estimators.implied_timescales.ImpliedTimescales
+        .. autoautosummary:: pyerna.msm.estimators.implied_timescales.ImpliedTimescales
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.msm.estimators.implied_timescales.ImpliedTimescales
+        .. autoautosummary:: pyerna.msm.estimators.implied_timescales.ImpliedTimescales
             :attributes:
 
     References
@@ -258,7 +258,7 @@ def timescales_msm(dtrajs, lags=None, nits=None, reversible=True, connected=True
 def markov_model(P, dt_model='1 step'):
     r""" Markov model with a given transition matrix
 
-    Returns a :class:`MSM <pyemma.msm.models.msm.MSM>` that contains the transition matrix
+    Returns a :class:`MSM <pyerna.msm.models.msm.MSM>` that contains the transition matrix
     and allows to compute a large number of quantities related to Markov models.
 
     Parameters
@@ -281,12 +281,12 @@ def markov_model(P, dt_model='1 step'):
 
     Returns
     -------
-    msm : A :class:`MSM <pyemma.msm.models.msm.MSM>` object containing a transition
+    msm : A :class:`MSM <pyerna.msm.models.msm.MSM>` object containing a transition
         matrix and various other MSM-related quantities.
 
     Example
     -------
-    >>> from pyemma import msm
+    >>> from pyerna import msm
     >>> import numpy as np
     >>> np.set_printoptions(precision=3)
     >>>
@@ -308,21 +308,21 @@ def markov_model(P, dt_model='1 step'):
     >>> print(mm.mfpt(0, 2))
     160.0
 
-    And many more. See :class:`MSM <pyemma.msm.models.MSM>` for a full documentation.
+    And many more. See :class:`MSM <pyerna.msm.models.MSM>` for a full documentation.
 
 
-    .. autoclass:: pyemma.msm.models.msm.MSM
+    .. autoclass:: pyerna.msm.models.msm.MSM
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.msm.models.msm.MSM
+        .. autoautosummary:: pyerna.msm.models.msm.MSM
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.msm.models.msm.MSM
+        .. autoautosummary:: pyerna.msm.models.msm.MSM
             :attributes:
 
     References
@@ -483,7 +483,7 @@ def estimate_markov_model(dtrajs, lag, reversible=True, statdist=None,
 
     Returns
     -------
-    msm : :class:`MaximumLikelihoodMSM <pyemma.msm.MaximumLikelihoodMSM>`
+    msm : :class:`MaximumLikelihoodMSM <pyerna.msm.MaximumLikelihoodMSM>`
         Estimator object containing the MSM and estimation information.
 
     See also
@@ -492,18 +492,18 @@ def estimate_markov_model(dtrajs, lag, reversible=True, statdist=None,
         An MSM object that has been estimated from data
 
 
-    .. autoclass:: pyemma.msm.estimators.maximum_likelihood_msm.MaximumLikelihoodMSM
+    .. autoclass:: pyerna.msm.estimators.maximum_likelihood_msm.MaximumLikelihoodMSM
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.msm.estimators.maximum_likelihood_msm.MaximumLikelihoodMSM
+        .. autoautosummary:: pyerna.msm.estimators.maximum_likelihood_msm.MaximumLikelihoodMSM
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.msm.estimators.maximum_likelihood_msm.MaximumLikelihoodMSM
+        .. autoautosummary:: pyerna.msm.estimators.maximum_likelihood_msm.MaximumLikelihoodMSM
             :attributes:
 
 
@@ -582,7 +582,7 @@ def estimate_markov_model(dtrajs, lag, reversible=True, statdist=None,
 
     Example
     -------
-    >>> from pyemma import msm
+    >>> from pyerna import msm
     >>> import numpy as np
     >>> np.set_printoptions(precision=3)
     >>> dtrajs = [[0,1,2,2,2,2,1,2,2,2,1,0,0,0,0,0,0,0], [0,0,0,0,1,1,2,2,2,2,2,2,2,1,0,0]]  # two trajectories
@@ -779,7 +779,7 @@ def bayesian_markov_model(dtrajs, lag, reversible=True, statdist=None,
     We build a Bayesian Markov model for the following two trajectories at lag
     time 2:
 
-    >>> from pyemma import msm
+    >>> from pyerna import msm
     >>> dtrajs = [[0,1,2,2,2,2,1,2,2,2,1,0,0,0,0,0,0,0], [0,0,0,0,1,1,2,2,2,2,2,2,2,1,0,0]]
     >>> mm = msm.bayesian_markov_model(dtrajs, 2, show_progress=False)
 
@@ -846,18 +846,18 @@ def bayesian_markov_model(dtrajs, lag, reversible=True, statdist=None,
     parameters on each of them.
 
 
-    .. autoclass:: pyemma.msm.estimators.bayesian_msm.BayesianMSM
+    .. autoclass:: pyerna.msm.estimators.bayesian_msm.BayesianMSM
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.msm.estimators.bayesian_msm.BayesianMSM
+        .. autoautosummary:: pyerna.msm.estimators.bayesian_msm.BayesianMSM
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.msm.estimators.bayesian_msm.BayesianMSM
+        .. autoautosummary:: pyerna.msm.estimators.bayesian_msm.BayesianMSM
             :attributes:
 
     References
@@ -947,18 +947,18 @@ def timescales_hmsm(dtrajs, nstates, lags=None, nits=None, reversible=True, stat
 
     Returns
     -------
-    itsobj : :class:`ImpliedTimescales <pyemma.msm.ImpliedTimescales>` object
+    itsobj : :class:`ImpliedTimescales <pyerna.msm.ImpliedTimescales>` object
 
     See also
     --------
     ImpliedTimescales
         The object returned by this function.
-    pyemma.plots.plot_implied_timescales
-        Plotting function for the :class:`ImpliedTimescales <pyemma.msm.ImpliedTimescales>` object
+    pyerna.plots.plot_implied_timescales
+        Plotting function for the :class:`ImpliedTimescales <pyerna.msm.ImpliedTimescales>` object
 
     Example
     -------
-    >>> from pyemma import msm
+    >>> from pyerna import msm
     >>> import numpy as np
     >>> np.set_printoptions(precision=3)
     >>> dtraj = [0,1,1,0,0,0,1,1,0,0,0,1,2,2,2,2,2,2,2,2,2,1,1,0,0,0,1,1,0,1,0]   # mini-trajectory
@@ -969,18 +969,18 @@ def timescales_hmsm(dtrajs, nstates, lags=None, nits=None, reversible=True, stat
      [ 4.44 ]
      [ 3.677]]
 
-    .. autoclass:: pyemma.msm.estimators.implied_timescales.ImpliedTimescales
+    .. autoclass:: pyerna.msm.estimators.implied_timescales.ImpliedTimescales
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.msm.estimators.implied_timescales.ImpliedTimescales
+        .. autoautosummary:: pyerna.msm.estimators.implied_timescales.ImpliedTimescales
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.msm.estimators.implied_timescales.ImpliedTimescales
+        .. autoautosummary:: pyerna.msm.estimators.implied_timescales.ImpliedTimescales
             :attributes:
 
     References
@@ -1106,12 +1106,12 @@ def estimate_hidden_markov_model(dtrajs, nstates, lag, reversible=True, stationa
 
     Returns
     -------
-    hmsm : :class:`MaximumLikelihoodHMSM <pyemma.msm.MaximumLikelihoodHMSM>`
+    hmsm : :class:`MaximumLikelihoodHMSM <pyerna.msm.MaximumLikelihoodHMSM>`
         Estimator object containing the HMSM and estimation information.
 
     Example
     -------
-    >>> from pyemma import msm
+    >>> from pyerna import msm
     >>> import numpy as np
     >>> np.set_printoptions(precision=3)
     >>> dtrajs = [[0,1,2,2,2,2,1,2,2,2,1,0,0,0,0,0,0,0], [0,0,0,0,1,1,2,2,2,2,2,2,2,1,0,0]]  # two trajectories
@@ -1166,18 +1166,18 @@ def estimate_hidden_markov_model(dtrajs, nstates, lag, reversible=True, stationa
     6.3...
 
 
-    .. autoclass:: pyemma.msm.estimators.maximum_likelihood_hmsm.MaximumLikelihoodHMSM
+    .. autoclass:: pyerna.msm.estimators.maximum_likelihood_hmsm.MaximumLikelihoodHMSM
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.msm.estimators.maximum_likelihood_hmsm.MaximumLikelihoodHMSM
+        .. autoautosummary:: pyerna.msm.estimators.maximum_likelihood_hmsm.MaximumLikelihoodHMSM
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.msm.estimators.maximum_likelihood_hmsm.MaximumLikelihoodHMSM
+        .. autoautosummary:: pyerna.msm.estimators.maximum_likelihood_hmsm.MaximumLikelihoodHMSM
             :attributes:
 
 
@@ -1308,7 +1308,7 @@ def bayesian_hidden_markov_model(dtrajs, nstates, lag, nsamples=100, reversible=
     Note that the following example is only qualitative and not
     quantitatively reproducible because random numbers are involved
 
-    >>> from pyemma import msm
+    >>> from pyerna import msm
     >>> dtrajs = [[0,1,2,2,2,2,1,2,2,2,1,0,0,0,0,0,0,0], [0,0,0,0,1,1,2,2,2,2,2,2,2,1,0,0]]  # two trajectories
     >>> mm = msm.bayesian_hidden_markov_model(dtrajs, 2, 2, show_progress=False)
 
@@ -1344,18 +1344,18 @@ def bayesian_hidden_markov_model(dtrajs, nstates, lag, nsamples=100, reversible=
     3.35310468086  - 2.24574587978 + 8.34383177258
 
 
-    .. autoclass:: pyemma.msm.estimators.bayesian_hmsm.BayesianHMSM
+    .. autoclass:: pyerna.msm.estimators.bayesian_hmsm.BayesianHMSM
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.msm.estimators.bayesian_hmsm.BayesianHMSM
+        .. autoautosummary:: pyerna.msm.estimators.bayesian_hmsm.BayesianHMSM
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.msm.estimators.bayesian_hmsm.BayesianHMSM
+        .. autoautosummary:: pyerna.msm.estimators.bayesian_hmsm.BayesianHMSM
             :attributes:
 
     References
@@ -1483,7 +1483,7 @@ def estimate_augmented_markov_model(dtrajs, ftrajs, lag, m, sigmas,
 
     Returns
     -------
-    amm : :class:`AugmentedMarkovModel <pyemma.msm.AugmentedMarkovModel>`
+    amm : :class:`AugmentedMarkovModel <pyerna.msm.AugmentedMarkovModel>`
         Estimator object containing the AMM and estimation information.
 
     See also
@@ -1492,18 +1492,18 @@ def estimate_augmented_markov_model(dtrajs, ftrajs, lag, m, sigmas,
         An AMM object that has been estimated from data
 
 
-    .. autoclass:: pyemma.msm.estimators.maximum_likelihood_msm.AugmentedMarkovModel
+    .. autoclass:: pyerna.msm.estimators.maximum_likelihood_msm.AugmentedMarkovModel
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.msm.estimators.maximum_likelihood_msm.AugmentedMarkovModel
+        .. autoautosummary:: pyerna.msm.estimators.maximum_likelihood_msm.AugmentedMarkovModel
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.msm.estimators.maximum_likelihood_msm.AugmentedMarkovModel
+        .. autoautosummary:: pyerna.msm.estimators.maximum_likelihood_msm.AugmentedMarkovModel
             :attributes:
 
 
@@ -1548,14 +1548,14 @@ def estimate_augmented_markov_model(dtrajs, ftrajs, lag, m, sigmas,
 def tpt(msmobj, A, B):
     r""" A->B reactive flux from transition path theory (TPT)
 
-    The returned :class:`ReactiveFlux <pyemma.msm.models.ReactiveFlux>` object
+    The returned :class:`ReactiveFlux <pyerna.msm.models.ReactiveFlux>` object
     can be used to extract various quantities of the flux, as well as to
     compute A -> B transition pathways, their weights, and to coarse-grain
     the flux onto sets of states.
 
     Parameters
     ----------
-    msmobj : :class:`MSM <pyemma.msm.MSM>` object
+    msmobj : :class:`MSM <pyerna.msm.MSM>` object
         Markov state model (MSM) object
     A : array_like
         List of integer state labels for set A
@@ -1564,29 +1564,29 @@ def tpt(msmobj, A, B):
 
     Returns
     -------
-    tptobj : :class:`ReactiveFlux <pyemma.msm.models.ReactiveFlux>` object
+    tptobj : :class:`ReactiveFlux <pyerna.msm.models.ReactiveFlux>` object
         An object containing the reactive A->B flux network
         and several additional quantities, such as the stationary probability,
         committors and set definitions.
 
     See also
     --------
-    :class:`ReactiveFlux <pyemma.msm.models.ReactiveFlux>`
+    :class:`ReactiveFlux <pyerna.msm.models.ReactiveFlux>`
         Reactive Flux model
 
 
-    .. autoclass:: pyemma.msm.models.ReactiveFlux
+    .. autoclass:: pyerna.msm.models.ReactiveFlux
         :members:
         :undoc-members:
 
         .. rubric:: Methods
 
-        .. autoautosummary:: pyemma.msm.models.ReactiveFlux
+        .. autoautosummary:: pyerna.msm.models.ReactiveFlux
            :methods:
 
         .. rubric:: Attributes
 
-        .. autoautosummary:: pyemma.msm.models.ReactiveFlux
+        .. autoautosummary:: pyerna.msm.models.ReactiveFlux
             :attributes:
 
     References

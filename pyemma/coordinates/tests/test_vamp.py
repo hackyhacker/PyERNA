@@ -22,13 +22,13 @@
 
 import unittest
 import numpy as np
-from pyemma.coordinates import vamp as pyemma_api_vamp
-from pyemma.msm import estimate_markov_model
+from pyerna.coordinates import vamp as pyerna_api_vamp
+from pyerna.msm import estimate_markov_model
 from logging import getLogger
 
-from pyemma.msm.estimators._dtraj_stats import cvsplit_dtrajs
+from pyerna.msm.estimators._dtraj_stats import cvsplit_dtrajs
 
-logger = getLogger('pyemma.'+'TestVAMP')
+logger = getLogger('pyerna.'+'TestVAMP')
 
 
 def random_matrix(n, rank=None, eps=0.01):
@@ -47,11 +47,11 @@ def _check_serialize(vamp):
     if six.PY2:
         return vamp
     import tempfile
-    import pyemma
+    import pyerna
     try:
         with tempfile.NamedTemporaryFile(delete=False) as ntf:
             vamp.save(ntf.name)
-            restored = pyemma.load(ntf.name)
+            restored = pyerna.load(ntf.name)
 
         np.testing.assert_allclose(restored.model.C00, vamp.model.C00)
         np.testing.assert_allclose(restored.model.C0t, vamp.model.C0t)
@@ -93,7 +93,7 @@ class TestVAMPEstimatorSelfConsistency(unittest.TestCase):
 
         # test
         tau = 50
-        vamp = pyemma_api_vamp(trajs, lag=tau, scaling=None)
+        vamp = pyerna_api_vamp(trajs, lag=tau, scaling=None)
         vamp.right = True
         _check_serialize(vamp)
 
@@ -124,7 +124,7 @@ class TestVAMPEstimatorSelfConsistency(unittest.TestCase):
         np.testing.assert_allclose(C01_psi_phi, np.diag(vamp.singular_values[0:vamp.dimension()]), rtol=rtol, atol=atol)
 
         if test_partial_fit:
-            vamp2 = pyemma_api_vamp(lag=tau, scaling=None)
+            vamp2 = pyerna_api_vamp(lag=tau, scaling=None)
             for t in trajs:
                 vamp2.partial_fit(t)
                 vamp2 = _check_serialize(vamp2)
@@ -190,7 +190,7 @@ class TestVAMPModel(unittest.TestCase):
             trajs.append(traj)
             p0 += traj[:-lag, :].sum(axis=0)
             p1 += traj[lag:, :].sum(axis=0)
-        vamp = pyemma_api_vamp(trajs, lag=lag, scaling=None, dim=1.0)
+        vamp = pyerna_api_vamp(trajs, lag=lag, scaling=None, dim=1.0)
         msm = estimate_markov_model(dtrajs, lag=lag, reversible=False)
         cls.trajs = trajs
         cls.dtrajs = dtrajs
@@ -300,7 +300,7 @@ class TestVAMPModel(unittest.TestCase):
         np.testing.assert_allclose(sE, NFro)  # see paper appendix H.2
 
     def test_score_vs_MSM(self):
-        from pyemma.util.contexts import numpy_random_seed
+        from pyerna.util.contexts import numpy_random_seed
         with numpy_random_seed(32):
             trajs_test, trajs_train = cvsplit_dtrajs(self.trajs)
         with numpy_random_seed(32):
@@ -312,36 +312,36 @@ class TestVAMPModel(unittest.TestCase):
             msm_train = estimate_markov_model(dtrajs=dtrajs_train, lag=self.lag, reversible=False)
             score_msm = msm_train.score(dtrajs_test, score_method=m, score_k=None)
 
-            vamp_train = pyemma_api_vamp(data=trajs_train, lag=self.lag, dim=1.0)
+            vamp_train = pyerna_api_vamp(data=trajs_train, lag=self.lag, dim=1.0)
             score_vamp = vamp_train.score(test_data=trajs_test, score_method=m)
 
             self.assertAlmostEqual(score_msm, score_vamp, places=2 if m == 'VAMPE' else 3, msg=m)
 
     def test_kinetic_map(self):
         lag = 10
-        self.vamp = pyemma_api_vamp(self.trajs, lag=lag, scaling='km', right=False)
+        self.vamp = pyerna_api_vamp(self.trajs, lag=lag, scaling='km', right=False)
         transformed = [t[:-lag] for t in self.vamp.get_output()]
         std = np.std(np.concatenate(transformed), axis=0)
         np.testing.assert_allclose(std, self.vamp.singular_values[:self.vamp.dimension()], atol=1e-4, rtol=1e-4)
 
     def test_default_cs(self):
-        v = pyemma_api_vamp(chunksize=None)
+        v = pyerna_api_vamp(chunksize=None)
         assert v.default_chunksize == v._FALLBACK_CHUNKSIZE
 
 
 class TestVAMPWithEdgeCaseData(unittest.TestCase):
     def test_1D_data(self):
         x = np.random.randn(10, 1)
-        vamp = pyemma_api_vamp([x], 1, right=True)  # just test that this doesn't raise
+        vamp = pyerna_api_vamp([x], 1, right=True)  # just test that this doesn't raise
         # Doing VAMP with 1-D data is just centering and normalizing the data.
         assert_allclose_ignore_phase(vamp.get_output()[0], (x - np.mean(x[1:, 0])) / np.std(x[1:, 0]))
 
     def test_const_data(self):
-        from pyemma._ext.variational.util import ZeroRankError
+        from pyerna._ext.variational.util import ZeroRankError
         with self.assertRaises(ZeroRankError):
-            pyemma_api_vamp([np.ones((10, 2))], 1)
+            pyerna_api_vamp([np.ones((10, 2))], 1)
         with self.assertRaises(ZeroRankError):
-            pyemma_api_vamp([np.ones(10)] ,1)
+            pyerna_api_vamp([np.ones(10)] ,1)
 
 
 if __name__ == "__main__":

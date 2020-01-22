@@ -22,13 +22,13 @@ import math
 
 import numpy as np
 from decorator import decorator
-from pyemma._base.serialization.serialization import SerializableMixIn
+from pyerna._base.serialization.serialization import SerializableMixIn
 
-from pyemma._base.model import Model
-from pyemma._ext.variational.estimators.running_moments import running_covar
-from pyemma.coordinates.data._base.transformer import StreamingEstimationTransformer
-from pyemma.util.annotators import fix_docs
-from pyemma.util.reflection import get_default_args
+from pyerna._base.model import Model
+from pyerna._ext.variational.estimators.running_moments import running_covar
+from pyerna.coordinates.data._base.transformer import StreamingEstimationTransformer
+from pyerna.util.annotators import fix_docs
+from pyerna.util.reflection import get_default_args
 
 
 __all__ = ['PCA']
@@ -79,7 +79,7 @@ class PCA(StreamingEstimationTransformer, SerializableMixIn):
         ----------
         dim : int, optional, default -1
             the number of dimensions (independent components) to project onto. A call to the
-            :func:`map <pyemma.coordinates.transform.TICA.map>` function reduces the d-dimensional
+            :func:`map <pyerna.coordinates.transform.TICA.map>` function reduces the d-dimensional
             input to only dim dimensions such that the data preserves the maximum possible autocorrelation
             amongst dim-dimensional linear projections.
             -1 means all numerically available dimensions will be used unless reduced by var_cutoff.
@@ -161,7 +161,7 @@ class PCA(StreamingEstimationTransformer, SerializableMixIn):
         self._model.mean = value
 
     def partial_fit(self, X):
-        from pyemma.coordinates import source
+        from pyerna.coordinates import source
         iterable = source(X)
 
         self._estimate(iterable, partial=True)
@@ -229,7 +229,7 @@ class PCA(StreamingEstimationTransformer, SerializableMixIn):
         partial_fit = 'partial' in kw
         it = iterable.iterator(return_trajindex=False, chunk=self.chunksize,
                                stride=self.stride, skip=self.skip)
-        from pyemma._base.progress import ProgressReporter
+        from pyerna._base.progress import ProgressReporter
         pg = ProgressReporter()
         pg.register(it.n_chunks, "calc mean+cov", 0)
 

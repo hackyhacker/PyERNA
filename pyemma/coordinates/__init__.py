@@ -18,7 +18,7 @@
 
 
 r"""
-.. currentmodule:: pyemma.coordinates
+.. currentmodule:: pyerna.coordinates
 
 User API
 ========

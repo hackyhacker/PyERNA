@@ -18,7 +18,7 @@
 
 import unittest
 import numpy as np
-from pyemma.msm import bayesian_hidden_markov_model
+from pyerna.msm import bayesian_hidden_markov_model
 
 
 class TestBHMM(unittest.TestCase):
@@ -26,8 +26,8 @@ class TestBHMM(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # load observations
-        import pyemma.datasets
-        obs = pyemma.datasets.load_2well_discrete().dtraj_T100K_dt10
+        import pyerna.datasets
+        obs = pyerna.datasets.load_2well_discrete().dtraj_T100K_dt10
 
         # don't print
         import bhmm
@@ -342,13 +342,13 @@ class TestBHMMSpecialCases(unittest.TestCase):
             assert strajs[0][6] == 2
 
     def test_initialized_bhmm(self):
-        import pyemma.datasets as d
-        import pyemma.msm
+        import pyerna.datasets as d
+        import pyerna.msm
 
         obs = d.load_2well_discrete().dtraj_T100K_dt10
 
-        init_hmm = pyemma.msm.estimate_hidden_markov_model(obs, 2, 10)
-        bay_hmm = pyemma.msm.estimators.BayesianHMSM(nstates=init_hmm.nstates, lag=init_hmm.lag,
+        init_hmm = pyerna.msm.estimate_hidden_markov_model(obs, 2, 10)
+        bay_hmm = pyerna.msm.estimators.BayesianHMSM(nstates=init_hmm.nstates, lag=init_hmm.lag,
                                                      stride=init_hmm.stride, init_hmsm=init_hmm)
         bay_hmm.estimate(obs)
 
@@ -362,11 +362,11 @@ class TestBHMMSpecialCases(unittest.TestCase):
             self.assertIn('same data', ctx.exception.message)
 
     def test_initialized_bhmm_newstride(self):
-        import pyemma.msm
+        import pyerna.msm
         obs = np.random.randint(0, 2, size=1000)
 
-        init_hmm = pyemma.msm.estimate_hidden_markov_model(obs, 2, 10)
-        bay_hmm = pyemma.msm.estimators.BayesianHMSM(nstates=init_hmm.nstates, lag=init_hmm.lag,
+        init_hmm = pyerna.msm.estimate_hidden_markov_model(obs, 2, 10)
+        bay_hmm = pyerna.msm.estimators.BayesianHMSM(nstates=init_hmm.nstates, lag=init_hmm.lag,
                                                      stride='effective', init_hmsm=init_hmm)
         bay_hmm.estimate(obs)
 

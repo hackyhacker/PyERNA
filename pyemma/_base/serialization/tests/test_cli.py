@@ -20,14 +20,14 @@ import tempfile
 import unittest
 
 
-from pyemma._base.serialization.cli import main
-from pyemma.coordinates import source, tica, cluster_kmeans
+from pyerna._base.serialization.cli import main
+from pyerna.coordinates import source, tica, cluster_kmeans
 
 
 class TestListModelCLI(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        from pyemma.datasets import get_bpti_test_data
+        from pyerna.datasets import get_bpti_test_data
 
         d = get_bpti_test_data()
         trajs, top = d['trajs'], d['top']
@@ -46,7 +46,7 @@ class TestListModelCLI(unittest.TestCase):
 
     def test_recursive(self):
         """ check the whole chain has been printed"""
-        from pyemma.util.contexts import Capturing
+        from pyerna.util.contexts import Capturing
         with Capturing() as out:
             main(['--recursive', self.model_file])
         assert out

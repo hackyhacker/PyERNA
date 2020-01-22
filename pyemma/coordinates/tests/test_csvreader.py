@@ -26,7 +26,7 @@ import unittest
 import tempfile
 import os
 
-from pyemma.coordinates.data.py_csv_reader import PyCSVReader as CSVReader
+from pyerna.coordinates.data.py_csv_reader import PyCSVReader as CSVReader
 import shutil
 
 
@@ -34,7 +34,7 @@ class TestCSVReader(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.dir = tempfile.mkdtemp(prefix='pyemma_filereader')
+        cls.dir = tempfile.mkdtemp(prefix='pyerna_filereader')
         cls.nt = 300
         cls.nd = 4
         cls.data = np.arange(cls.nt * cls.nd).reshape(cls.nt, cls.nd)

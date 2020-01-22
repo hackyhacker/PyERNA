@@ -25,7 +25,7 @@ import unittest
 import numpy as np
 from numpy.testing import assert_allclose
 
-from pyemma import msm as msmapi
+from pyerna import msm as msmapi
 import msmtools.analysis as msmana
 
 
@@ -197,12 +197,12 @@ class TestReactiveFluxFunctions(unittest.TestCase):
         assert_allclose(cgRF.gross_flux, self.ref2_cggrossflux, rtol=1.e-5, atol=1.e-8)
 
     def test_serialization(self):
-        import pyemma
+        import pyerna
         import tempfile
         try:
             with tempfile.NamedTemporaryFile(delete=False) as ntf:
                 self.tpt2.save(ntf.name)
-                restored = pyemma.load(ntf.name)
+                restored = pyerna.load(ntf.name)
                 public_attrs = ('stationary_distribution', 'flux', 'gross_flux', 'committor', 'backward_committor',
                                 'dt_model', 'total_flux')
                 for attr in public_attrs:

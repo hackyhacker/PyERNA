@@ -22,8 +22,8 @@ import math
 
 import numpy as np
 
-from pyemma.coordinates.clustering.interface import AbstractClustering
-from pyemma.util.annotators import fix_docs
+from pyerna.coordinates.clustering.interface import AbstractClustering
+from pyerna.util.annotators import fix_docs
 
 __author__ = 'noe'
 __all__ = ['UniformTimeClustering']

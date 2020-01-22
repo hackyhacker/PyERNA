@@ -27,8 +27,8 @@ import warnings
 import numpy as np
 import scipy.sparse
 
-import pyemma
-from pyemma.msm import estimate_markov_model
+import pyerna
+from pyerna.msm import estimate_markov_model
 
 
 class TestCMSMRevPi(unittest.TestCase):
@@ -62,10 +62,10 @@ class TestCMSMDoubleWell(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        import pyemma.datasets
+        import pyerna.datasets
         cls.core_set = [34, 65]
 
-        cls.dtraj = pyemma.datasets.load_2well_discrete().dtraj_T100K_dt10
+        cls.dtraj = pyerna.datasets.load_2well_discrete().dtraj_T100K_dt10
         nu = 1.*np.bincount(cls.dtraj)[cls.core_set]
         cls.statdist = nu/nu.sum()
 
@@ -239,7 +239,7 @@ class TestCMSMDoubleWell(unittest.TestCase):
         self._timestep(self.msm)
 
     def _dt_model(self, msm):
-        from pyemma.util.units import TimeUnit
+        from pyerna.util.units import TimeUnit
         tu = TimeUnit("1 step").get_scaled(self.msm.lag)
         self.assertEqual(msm.dt_model, tu)
 
@@ -602,7 +602,7 @@ class TestCMSMDoubleWell(unittest.TestCase):
         I = msm.active_state_indexes
         assert (len(I) == msm.nstates)
         # compare to histogram
-        import pyemma.util.discrete_trajectories as dt
+        import pyerna.util.discrete_trajectories as dt
 
         hist = dt.count_states(msm.discrete_trajectories_full)
         # number of frames should match on active subset
@@ -698,12 +698,12 @@ class TestCMSMDoubleWell(unittest.TestCase):
 class TestCoreMSM(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        from pyemma import datasets
+        from pyerna import datasets
         cls.dtraj = datasets.load_2well_discrete().dtraj_T100K_dt10
 
     def test_core(self):
         core_set = [15, 16, 17, 45, 46, 47]
-        msm = pyemma.msm.estimate_markov_model(self.dtraj, lag=1, core_set=core_set)
+        msm = pyerna.msm.estimate_markov_model(self.dtraj, lag=1, core_set=core_set)
         np.testing.assert_equal(msm.core_set, core_set)
 
         self.assertEqual(msm.n_cores, len(core_set))
@@ -715,7 +715,7 @@ class TestCoreMSM(unittest.TestCase):
     def test_indices_remapping_sample_by_dist(self):
         dtrajs = [[5, 5, 1, 0, 0, 1], [5, 1, 0, 1, 3], [0, 1, 2, 3]]
         desired_offsets = [2, 1, 0]
-        msm = pyemma.msm.estimate_markov_model(dtrajs, lag=1, core_set=[0, 1, 2, 3])
+        msm = pyerna.msm.estimate_markov_model(dtrajs, lag=1, core_set=[0, 1, 2, 3])
         np.testing.assert_equal(msm.dtrajs_milestone_counting_offsets, desired_offsets)
 
         msm.pcca(2)
@@ -729,7 +729,7 @@ class TestCoreMSM(unittest.TestCase):
 
     def test_indices_remapping_sample_by_state(self):
         dtrajs = [[5, 5, 1, 0, 0, 1], [5, 1, 0, 1, 3], [0, 1, 2, 3]]
-        msm = pyemma.msm.estimate_markov_model(dtrajs, lag=1, core_set=[0, 1, 2, 3])
+        msm = pyerna.msm.estimate_markov_model(dtrajs, lag=1, core_set=[0, 1, 2, 3])
 
         samples = msm.sample_by_state(3)
 
@@ -742,8 +742,8 @@ class TestCoreMSM(unittest.TestCase):
     def test_compare2hmm(self):
         """test if estimated core set MSM is comparable to 2-state HMM; double-well"""
 
-        cmsm = pyemma.msm.estimate_markov_model(self.dtraj, lag=5, core_set=[34, 65])
-        hmm = pyemma.msm.estimate_hidden_markov_model(self.dtraj, nstates=2, lag=5)
+        cmsm = pyerna.msm.estimate_markov_model(self.dtraj, lag=5, core_set=[34, 65])
+        hmm = pyerna.msm.estimate_hidden_markov_model(self.dtraj, nstates=2, lag=5)
 
         np.testing.assert_allclose(hmm.transition_matrix, cmsm.transition_matrix, rtol=.1, atol=1e-3)
         np.testing.assert_allclose(hmm.timescales()[0], cmsm.timescales()[0], rtol=.1)
@@ -752,8 +752,8 @@ class TestCoreMSM(unittest.TestCase):
     def test_compare2hmm_bayes(self):
         """test core set MSM with Bayesian sampling, compare ITS to 2-state BHMM; double-well"""
 
-        cmsm = pyemma.msm.bayesian_markov_model(self.dtraj, lag=5, core_set=[34, 65], nsamples=20, count_mode='sliding')
-        hmm = pyemma.msm.bayesian_hidden_markov_model(self.dtraj, 2, lag=5, nsamples=20)
+        cmsm = pyerna.msm.bayesian_markov_model(self.dtraj, lag=5, core_set=[34, 65], nsamples=20, count_mode='sliding')
+        hmm = pyerna.msm.bayesian_hidden_markov_model(self.dtraj, 2, lag=5, nsamples=20)
 
         has_overlap = not (np.all(cmsm.sample_conf('timescales') < hmm.sample_conf('timescales')[0]) or
                            np.all(cmsm.sample_conf('timescales') > hmm.sample_conf('timescales')[1]))
@@ -775,7 +775,7 @@ class TestCoreMSM(unittest.TestCase):
         core_set = np.concatenate([core_set, [n_states-1]])
         assert np.unique(core_set).size == n_cores
 
-        cmsm = pyemma.msm.estimate_markov_model(dtrajs, lag=1, core_set=core_set,
+        cmsm = pyerna.msm.estimate_markov_model(dtrajs, lag=1, core_set=core_set,
                                                 count_mode='sample', reversible=False)
 
         def naive(dtrajs, core_set):
@@ -812,18 +812,18 @@ class TestCoreMSM(unittest.TestCase):
 
     def test_not_implemented_raises(self):
         with self.assertRaises(RuntimeError) as e:
-            pyemma.msm.bayesian_markov_model([0, 1, 0, 1, 0, 2, 2, 0], lag=1,
+            pyerna.msm.bayesian_markov_model([0, 1, 0, 1, 0, 2, 2, 0], lag=1,
                                              core_set=[0, 1], count_mode='effective')
             self.assertIn('core set MSM with effective counting', e.exception.args[0])
 
         with self.assertRaises(NotImplementedError) as e:
-            pyemma.msm.timescales_msm([0, 1, 0, 1, 0, 2, 2, 0], lags=[1, 2],
+            pyerna.msm.timescales_msm([0, 1, 0, 1, 0, 2, 2, 0], lags=[1, 2],
                                              core_set=[0, 1], errors='bayes')
             self.assertIn('does not support Bayesian error estimates for core set MSMs',
                           e.exception.args[0])
 
         with self.assertRaises(NotImplementedError) as e:
-            pyemma.msm.estimate_markov_model([0, 1, 0, 1, 0, 2, 2, 0], lag=1,
+            pyerna.msm.estimate_markov_model([0, 1, 0, 1, 0, 2, 2, 0], lag=1,
                                              core_set=[0, 1], weights='oom')
             self.assertIn('Milestoning not implemented for OOMs', e.exception.args[0])
 

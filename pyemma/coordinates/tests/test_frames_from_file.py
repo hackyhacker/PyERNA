@@ -34,8 +34,8 @@ from numpy import floor, allclose
 import numpy as np
 import mdtraj as md
 
-from pyemma.coordinates.data.util.frames_from_file import frames_from_files as _frames_from_file
-from pyemma.coordinates.data.util.reader_utils import compare_coords_md_trajectory_objects
+from pyerna.coordinates.data.util.frames_from_file import frames_from_files as _frames_from_file
+from pyerna.coordinates.data.util.reader_utils import compare_coords_md_trajectory_objects
 
 
 class TestFramesFromFile(unittest.TestCase):
@@ -153,7 +153,7 @@ class TestFramesFromFile(unittest.TestCase):
 
     def test_trajs_larger_than_frame_index(self):
         """ file list is larger than largest traj file """
-        from pyemma.coordinates.tests.util import create_traj, get_top
+        from pyerna.coordinates.tests.util import create_traj, get_top
         files = [create_traj(length=10)[0] for _ in range(20)]
         inds = np.vstack((np.arange(20), np.arange(20))).T
 
@@ -164,7 +164,7 @@ class TestFramesFromFile(unittest.TestCase):
         assert matches
 
     def test_pass_reader(self):
-        from pyemma.coordinates import source
+        from pyerna.coordinates import source
         reader = source(self.trajfiles, top=self.pdbfile)
         reader.in_memory=True
         inds = np.vstack((np.random.randint(0,1),  np.random.randint(0, 100))).T

@@ -26,11 +26,11 @@ r"""Unit test for the its method
 
 import unittest
 import numpy as np
-from pyemma import msm
+from pyerna import msm
 from msmtools.analysis import timescales
 
-from pyemma.msm import ImpliedTimescales
-from pyemma.msm.api import timescales_msm
+from pyerna.msm import ImpliedTimescales
+from pyerna.msm.api import timescales_msm
 
 
 
@@ -178,7 +178,7 @@ class TestITS_MSM(unittest.TestCase):
                          [m.lag for m in its_one_shot.models])
 
         # estimate with different data to trigger re-estimation
-        from pyemma.util.testing_tools import MockLoggingHandler
+        from pyerna.util.testing_tools import MockLoggingHandler
         log_handler = MockLoggingHandler()
         its.logger.addHandler(log_handler)
         extended_new_lags = new_lags.tolist()
@@ -253,8 +253,8 @@ class TestITS_AllEstimators(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # load double well data
-        import pyemma.datasets
-        cls.double_well_data = pyemma.datasets.load_2well_discrete()
+        import pyerna.datasets
+        cls.double_well_data = pyerna.datasets.load_2well_discrete()
 
     def test_its_msm(self):
         estimator = msm.timescales_msm([self.double_well_data.dtraj_T100K_dt10_n6good], lags = [1, 10, 100, 1000], n_jobs=2)

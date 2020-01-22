@@ -13,7 +13,7 @@ Change values
 ^^^^^^^^^^^^^
 To access the config at runtime eg. if progress bars should be shown:
 
->>> from pyemma import config # doctest: +SKIP
+>>> from pyerna import config # doctest: +SKIP
 >>> print(config.show_progress_bars) # doctest: +SKIP
 True
 >>> config.show_progress_bars = False # doctest: +SKIP
@@ -24,10 +24,10 @@ False
 Store your changes / Create a configuration directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To create an editable configuration file, use the :py:func:`pyemma.config.save` method:
+To create an editable configuration file, use the :py:func:`pyerna.config.save` method:
 
->>> from pyemma import config # doctest: +SKIP
->>> config.save('/tmp/pyemma_current.cfg') # doctest: +SKIP
+>>> from pyerna import config # doctest: +SKIP
+>>> config.save('/tmp/pyerna_current.cfg') # doctest: +SKIP
 
 This will store the current runtime configuration values in the given file.
 Note that these settings will not be used on the next start of PyEMMA, because
@@ -48,10 +48,10 @@ https://docs.python.org/2/howto/logging.html
 Default configuration file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Default settings are stored in a provided pyemma.cfg file, which is included in
+Default settings are stored in a provided pyerna.cfg file, which is included in
 the Python package:
 
-.. literalinclude:: ../../pyemma/pyemma.cfg
+.. literalinclude:: ../../pyerna/pyerna.cfg
     :language: ini
 
 Configuration files
@@ -59,13 +59,13 @@ Configuration files
 
 To configure the runtime behavior such as the logging system or other parameters,
 the configuration module reads several config files to build
-its final set of settings. It searches for the file 'pyemma.cfg' in several
+its final set of settings. It searches for the file 'pyerna.cfg' in several
 locations with different priorities:
 
-#. $CWD/pyemma.cfg
-#. $HOME/.pyemma/pyemma.cfg
-#. ~/pyemma.cfg
-#. $PYTHONPATH/pyemma/pyemma.cfg (always taken as default configuration file)
+#. $CWD/pyerna.cfg
+#. $HOME/.pyerna/pyerna.cfg
+#. ~/pyerna.cfg
+#. $PYTHONPATH/pyerna/pyerna.cfg (always taken as default configuration file)
 
 Note that you can also override the location of the configuration directory by
 setting an environment variable named **"PYEMMA_CFG_DIR"** to a writeable path to
@@ -83,25 +83,25 @@ Load a configuration file
 
 In order to load a pre-saved configuration file, use the :py:func:`load` method:
 
->>> from pyemma import config # doctest: +SKIP
->>> config.load('pyemma_silent.cfg') # doctest: +SKIP
+>>> from pyerna import config # doctest: +SKIP
+>>> config.load('pyerna_silent.cfg') # doctest: +SKIP
 
 
 Configuration values
 --------------------
 
-.. autoclass:: pyemma.util._config.Config
+.. autoclass:: pyerna.util._config.Config
     :members:
     :undoc-members:
 
     .. rubric:: Methods
 
-    .. autoautosummary:: pyemma.util._config.Config
+    .. autoautosummary:: pyerna.util._config.Config
        :methods:
 
     .. rubric:: Attributes
 
-    .. autoautosummary:: pyemma.util._config.Config
+    .. autoautosummary:: pyerna.util._config.Config
         :attributes:
 
 

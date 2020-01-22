@@ -23,9 +23,9 @@ import unittest
 import numpy as np
 import pkg_resources
 
-import pyemma
-import pyemma.coordinates as coor
-from pyemma.coordinates.data.numpy_filereader import NumPyFileReader
+import pyerna
+import pyerna.coordinates as coor
+from pyerna.coordinates.data.numpy_filereader import NumPyFileReader
 
 
 class TestSerializationCoordinates(unittest.TestCase):
@@ -56,7 +56,7 @@ class TestSerializationCoordinates(unittest.TestCase):
         """
         fn = self.fn
         obj.save(fn)
-        restored = pyemma.load(fn)
+        restored = pyerna.load(fn)
 
         for k, v in params.items():
             actual = getattr(restored, k)
@@ -83,12 +83,12 @@ class TestSerializationCoordinates(unittest.TestCase):
     def test_clustering_regspace(self):
         params = {'dmin': 0.1, 'max_centers': 100, 'metric': 'minRMSD', 'n_jobs': 4, 'stride': 2}
 
-        cl = pyemma.coordinates.cluster_regspace(**params)
+        cl = pyerna.coordinates.cluster_regspace(**params)
         self.compare(cl, params)
 
     def test_clustering_uniform_time(self):
         params = {'k': 3, 'metric': 'minRMSD', 'n_jobs': 4}
-        cl = pyemma.coordinates.cluster_uniform_time(**params)
+        cl = pyerna.coordinates.cluster_uniform_time(**params)
         params['n_clusters'] = params['k']
         del params['k']
 
@@ -106,13 +106,13 @@ class TestSerializationCoordinates(unittest.TestCase):
     def test_tica(self):
         params = {'lag': 10, 'dim': 3, 'kinetic_map': True,
                   'stride': 2}
-        cl = pyemma.coordinates.tica(**params)
+        cl = pyerna.coordinates.tica(**params)
         self.compare(cl, params)
 
     def test_tica_estimated(self):
         params = {'lag': 10, 'dim': 3, 'kinetic_map': True,
                   'stride': 2}
-        t = pyemma.coordinates.tica(data=self.data, **params)
+        t = pyerna.coordinates.tica(data=self.data, **params)
 
         assert t._estimated
         params['cov'] = t.cov
@@ -125,7 +125,7 @@ class TestSerializationCoordinates(unittest.TestCase):
     def test_pca(self):
         params = {'dim': 3,
                   'stride': 2}
-        p = pyemma.coordinates.pca(**params)
+        p = pyerna.coordinates.pca(**params)
 
         self.compare(p, params)
 
@@ -133,7 +133,7 @@ class TestSerializationCoordinates(unittest.TestCase):
         params = {'dim': 3,
                   'mean': None, 'stride': 2}
 
-        t = pyemma.coordinates.pca(data=self.data, **params)
+        t = pyerna.coordinates.pca(data=self.data, **params)
         assert t._estimated
         #params['cov'] = t.cov
         params['mean'] = t.mean
@@ -144,34 +144,34 @@ class TestSerializationCoordinates(unittest.TestCase):
 
     def test_save_chain(self):
         """ ensure a chain is correctly saved/restored"""
-        from pyemma.datasets import get_bpti_test_data
+        from pyerna.datasets import get_bpti_test_data
 
-        reader = pyemma.coordinates.source(get_bpti_test_data()['trajs'], top=get_bpti_test_data()['top'])
-        tica = pyemma.coordinates.tica(reader)
-        cluster = pyemma.coordinates.cluster_uniform_time(tica, 10)
+        reader = pyerna.coordinates.source(get_bpti_test_data()['trajs'], top=get_bpti_test_data()['top'])
+        tica = pyerna.coordinates.tica(reader)
+        cluster = pyerna.coordinates.cluster_uniform_time(tica, 10)
 
         cluster.save(self.fn, save_streaming_chain=True)
-        restored = pyemma.load(self.fn)
+        restored = pyerna.load(self.fn)
         self.assertIsInstance(restored, type(cluster))
         self.assertIsInstance(restored.data_producer, type(tica))
         self.assertIsInstance(restored.data_producer.data_producer, type(reader))
         cluster.save(self.fn, overwrite=True, save_streaming_chain=False)
-        restored = pyemma.load(self.fn)
+        restored = pyerna.load(self.fn)
         assert restored.data_producer is None
 
     def test_featurizer_empty(self):
-        from pyemma.datasets import get_bpti_test_data
+        from pyerna.datasets import get_bpti_test_data
         top = get_bpti_test_data()['top']
-        f = pyemma.coordinates.featurizer(top)
+        f = pyerna.coordinates.featurizer(top)
         params = {}
         params['topologyfile'] = top
 
         self.compare(f, params)
 
     def test_featurizer(self):
-        from pyemma.datasets import get_bpti_test_data
+        from pyerna.datasets import get_bpti_test_data
         top = get_bpti_test_data()['top']
-        f = pyemma.coordinates.featurizer(top)
+        f = pyerna.coordinates.featurizer(top)
         f.add_distances_ca()
         params = {}
         params['topologyfile'] = top
@@ -180,10 +180,10 @@ class TestSerializationCoordinates(unittest.TestCase):
         self.compare(f, params)
 
     def test_feature_reader(self):
-        from pyemma.datasets import get_bpti_test_data
+        from pyerna.datasets import get_bpti_test_data
         top = get_bpti_test_data()['top']
         trajs = get_bpti_test_data()['trajs']
-        r = pyemma.coordinates.source(trajs, top=top)
+        r = pyerna.coordinates.source(trajs, top=top)
         r.featurizer.add_distances_ca()
 
         params = {'filenames': trajs, 'ndim': r.ndim, 'topfile': r.topfile}
@@ -194,7 +194,7 @@ class TestSerializationCoordinates(unittest.TestCase):
 
     def test_numpy_reader(self):
         arr = np.random.random(10)
-        from pyemma.util.files import TemporaryDirectory
+        from pyerna.util.files import TemporaryDirectory
         with TemporaryDirectory() as d:
             files = [os.path.join(d, '1.npy'), os.path.join(d, '2.npy')]
             np.save(files[0], arr)
@@ -205,14 +205,14 @@ class TestSerializationCoordinates(unittest.TestCase):
 
     def test_csv_reader(self):
         arr = np.random.random(10).reshape(-1, 2)
-        from pyemma.util.files import TemporaryDirectory
+        from pyerna.util.files import TemporaryDirectory
         delimiter = ' '
         with TemporaryDirectory() as d:
             files = [os.path.join(d, '1.csv'), os.path.join(d, '2.csv')]
             np.savetxt(files[0], arr, delimiter=delimiter)
             np.savetxt(files[1], arr, delimiter=delimiter)
             params = {'filenames': files, 'chunksize': 23}
-            from pyemma.coordinates.data import PyCSVReader
+            from pyerna.coordinates.data import PyCSVReader
             # sniffing the delimiter does not aid in the 1-column case:
             # https://bugs.python.org/issue2078
             # but also specifying it does not help...
@@ -220,8 +220,8 @@ class TestSerializationCoordinates(unittest.TestCase):
             self.compare(r, params)
 
     def test_fragmented_reader(self):
-        from pyemma.coordinates.tests.util import create_traj
-        from pyemma.util.files import TemporaryDirectory
+        from pyerna.coordinates.tests.util import create_traj
+        from pyerna.util.files import TemporaryDirectory
 
         top_file = pkg_resources.resource_filename(__name__, 'data/test.pdb')
         trajfiles = []

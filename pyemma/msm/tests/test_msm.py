@@ -33,9 +33,9 @@ import warnings
 from msmtools.generation import generate_traj
 from msmtools.estimation import count_matrix, largest_connected_set, largest_connected_submatrix, transition_matrix
 from msmtools.analysis import stationary_distribution, timescales
-from pyemma.util.numeric import assert_allclose
-from pyemma.msm.tests.birth_death_chain import BirthDeathChain
-from pyemma.msm import estimate_markov_model, MaximumLikelihoodMSM
+from pyerna.util.numeric import assert_allclose
+from pyerna.msm.tests.birth_death_chain import BirthDeathChain
+from pyerna.msm import estimate_markov_model, MaximumLikelihoodMSM
 
 
 
@@ -149,8 +149,8 @@ class TestMSMDoubleWell(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        import pyemma.datasets
-        cls.dtraj = pyemma.datasets.load_2well_discrete().dtraj_T100K_dt10
+        import pyerna.datasets
+        cls.dtraj = pyerna.datasets.load_2well_discrete().dtraj_T100K_dt10
         nu = 1.*np.bincount(cls.dtraj)
         cls.statdist = nu/nu.sum()
 
@@ -381,7 +381,7 @@ class TestMSMDoubleWell(unittest.TestCase):
         self._timestep(self.msm_sparse)
 
     def _dt_model(self, msm):
-        from pyemma.util.units import TimeUnit
+        from pyerna.util.units import TimeUnit
         tu = TimeUnit("1 step").get_scaled(self.msm.lag)
         self.assertEqual(msm.dt_model, tu)
 
@@ -933,7 +933,7 @@ class TestMSMDoubleWell(unittest.TestCase):
         I = msm.active_state_indexes
         assert (len(I) == msm.nstates)
         # compare to histogram
-        import pyemma.util.discrete_trajectories as dt
+        import pyerna.util.discrete_trajectories as dt
 
         hist = dt.count_states(msm.discrete_trajectories_full)
         # number of frames should match on active subset
@@ -1071,18 +1071,18 @@ class TestMSMMinCountConnectivity(unittest.TestCase):
         self._test_connectivity(msm_one_over_n, msm_restrict_connectivity)
 
     def test_bmsm(self):
-        from pyemma.msm import bayesian_markov_model
+        from pyerna.msm import bayesian_markov_model
         msm = bayesian_markov_model(self.dtraj, lag=1, mincount_connectivity='1/n')
         msm_restricted = bayesian_markov_model(self.dtraj, lag=1, mincount_connectivity=self.mincount_connectivity)
         self._test_connectivity(msm, msm_restricted)
 
     @unittest.skip("""
-      File "/home/marscher/workspace/pyemma/pyemma/msm/estimators/_OOM_MSM.py", line 260, in oom_components
+      File "/home/marscher/workspace/pyerna/pyerna/msm/estimators/_OOM_MSM.py", line 260, in oom_components
     omega = np.real(R[:, 0])
 IndexError: index 0 is out of bounds for axis 1 with size 0
     """)
     def test_oom(self):
-        from pyemma import msm
+        from pyerna import msm
         msm_one_over_n = msm.estimate_markov_model(self.dtraj, lag=1, mincount_connectivity='1/n', weights='oom')
 
         # we now restrict the connectivity to have at least 6 counts, so we will loose state 2
@@ -1090,7 +1090,7 @@ IndexError: index 0 is out of bounds for axis 1 with size 0
         self._test_connectivity(msm_one_over_n, msm_restrict_connectivity)
 
     def test_timescales(self):
-        from pyemma.msm import timescales_msm
+        from pyerna.msm import timescales_msm
         its = timescales_msm(self.dtraj, lags=[1, 2], mincount_connectivity=0, errors=None)
         assert its.estimator.mincount_connectivity == 0
 

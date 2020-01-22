@@ -20,13 +20,13 @@
 import numpy as _np
 
 
-from pyemma._base.progress import ProgressReporterMixin
-from pyemma.msm.estimators.maximum_likelihood_hmsm import MaximumLikelihoodHMSM as _MaximumLikelihoodHMSM
-from pyemma.msm.models.hmsm import HMSM as _HMSM
-from pyemma.msm.models.hmsm_sampled import SampledHMSM as _SampledHMSM
-from pyemma.util.annotators import fix_docs
-from pyemma.util.types import ensure_dtraj_list
-from pyemma.util.units import TimeUnit
+from pyerna._base.progress import ProgressReporterMixin
+from pyerna.msm.estimators.maximum_likelihood_hmsm import MaximumLikelihoodHMSM as _MaximumLikelihoodHMSM
+from pyerna.msm.models.hmsm import HMSM as _HMSM
+from pyerna.msm.models.hmsm_sampled import SampledHMSM as _SampledHMSM
+from pyerna.util.annotators import fix_docs
+from pyerna.util.types import ensure_dtraj_list
+from pyerna.util.units import TimeUnit
 from bhmm import lag_observations as _lag_observations
 from msmtools.estimation import number_of_states as _number_of_states
 
@@ -121,7 +121,7 @@ class BayesianHMSM(_MaximumLikelihoodHMSM, _SampledHMSM, ProgressReporterMixin):
               sample, the sampler cannot recover and that transition will never
               be sampled again. This option is not recommended unless you have
               a small HMM and a lot of data.
-        init_hmsm : :class:`HMSM <pyemma.msm.models.HMSM>`, default=None
+        init_hmsm : :class:`HMSM <pyerna.msm.models.HMSM>`, default=None
             Single-point estimate of HMSM object around which errors will be evaluated.
             If None is give an initial estimate will be automatically generated using the
             given parameters.
@@ -208,7 +208,7 @@ class BayesianHMSM(_MaximumLikelihoodHMSM, _SampledHMSM, ProgressReporterMixin):
                 # how many uncorrelated counts we can make
                 self.stride = self.lag
                 # get a quick estimate from the spectral radius of the nonreversible
-                from pyemma.msm import estimate_markov_model
+                from pyerna.msm import estimate_markov_model
                 msm_nr = estimate_markov_model(dtrajs, lag=self.lag, reversible=False, sparse=False,
                                                connectivity='largest', dt_traj=self.timestep_traj)
                 # if we have more than nstates timescales in our MSM, we use the next (neglected) timescale as an

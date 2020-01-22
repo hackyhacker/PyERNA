@@ -29,20 +29,20 @@ import unittest
 
 from unittest import mock
 
-from pyemma.coordinates import api
-from pyemma.coordinates.data.feature_reader import FeatureReader
-from pyemma.coordinates.data.numpy_filereader import NumPyFileReader
-from pyemma.coordinates.data.py_csv_reader import PyCSVReader
-from pyemma.coordinates.data.util.traj_info_backends import SqliteDB
-from pyemma.coordinates.data.util.traj_info_cache import TrajectoryInfoCache
-from pyemma.coordinates.tests.util import create_traj
-from pyemma.datasets import get_bpti_test_data
-from pyemma.util import config
-from pyemma.util.contexts import settings
-from pyemma.util.files import TemporaryDirectory
+from pyerna.coordinates import api
+from pyerna.coordinates.data.feature_reader import FeatureReader
+from pyerna.coordinates.data.numpy_filereader import NumPyFileReader
+from pyerna.coordinates.data.py_csv_reader import PyCSVReader
+from pyerna.coordinates.data.util.traj_info_backends import SqliteDB
+from pyerna.coordinates.data.util.traj_info_cache import TrajectoryInfoCache
+from pyerna.coordinates.tests.util import create_traj
+from pyerna.datasets import get_bpti_test_data
+from pyerna.util import config
+from pyerna.util.contexts import settings
+from pyerna.util.files import TemporaryDirectory
 import mdtraj
 import pkg_resources
-import pyemma
+import pyerna
 import numpy as np
 
 xtcfiles = get_bpti_test_data()['trajs']
@@ -84,10 +84,10 @@ class TestTrajectoryInfoCache(unittest.TestCase):
 
     def test_store_load_traj_info(self):
         x = np.random.random((10, 3))
-        from pyemma.util._config import Config
+        from pyerna.util._config import Config
         my_conf = Config()
         my_conf.cfg_dir = self.work_dir
-        with mock.patch('pyemma.coordinates.data.util.traj_info_cache.config', my_conf):
+        with mock.patch('pyerna.coordinates.data.util.traj_info_cache.config', my_conf):
             with NamedTemporaryFile(delete=False) as fh:
                 np.savetxt(fh.name, x)
                 reader = api.source(fh.name)
@@ -203,7 +203,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
             fn = f.name
             traj.save_xyz(fn)
             f.close()
-            reader = pyemma.coordinates.source(fn, top=pdbfile)
+            reader = pyerna.coordinates.source(fn, top=pdbfile)
             self.assertEqual(reader.trajectory_length(0), length)
 
     def test_data_in_mem(self):
@@ -222,7 +222,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
             f.close()  # windows sucks
             reader = api.source(fn)
             hash = db._get_file_hash(fn)
-            from pyemma.coordinates.data.util.traj_info_backends import DictDB
+            from pyerna.coordinates.data.util.traj_info_backends import DictDB
             db._database = DictDB()
             db._database.db_version = 0
 
@@ -251,7 +251,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         assert config.use_trajectory_lengths_cache
         self.assertEqual(self.db.num_entries, 0)
         assert TrajectoryInfoCache._instance is self.db
-        pyemma.coordinates.source(xtcfiles, top=pdbfile)
+        pyerna.coordinates.source(xtcfiles, top=pdbfile)
         self.assertEqual(self.db.num_entries, len(xtcfiles))
 
     def test_max_n_entries(self):
@@ -264,7 +264,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
                 f = os.path.join(td, "%s.npy" % i)
                 np.save(f, arr)
                 files.append(f)
-            pyemma.coordinates.source(files)
+            pyerna.coordinates.source(files)
         self.assertLessEqual(self.db.num_entries, max_entries)
         self.assertGreater(self.db.num_entries, 0)
 
@@ -279,7 +279,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
                 # save as txt to enforce creation of offsets
                 np.savetxt(f, arr)
                 files.append(f)
-            pyemma.coordinates.source(files)
+            pyerna.coordinates.source(files)
 
         self.assertLessEqual(os.stat(self.db.database_filename).st_size / 1024, config.traj_info_max_size)
         self.assertGreater(self.db.num_entries, 0)
@@ -289,7 +289,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         self.db._database = SqliteDB(filename=None)
 
         # trigger caching
-        pyemma.coordinates.source(xtcfiles, top=pdbfile)
+        pyerna.coordinates.source(xtcfiles, top=pdbfile)
 
     def test_no_sqlite(self):
         # create new instance (init has to be called, install temporary import hook to raise importerror for sqlite3
@@ -322,7 +322,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         try:
             config._cfg_dir = ''
             db = TrajectoryInfoCache()
-            reader = pyemma.coordinates.source(xtcfiles, top=pdbfile)
+            reader = pyerna.coordinates.source(xtcfiles, top=pdbfile)
 
             info = db[xtcfiles[0], reader]
             self.assertIsInstance(db._database, SqliteDB)
@@ -330,7 +330,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
             directory = db._database._database_from_key(info.hash_value)
             assert directory is None
         finally:
-            from pyemma.util.exceptions import ConfigDirectoryException
+            from pyerna.util.exceptions import ConfigDirectoryException
             try:
                 config.cfg_dir = old_cfg_dir
             except ConfigDirectoryException:
@@ -345,7 +345,7 @@ class TestTrajectoryInfoCache(unittest.TestCase):
         import subprocess
         import sys
         import time
-        script = 'import pyemma; pyemma.coordinates.source({files})' \
+        script = 'import pyerna; pyerna.coordinates.source({files})' \
             .format(cfg_dir=self.work_dir, files=npy_files)
         failed = False
         procs = [subprocess.Popen([sys.executable, '-c', script], env=env) for _ in range(10)]

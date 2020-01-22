@@ -21,15 +21,15 @@
 
 import numpy as np
 
-from pyemma._base.model import Model
-from pyemma._base.serialization.serialization import SerializableMixIn
-from pyemma.util.annotators import fix_docs
-from pyemma.util.types import ensure_ndarray_or_None, ensure_ndarray
-from pyemma._ext.variational.solvers.direct import spd_inv_sqrt, spd_inv_split
-from pyemma.coordinates.estimation.covariance import LaggedCovariance
-from pyemma.coordinates.data._base.transformer import StreamingEstimationTransformer
-from pyemma.msm.estimators.lagged_model_validators import LaggedModelValidator
-from pyemma.util.linalg import mdot
+from pyerna._base.model import Model
+from pyerna._base.serialization.serialization import SerializableMixIn
+from pyerna.util.annotators import fix_docs
+from pyerna.util.types import ensure_ndarray_or_None, ensure_ndarray
+from pyerna._ext.variational.solvers.direct import spd_inv_sqrt, spd_inv_split
+from pyerna.coordinates.estimation.covariance import LaggedCovariance
+from pyerna.coordinates.data._base.transformer import StreamingEstimationTransformer
+from pyerna.msm.estimators.lagged_model_validators import LaggedModelValidator
+from pyerna.util.linalg import mdot
 
 import warnings
 
@@ -629,7 +629,7 @@ class VAMP(StreamingEstimationTransformer, SerializableMixIn):
         -----
         The projection matrix is first being calculated upon its first access.
         """
-        from pyemma.coordinates import source
+        from pyerna.coordinates import source
         iterable = source(X)
 
         if isinstance(self.dim, int):
@@ -851,7 +851,7 @@ class VAMP(StreamingEstimationTransformer, SerializableMixIn):
           :math:`\mathbf{K}(n\tau)` is a rank-reduced Koopman matrix estimated
           at the lag-time n*tau and g and f are some functions of the data.
           Rank-reduction of the Koopman matrix is controlled by the `dim`
-          parameter of :func:`vamp <pyemma.coordinates.vamp>`.
+          parameter of :func:`vamp <pyerna.coordinates.vamp>`.
 
         * predictions at higher lag times :
 
@@ -901,7 +901,7 @@ class VAMP(StreamingEstimationTransformer, SerializableMixIn):
         show_progress : bool, default=True
             Show progressbars for calculation?
 
-        iterable : any data format that `pyemma.coordinates.vamp()` accepts as input, optional
+        iterable : any data format that `pyerna.coordinates.vamp()` accepts as input, optional
             It `iterable` is None, the same data source with which VAMP
             was initialized will be used for all estimation.
             Otherwise, all estimates (not predictions) from data will be computed
@@ -909,9 +909,9 @@ class VAMP(StreamingEstimationTransformer, SerializableMixIn):
 
         Returns
         -------
-        vckv : :class:`VAMPChapmanKolmogorovValidator <pyemma.coordinates.transform.VAMPChapmanKolmogorovValidator>`
+        vckv : :class:`VAMPChapmanKolmogorovValidator <pyerna.coordinates.transform.VAMPChapmanKolmogorovValidator>`
             Contains the estimated and the predicted covarince matrices.
-            The object can be plotted with :func:`plot_cktest <pyemma.plots.plot_cktest>` with the option `y01=False`.
+            The object can be plotted with :func:`plot_cktest <pyerna.plots.plot_cktest>` with the option `y01=False`.
         """
         if n_observables is not None:
             if n_observables > self.dimension():
@@ -950,7 +950,7 @@ class VAMP(StreamingEstimationTransformer, SerializableMixIn):
 
         Parameters
         ----------
-        test_data : any data format that `pyemma.coordinates.vamp()` accepts as input
+        test_data : any data format that `pyerna.coordinates.vamp()` accepts as input
 
             If `test_data` is not None, this method computes the cross-validation score
             between self and a VAMP model estimated from `test_data`. It is assumed that
@@ -990,7 +990,7 @@ class VAMP(StreamingEstimationTransformer, SerializableMixIn):
         .. [2] Noe, F. and Clementi, C. 2015. Kinetic distance and kinetic maps from molecular dynamics simulation.
             J. Chem. Theory. Comput. doi:10.1021/acs.jctc.5b00553
         """
-        from pyemma._ext.sklearn.base import clone as clone_estimator
+        from pyerna._ext.sklearn.base import clone as clone_estimator
         est = clone_estimator(self)
         # clone does not invoke our constructor, so we have explicitly create a new model instance.
         est._model = VAMPModel()
@@ -1012,7 +1012,7 @@ class VAMPChapmanKolmogorovValidator(LaggedModelValidator):
          ----
          It is recommended that you create this object by calling the
          `cktest` method of a VAMP object created with
-         :func:`vamp <pyemma.coordinates.vamp>`.
+         :func:`vamp <pyerna.coordinates.vamp>`.
 
          Parameters
          ----------
@@ -1060,7 +1060,7 @@ class VAMPChapmanKolmogorovValidator(LaggedModelValidator):
 
          Notes
          -----
-         The object can be plotted with :func:`plot_cktest <pyemma.plots.plot_cktest>`
+         The object can be plotted with :func:`plot_cktest <pyerna.plots.plot_cktest>`
          with the option `y01=False`.
          """
         LaggedModelValidator.__init__(self, test_model, test_estimator, mlags=mlags,

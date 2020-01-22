@@ -1,5 +1,5 @@
 package:
-  name: pyemma-dev
+  name: pyerna-dev
   # version number: [base tag]+[commits-upstream]_[git_hash]
   # eg. 2.0+0_g8824162
   version: {{ GIT_DESCRIBE_TAG[1:] + '+' + GIT_DESCRIBE_NUMBER + '.' + GIT_DESCRIBE_HASH}}

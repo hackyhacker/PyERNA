@@ -79,9 +79,9 @@ by setting the following configuration flag:
 
 .. code:: python
 
-   import pyemma
-   pyemma.config.check_version = False
-   pyemma.config.save()
+   import pyerna
+   pyerna.config.check_version = False
+   pyerna.config.save()
 
 
 Software License
